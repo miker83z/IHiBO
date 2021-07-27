@@ -1,4 +1,7 @@
 const Argumentation = artifacts.require('Argumentation');
+const fs = require('fs');
+const filepath = './data.csv';
+
 /*
 contract('Argumentation 0', (accounts) => {
   const alpha = accounts[0];
@@ -92,13 +95,15 @@ contract('Argumentation 1', (accounts) => {
 /*  });
 });
 */
-for (let i = 0; i < 1; i++) {
+for (let i = 0; i < 15; i++) {
   contract('Argumentation N', (accounts) => {
     const alpha = accounts[0];
     const beta = accounts[1];
     const gamma = accounts[2];
-    const nodesNumber = 10;
-    const edgesNumber = 2 * nodesNumber;
+    const prefP = 0.25;
+    const nodesNumber = 20;
+    const edgesP = 0.33;
+    let edgesNumber = 0;
 
     it('random graphs', async () => {
       const sc = await Argumentation.deployed();
@@ -107,34 +112,46 @@ for (let i = 0; i < 1; i++) {
         await sc.insertArgument(`a`, {
           from: accounts[j % 3],
         });
+        for (let k = 1; k <= 2; k++) {
+          if (Math.random() < prefP) {
+            await sc.supportArgument(j + 1, {
+              from: accounts[(j + k) % 3],
+            });
+          }
+        }
       }
 
-      const edges = Array(nodesNumber)
-        .fill()
-        .map(() => Array(nodesNumber).fill(false));
-
-      for (let j = 0; j < edgesNumber; j++) {
-        let source = 0;
-        let target = 0;
-        do {
-          do {
-            source = getRandomIntInclusive(1, nodesNumber);
-            target = getRandomIntInclusive(1, nodesNumber);
-          } while (target === source);
-        } while (edges[source - 1][target - 1]);
-        edges[source - 1][target - 1] = true;
-        await sc.insertAttack(source, target, '');
+      for (let source = 1; source <= nodesNumber; source++) {
+        for (let target = 1; target <= nodesNumber; target++) {
+          if (Math.random() < edgesP && source != target) {
+            await sc.insertAttack(source, target, '');
+            edgesNumber++;
+          }
+        }
       }
 
       //const g = await sc.getGraph(1);
       //printGraph(g);
 
-      const r4 = await sc.enumeratingPreferredExtensions(1);
-      r4.logs.forEach((element) => {
+      const resReduction3 = await sc.pafReductionToAfPr3();
+      //const r3 = await sc.getGraph(3);
+      //printGraph(r3);
+      const reductionGasUsed = resReduction3.receipt.gasUsed;
+      console.log(reductionGasUsed);
+
+      const r4 = await sc.enumeratingPreferredExtensions(2);
+      /*r4.logs.forEach((element) => {
         console.log('*************************************');
         console.log(element.args.args);
-      });
-      console.log(r4.receipt.gasUsed);
+      });*/
+      const gasUsed = r4.receipt.gasUsed;
+      console.log(gasUsed);
+
+      fs.writeFileSync(
+        filepath,
+        `${nodesNumber}, ${edgesNumber}, ${edgesP}, ${prefP}, ${reductionGasUsed}, ${gasUsed}\n`,
+        { flag: 'a' }
+      );
     });
   });
 }
