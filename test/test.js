@@ -101,8 +101,8 @@ for (let i = 0; i < 20; i++) {
     const beta = accounts[1];
     const gamma = accounts[2];
     const prefP = 0.25;
-    const nodesNumber = 50;
-    const edgesP = 0.33;
+    const nodesNumber = 20;
+    const edgesP = 0.5;
     let edgesNumber = 0;
 
     it('random graphs', async () => {
@@ -177,7 +177,13 @@ const getRandomIntInclusive = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 };
 
-const timeDependentTactic = (t, minj, maxj, alphaj, Vj) => {
+const interpretation = (t, tmax, xba) => {
+  if (t > tmax) {
+  } else {
+  }
+};
+
+const timeDependentTactic = (minj, maxj, alphaj, Vj) => {
   return Vj
     ? minj + alphaj * (maxj - minj)
     : minj + (1 - alphaj) * (maxj - minj);
