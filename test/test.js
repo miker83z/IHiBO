@@ -95,13 +95,13 @@ contract('Argumentation 1', (accounts) => {
 /*  });
 });
 */
-for (let i = 0; i < 15; i++) {
+for (let i = 0; i < 20; i++) {
   contract('Argumentation N', (accounts) => {
     const alpha = accounts[0];
     const beta = accounts[1];
     const gamma = accounts[2];
     const prefP = 0.25;
-    const nodesNumber = 20;
+    const nodesNumber = 50;
     const edgesP = 0.33;
     let edgesNumber = 0;
 
@@ -175,4 +175,14 @@ const getRandomIntInclusive = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+};
+
+const timeDependentTactic = (t, minj, maxj, alphaj, Vj) => {
+  return Vj
+    ? minj + alphaj * (maxj - minj)
+    : minj + (1 - alphaj) * (maxj - minj);
+};
+
+const negotiationPoly = (t, tmax, kj, beta) => {
+  return kj + (1 - kj) * Math.pow(Math.min(t, tmax) / tmax, 1 / beta);
 };
