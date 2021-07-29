@@ -1,4 +1,5 @@
 const Argumentation = artifacts.require('Argumentation');
+const Negotiation = artifacts.require('Negotiation');
 const fs = require('fs');
 const filepath = './data.csv';
 
@@ -94,7 +95,6 @@ contract('Argumentation 1', (accounts) => {
     });*/
 /*  });
 });
-*/
 for (let i = 0; i < 20; i++) {
   contract('Argumentation N', (accounts) => {
     const alpha = accounts[0];
@@ -143,7 +143,7 @@ for (let i = 0; i < 20; i++) {
       /*r4.logs.forEach((element) => {
         console.log('*************************************');
         console.log(element.args.args);
-      });*/
+      });
       const gasUsed = r4.receipt.gasUsed;
       console.log(gasUsed);
 
@@ -156,6 +156,7 @@ for (let i = 0; i < 20; i++) {
   });
 }
 
+*/
 const printGraph = (g) => {
   console.log('--------Graph--------');
   for (const node of g.nodes) {
@@ -177,18 +178,114 @@ const getRandomIntInclusive = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 };
 
-const interpretation = (t, tmax, xba) => {
-  if (t > tmax) {
+const scoringFunction = (x, constj) => {
+  if (constj.Vjdec) {
+    if (x > constj.maxj) return 0;
+    else if (x < constj.minj) return 1;
+    else return 1 - x / constj.maxj;
   } else {
+    if (x > constj.maxj) return 1;
+    else if (x < constj.minj) return 0;
+    else return x / constj.maxj;
   }
 };
 
-const timeDependentTactic = (minj, maxj, alphaj, Vj) => {
-  return Vj
-    ? minj + alphaj * (maxj - minj)
-    : minj + (1 - alphaj) * (maxj - minj);
+const timeDependentTactic = (alphaj, constj) => {
+  return constj.Vjdec
+    ? constj.minj + alphaj * (constj.maxj - constj.minj)
+    : constj.minj + (1 - alphaj) * (constj.maxj - constj.minj);
 };
 
-const negotiationPoly = (t, tmax, kj, beta) => {
-  return kj + (1 - kj) * Math.pow(Math.min(t, tmax) / tmax, 1 / beta);
+const negotiationPoly = (t, constj) => {
+  return (
+    constj.kj +
+    (1 - constj.kj) *
+      Math.pow(Math.min(t, constj.tmax) / constj.tmax, 1 / constj.beta)
+  );
 };
+
+const interpretation = (t, xba, constj) => {
+  if (t > constj.tmax) {
+    return false;
+  } else {
+    const alphaj = negotiationPoly(t, constj);
+    const xab = timeDependentTactic(alphaj, constj);
+    if (scoringFunction(xba, constj) >= scoringFunction(xab, constj)) {
+      return true;
+    } else {
+      return xab;
+    }
+  }
+};
+
+contract('Negotiation', (accounts) => {
+  const alpha = accounts[0];
+  const beta = accounts[1];
+
+  it('negotiation 1', async () => {
+    const sc = await Negotiation.deployed();
+    const tmax = 20;
+    const constjAlpha = {
+      tmax,
+      minj: 0,
+      maxj: 20,
+      kj: 0.1,
+      beta: 1.5,
+      Vjdec: true,
+    };
+    const constjBeta = {
+      tmax,
+      minj: 17,
+      maxj: 35,
+      kj: 0.1,
+      beta: 10.2,
+      Vjdec: false,
+    };
+    const res1 = await sc.newNegotiation(1, alpha, beta, {
+      from: alpha,
+    });
+    console.log('newNegotiation:', res1.receipt.gasUsed);
+
+    let xba = timeDependentTactic(negotiationPoly(0, constjBeta), constjBeta);
+    const res2 = await sc.newProposal(0, Math.floor(xba * 10000), {
+      from: beta,
+    });
+    console.log('newProposal:', res2.receipt.gasUsed);
+    let xab;
+    for (let t = 1; t <= tmax + 1; t++) {
+      if (t % 2) {
+        const res = interpretation(t, xba, constjAlpha);
+        console.log(t, ') - a - ', res);
+        if (typeof res === 'boolean') {
+          if (res) {
+            const resFinalA = await sc.accept(0, Math.floor(xba * 10000), {
+              from: alpha,
+            });
+            console.log('accept:', resFinalA.receipt.gasUsed);
+          }
+          break;
+        } else xab = res;
+        const res3 = await sc.newProposal(0, Math.floor(xab * 10000), {
+          from: alpha,
+        });
+        console.log('newProposal:', res3.receipt.gasUsed);
+      } else {
+        const res = interpretation(t, xab, constjBeta);
+        console.log(t, ') - b - ', res);
+        if (typeof res === 'boolean') {
+          if (res) {
+            const resFinalB = await sc.accept(0, Math.floor(xab * 10000), {
+              from: beta,
+            });
+            console.log('accept:', resFinalB.receipt.gasUsed);
+          }
+          break;
+        } else xba = res;
+        const res4 = await sc.newProposal(0, Math.floor(xba * 10000), {
+          from: beta,
+        });
+        console.log('newProposal:', res4.receipt.gasUsed);
+      }
+    }
+  });
+});
