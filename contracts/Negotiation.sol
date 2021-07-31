@@ -7,30 +7,23 @@ contract Negotiation {
     mapping(uint256 => NegotiationStruct) negotiations;
 
     struct NegotiationStruct {
-        uint256 j;
         address a;
         address b;
-        uint256[] aProposals;
-        uint256[] bProposals;
+        uint256[][] aOffers;
+        uint256[][] bOffers;
         bool accepted;
-        uint256 acceptedProposal;
     }
 
     constructor() public {}
 
-    function newNegotiation(
-        uint256 j,
-        address a,
-        address b
-    ) public returns (uint256 negotiationId) {
+    function newNegotiation(address b) public returns (uint256 negotiationId) {
         negotiationId = negotiationNum++;
         NegotiationStruct storage negotiation = negotiations[negotiationId];
-        negotiation.j = j;
-        negotiation.a = a;
+        negotiation.a = msg.sender;
         negotiation.b = b;
     }
 
-    function newProposal(uint256 negId, uint256 proposal) public {
+    function newOffer(uint256 negId, uint256[] memory offer) public {
         NegotiationStruct storage negotiation = negotiations[negId];
         require(
             msg.sender == negotiation.a || msg.sender == negotiation.b,
@@ -38,13 +31,13 @@ contract Negotiation {
         );
         require(!negotiation.accepted, "Negotiation: Already accepted");
         if (msg.sender == negotiation.a) {
-            negotiation.aProposals.push(proposal);
+            negotiation.aOffers.push(offer);
         } else {
-            negotiation.bProposals.push(proposal);
+            negotiation.bOffers.push(offer);
         }
     }
 
-    function accept(uint256 negId, uint256 acceptedProposal) public {
+    function accept(uint256 negId) public {
         NegotiationStruct storage negotiation = negotiations[negId];
         require(
             msg.sender == negotiation.a || msg.sender == negotiation.b,
@@ -52,6 +45,5 @@ contract Negotiation {
         );
         require(!negotiation.accepted, "Negotiation: Already accepted");
         negotiation.accepted = true;
-        negotiation.acceptedProposal = acceptedProposal;
     }
 }

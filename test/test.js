@@ -219,40 +219,47 @@ for (let i = 0; i < 1; i++) {
 */
 
 ////////////////////////////// NEGOTIATION
-
-const scoringFunction = (x, constj) => {
-  if (constj.Vjdec) {
-    if (x > constj.maxj) return 0;
-    else if (x < constj.minj) return 1;
-    else return 1 - x / constj.maxj;
-  } else {
-    if (x > constj.maxj) return 1;
-    else if (x < constj.minj) return 0;
-    else return x / constj.maxj;
-  }
+const negotiationPoly = (t, tmax, beta, constj) => {
+  return (
+    constj.kj + (1 - constj.kj) * Math.pow(Math.min(t, tmax) / tmax, 1 / beta)
+  );
 };
 
-const timeDependentTactic = (alphaj, constj) => {
+const timeDependentTactic = (t, tmax, beta, constj) => {
+  const alphaj = negotiationPoly(t, tmax, beta, constj);
   return constj.Vjdec
     ? constj.minj + alphaj * (constj.maxj - constj.minj)
     : constj.minj + (1 - alphaj) * (constj.maxj - constj.minj);
 };
 
-const negotiationPoly = (t, constj) => {
-  return (
-    constj.kj +
-    (1 - constj.kj) *
-      Math.pow(Math.min(t, constj.tmax) / constj.tmax, 1 / constj.beta)
-  );
+const scoringFunction = (xj, constj) => {
+  const v = (xj - constj.minj) / (constj.maxj - constj.minj);
+  return constj.Vjdec ? 1 - v : v;
 };
 
-const interpretation = (t, xba, constj) => {
-  if (t > constj.tmax) {
+const multiDimensionalScoringFunction = (x, constAll) => {
+  let finalValue = 0;
+  for (let j = 0; j < constAll.constj.length; j++) {
+    finalValue +=
+      constAll.constj.weight * scoringFunction(x[j], constAll.constj);
+  }
+  return finalValue;
+};
+
+const interpretation = (t, xba, constAll) => {
+  if (t > constAll.tmax) {
     return false;
   } else {
-    const alphaj = negotiationPoly(t, constj);
-    const xab = timeDependentTactic(alphaj, constj);
-    if (scoringFunction(xba, constj) >= scoringFunction(xab, constj)) {
+    const xab = [];
+    for (let j = 0; j < xba.length; j++) {
+      xab.push(
+        timeDependentTactic(t, constAll.tmax, constAll.beta, constAll.constj[j])
+      );
+    }
+    if (
+      multiDimensionalScoringFunction(xba, constAll) >=
+      multiDimensionalScoringFunction(xab, constAll)
+    ) {
       return true;
     } else {
       return xab;
@@ -266,68 +273,121 @@ contract('Negotiation', (accounts) => {
 
   it('negotiation 1', async () => {
     const sc = await Negotiation.deployed();
-    const tmax = 20;
+    const tmax = 100;
     const constjAlpha = {
       tmax,
-      minj: 0,
-      maxj: 20,
-      kj: 0.1,
-      beta: 1.5,
-      Vjdec: true,
+      beta: 1,
+      constj: [
+        {
+          namej: 'price',
+          weight: 1,
+          minj: 100,
+          maxj: 145,
+          kj: 0.1,
+          Vjdec: true,
+        } /*,
+        {
+          namej: 'quantity',
+          weight: 0.6,
+          minj: 1200,
+          maxj: 1400,
+          kj: 0.1,
+          Vjdec: true,
+        },*/,
+      ],
     };
     const constjBeta = {
       tmax,
-      minj: 17,
-      maxj: 35,
-      kj: 0.1,
-      beta: 10.2,
-      Vjdec: false,
+      beta: 1,
+      constj: [
+        {
+          namej: 'price',
+          weight: 1,
+          minj: 50,
+          maxj: 115,
+          kj: 0.1,
+          Vjdec: true,
+        } /*,
+        {
+          namej: 'quantity',
+          weight: 0.6,
+          minj: 1200,
+          maxj: 1400,
+          kj: 0.1,
+          Vjdec: true,
+        },*/,
+      ],
     };
-    const res1 = await sc.newNegotiation(1, alpha, beta, {
+    const res1 = await sc.newNegotiation(beta, {
       from: alpha,
     });
     console.log('newNegotiation(): ', res1.receipt.gasUsed);
 
     // negotiation thread
     const proposalsGasUsage = [];
-    let xba = timeDependentTactic(negotiationPoly(0, constjBeta), constjBeta);
-    const res2 = await sc.newProposal(0, Math.floor(xba * 10000), {
-      from: beta,
-    });
+
+    let xba = [];
+    for (let j = 0; j < constjBeta.constj.length; j++) {
+      xba.push(
+        timeDependentTactic(
+          0,
+          constjBeta.tmax,
+          constjBeta.beta,
+          constjBeta.constj[j]
+        )
+      );
+    }
+    const res2 = await sc.newOffer(
+      0,
+      xba.map((x) => Math.floor(x * 10000)),
+      {
+        from: beta,
+      }
+    );
     proposalsGasUsage.push(res2.receipt.gasUsed);
-    let xab;
+    let xab = [];
     for (let t = 1; t <= tmax + 1; t++) {
       if (t % 2) {
         const res = interpretation(t, xba, constjAlpha);
         console.log(t, ') - a - ', res);
         if (typeof res === 'boolean') {
           if (res) {
-            const resFinalA = await sc.accept(0, Math.floor(xba * 10000), {
+            const resFinalA = await sc.accept(0, {
               from: alpha,
             });
             console.log('accept(): ', resFinalA.receipt.gasUsed);
           }
           break;
-        } else xab = res;
-        const res3 = await sc.newProposal(0, Math.floor(xab * 10000), {
-          from: alpha,
-        });
+        }
+        xab = res;
+        const res3 = await sc.newOffer(
+          0,
+          xab.map((x) => Math.floor(x * 10000)),
+          {
+            from: alpha,
+          }
+        );
         proposalsGasUsage.push(res3.receipt.gasUsed);
       } else {
         const res = interpretation(t, xab, constjBeta);
         console.log(t, ') - b - ', res);
         if (typeof res === 'boolean') {
           if (res) {
-            const resFinalB = await sc.accept(0, Math.floor(xab * 10000), {
+            const resFinalB = await sc.accept(0, {
               from: beta,
             });
             console.log('accept(): ', resFinalB.receipt.gasUsed);
           }
           break;
-        } else xba = res;
-        const res4 = await sc.newProposal(0, Math.floor(xba * 10000), {
-          from: beta,
-        });
+        }
+        xba = res;
+        const res4 = await sc.newOffer(
+          0,
+          xba.map((x) => Math.floor(x * 10000)),
+          {
+            from: beta,
+          }
+        );
         proposalsGasUsage.push(res4.receipt.gasUsed);
       }
     }
@@ -335,6 +395,6 @@ contract('Negotiation', (accounts) => {
     for (const propG of proposalsGasUsage) {
       gasAvgProp += propG;
     }
-    console.log('newProposal(): ', gasAvgProp / proposalsGasUsage.length);
+    console.log('newOffer(): ', gasAvgProp / proposalsGasUsage.length);
   });
 });
