@@ -8,6 +8,8 @@ gasMeasurementsExt = []
 tmpGasRed = []
 tmpGasExt = []
 
+gasMeasurementsNeg = []
+
 
 def plot1():
     fig, _ = plt.subplots(nrows=1, ncols=1, constrained_layout=True)
@@ -15,7 +17,7 @@ def plot1():
     blue_patch = mpatches.Patch(
         color='tab:blue', label='Enumerating Preferred Extensions of AF method')
     red_patch = mpatches.Patch(
-        color='tab:red', label='Reductions of PAF to AF (PR3) method')
+        color='tab:red', label='Reductions of PAF to AF method')
 
     sxrange = []
     width = 0.4
@@ -38,15 +40,31 @@ def plot1():
             align='center')
     plt.bar(sxrange + (width/4), gasMeasurementsExt, (width/2), color='tab:blue',
             align='center')
-    plt.xticks(sxrange, ['0.33\n', '0.5\n(5 arguments)', '0.66\n',
-                         '0.33\n', '0.5\n(10 arguments)', '0.66\n',
-                         '0.33\n', '0.5\n(15 arguments)', '0.66\n',
-                         '0.33\n', '0.5\n(20 arguments)', '0.66\n'])
-    plt.xlabel('Attack Formation Probability (p)', fontsize=12)
+    plt.xticks(sxrange, ['0.33\n', '0.5\n5 nodes\n(i.e. arguments)', '0.66\n',
+                         '0.33\n', '0.5\n10 nodes\n(i.e. arguments)', '0.66\n',
+                         '0.33\n', '0.5\n15 nodes\n(i.e. arguments)', '0.66\n',
+                         '0.33\n', '0.5\n20 nodes\n(i.e. arguments)', '0.66\n'])
+    plt.xlabel('Edge (i.e. attack) Formation Probability (p)', fontsize=12)
 
     plt.legend(handles=[blue_patch, red_patch], fontsize='large')
     # plt.show()
     plt.savefig('./gas-cost.png', bbox_inches='tight', dpi=300)
+
+
+def plot2():
+    fig, _ = plt.subplots(nrows=1, ncols=1, constrained_layout=True)
+    fig.set_size_inches(5, 4)
+
+    width = 0.5
+    plt.ylabel('Gas Cost', fontsize=12)
+    plt.xlabel('Issues Number', fontsize=12)
+    # plt.title('Argumentation Gas Cost', fontdict={'fontsize': 16}, weight='heavy')
+    # plt.ylim(72000, 558547)
+    plt.bar(range(1, 26), gasMeasurementsNeg, width,
+            align='center')
+
+    # plt.show()
+    plt.savefig('./gas-cost2.png', bbox_inches='tight', dpi=300)
 
 
 with open('data.csv', 'r') as csvFile:
@@ -74,3 +92,10 @@ with open('data.csv', 'r') as csvFile:
     gasMeasurementsRed.append(np.mean(tmpGasRed))
     gasMeasurementsExt.append(np.mean(tmpGasExt))
     plot1()
+
+with open('data2.csv', 'r') as csvFile:
+    reader = csv.reader(csvFile)
+    next(reader)
+    for row in reader:
+        gasMeasurementsNeg.append(int(row[2]))
+    plot2()

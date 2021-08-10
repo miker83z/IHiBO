@@ -34,8 +34,9 @@ contract Argumentation {
         DirectedGraph.Graph storage graph = graphs[1];
         argId = graph.insertNode(metadata);
 
-        HitchensUnorderedKeySetLib.Set storage agentArgs =
-            agentsArguments[msg.sender];
+        HitchensUnorderedKeySetLib.Set storage agentArgs = agentsArguments[
+            msg.sender
+        ];
         agentArgs.insert(bytes32(argId));
     }
 
@@ -43,8 +44,9 @@ contract Argumentation {
         DirectedGraph.Graph storage graph = graphs[1];
         graph.incrementValue(argId);
 
-        HitchensUnorderedKeySetLib.Set storage agentArgs =
-            agentsArguments[msg.sender];
+        HitchensUnorderedKeySetLib.Set storage agentArgs = agentsArguments[
+            msg.sender
+        ];
         agentArgs.insert(bytes32(argId));
     }
 
@@ -100,10 +102,9 @@ contract Argumentation {
             DirectedGraph.Node storage t = paf.nodes[edge.target];
             bool notBpreferredToA = !(t.value > s.value);
 
-            DirectedGraph.Edge storage edgeReverse =
-                paf.edges[
-                    DirectedGraph.cantorPairing(edge.target, edge.source)
-                ];
+            DirectedGraph.Edge storage edgeReverse = paf.edges[
+                DirectedGraph.cantorPairing(edge.target, edge.source)
+            ];
             bool notBtoA = edgeReverse.source > 0 && edgeReverse.target > 0;
 
             if (notBpreferredToA || notBtoA) {
@@ -153,8 +154,9 @@ contract Argumentation {
         returns (uint256[] memory args)
     {
         DirectedGraph.Graph storage graph = graphs[graphId];
-        HitchensUnorderedKeySetLib.Set storage ext =
-            prefExtensions[prefExtensionsNum];
+        HitchensUnorderedKeySetLib.Set storage ext = prefExtensions[
+            prefExtensionsNum
+        ];
         EMap.LabelMap storage lab = labs[labsNum];
         for (uint256 i = 0; i < graph.nodesIds.count(); i++) {
             lab.set(uint256(graph.nodesIds.keyAtIndex(i)), EMap.Label.BLANK);
@@ -196,8 +198,9 @@ contract Argumentation {
                         j < y_temp.edgesIn.count() && !flags[2];
                         j++
                     ) {
-                        DirectedGraph.Edge storage edge =
-                            graph.edges[uint256(y_temp.edgesIn.keyAtIndex(j))];
+                        DirectedGraph.Edge storage edge = graph.edges[
+                            uint256(y_temp.edgesIn.keyAtIndex(j))
+                        ];
                         if (
                             lab.get(edge.source) != EMap.Label.OUT &&
                             lab.get(edge.source) != EMap.Label.MUST_OUT
@@ -213,14 +216,14 @@ contract Argumentation {
                 if (!flags[1]) {
                     uint256 max = 0;
                     for (uint256 i = 0; i < argIdsLen; i++) {
-                        DirectedGraph.Node storage y_temp =
-                            graph.nodes[argIds[i]];
+                        DirectedGraph.Node storage y_temp = graph.nodes[
+                            argIds[i]
+                        ];
                         uint256 y_temp_num = 0;
                         for (uint256 j = 0; j < y_temp.edgesOut.count(); j++) {
-                            DirectedGraph.Edge storage edge =
-                                graph.edges[
-                                    uint256(y_temp.edgesOut.keyAtIndex(j))
-                                ];
+                            DirectedGraph.Edge storage edge = graph.edges[
+                                uint256(y_temp.edgesOut.keyAtIndex(j))
+                            ];
                             if (lab.get(edge.target) != EMap.Label.OUT) {
                                 y_temp_num++;
                             }
@@ -243,8 +246,9 @@ contract Argumentation {
                 // foreach z ∈ {y}+ do Lab′(z) ← OUT ;
                 DirectedGraph.Node storage y_node = graph.nodes[y];
                 for (uint256 j = 0; j < y_node.edgesOut.count(); j++) {
-                    DirectedGraph.Edge storage edge =
-                        graph.edges[uint256(y_node.edgesOut.keyAtIndex(j))];
+                    DirectedGraph.Edge storage edge = graph.edges[
+                        uint256(y_node.edgesOut.keyAtIndex(j))
+                    ];
                     lab1.set(edge.target, EMap.Label.OUT);
                 }
                 // foreach z ∈ {y}− do
@@ -254,8 +258,9 @@ contract Argumentation {
                     j < y_node.edgesIn.count() && !flags[3];
                     j++
                 ) {
-                    DirectedGraph.Edge storage edge =
-                        graph.edges[uint256(y_node.edgesIn.keyAtIndex(j))];
+                    DirectedGraph.Edge storage edge = graph.edges[
+                        uint256(y_node.edgesIn.keyAtIndex(j))
+                    ];
                     // if Lab′ (z) ∈ {UNDEC, BLANK} then Lab′ (z) ← MUST OUT ;
                     if (
                         lab1.get(edge.source) == EMap.Label.UNDEC ||
@@ -263,18 +268,18 @@ contract Argumentation {
                     ) {
                         lab1.set(edge.source, EMap.Label.MUST_OUT);
                         // if !∃w ∈ {z}− : Lab′ (w) = BLANK then Lab(y) ← UNDEC;
-                        DirectedGraph.Node storage z_node =
-                            graph.nodes[edge.source];
+                        DirectedGraph.Node storage z_node = graph.nodes[
+                            edge.source
+                        ];
                         flags[3] = true;
                         for (
                             uint256 k = 0;
                             k < z_node.edgesIn.count() && flags[3];
                             k++
                         ) {
-                            DirectedGraph.Edge storage edgeZ =
-                                graph.edges[
-                                    uint256(z_node.edgesIn.keyAtIndex(k))
-                                ];
+                            DirectedGraph.Edge storage edgeZ = graph.edges[
+                                uint256(z_node.edgesIn.keyAtIndex(k))
+                            ];
                             if (lab1.get(edgeZ.source) == EMap.Label.BLANK) {
                                 flags[3] = false;
                             }
@@ -295,8 +300,9 @@ contract Argumentation {
                         j < y_node.edgesIn.count() && !flags[4];
                         j++
                     ) {
-                        DirectedGraph.Edge storage edge =
-                            graph.edges[uint256(y_node.edgesIn.keyAtIndex(j))];
+                        DirectedGraph.Edge storage edge = graph.edges[
+                            uint256(y_node.edgesIn.keyAtIndex(j))
+                        ];
                         // if Lab′ (z) ∈ {UNDEC, BLANK} then Lab′ (z) ← MUST OUT ;
                         if (
                             lab.get(edge.source) == EMap.Label.UNDEC ||
@@ -320,8 +326,9 @@ contract Argumentation {
             // S ← {x | Lab(x) = IN};
             (uint256[] memory argInIds, uint256 argINIdsLen) = _getIn(labId);
             // if !∃T ∈ Epreferred : S ⊆ T then Epreferred ← Epreferred ∪ {S};
-            HitchensUnorderedKeySetLib.Set storage ext =
-                prefExtensions[prefExtensionId];
+            HitchensUnorderedKeySetLib.Set storage ext = prefExtensions[
+                prefExtensionId
+            ];
             for (uint256 i = 0; i < argINIdsLen; i++) {
                 if (!ext.exists(bytes32(argInIds[i]))) {
                     ext.insert(bytes32(argInIds[i]));
