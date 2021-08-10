@@ -241,7 +241,7 @@ const multiDimensionalScoringFunction = (x, constAll) => {
   let finalValue = 0;
   for (let j = 0; j < constAll.constj.length; j++) {
     finalValue +=
-      constAll.constj.weight * scoringFunction(x[j], constAll.constj);
+      constAll.constj[j].weight * scoringFunction(x[j], constAll.constj[j]);
   }
   return finalValue;
 };
@@ -256,6 +256,8 @@ const interpretation = (t, xba, constAll) => {
         timeDependentTactic(t, constAll.tmax, constAll.beta, constAll.constj[j])
       );
     }
+    console.log(multiDimensionalScoringFunction(xba, constAll));
+    console.log(multiDimensionalScoringFunction(xab, constAll));
     if (
       multiDimensionalScoringFunction(xba, constAll) >=
       multiDimensionalScoringFunction(xab, constAll)
@@ -276,46 +278,46 @@ contract('Negotiation', (accounts) => {
     const tmax = 100;
     const constjAlpha = {
       tmax,
-      beta: 1,
+      beta: 0.9,
       constj: [
         {
           namej: 'price',
-          weight: 1,
-          minj: 100,
-          maxj: 145,
+          weight: 0.4,
+          minj: 146,
+          maxj: 155,
           kj: 0.1,
-          Vjdec: true,
-        } /*,
+          Vjdec: false,
+        },
         {
           namej: 'quantity',
           weight: 0.6,
-          minj: 1200,
-          maxj: 1400,
-          kj: 0.1,
+          minj: 1050,
+          maxj: 1190,
+          kj: 0.2,
           Vjdec: true,
-        },*/,
+        },
       ],
     };
     const constjBeta = {
       tmax,
-      beta: 1,
+      beta: 1.2,
       constj: [
         {
           namej: 'price',
-          weight: 1,
-          minj: 50,
-          maxj: 115,
+          weight: 0.45,
+          minj: 140,
+          maxj: 149,
           kj: 0.1,
           Vjdec: true,
-        } /*,
+        },
         {
           namej: 'quantity',
-          weight: 0.6,
-          minj: 1200,
-          maxj: 1400,
-          kj: 0.1,
-          Vjdec: true,
-        },*/,
+          weight: 0.55,
+          minj: 1100,
+          maxj: 1250,
+          kj: 0.2,
+          Vjdec: false,
+        },
       ],
     };
     const res1 = await sc.newNegotiation(beta, {
@@ -348,6 +350,7 @@ contract('Negotiation', (accounts) => {
     let xab = [];
     for (let t = 1; t <= tmax + 1; t++) {
       if (t % 2) {
+        console.log('a)');
         const res = interpretation(t, xba, constjAlpha);
         console.log(t, ') - a - ', res);
         if (typeof res === 'boolean') {
@@ -369,6 +372,7 @@ contract('Negotiation', (accounts) => {
         );
         proposalsGasUsage.push(res3.receipt.gasUsed);
       } else {
+        console.log('b)');
         const res = interpretation(t, xab, constjBeta);
         console.log(t, ') - b - ', res);
         if (typeof res === 'boolean') {
