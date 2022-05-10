@@ -113,11 +113,11 @@ def plot22():
     plt.xlabel('Issues number', fontsize=12)
     # plt.ylim(72000, 558547)
     plt.plot(range(1, 26), gasMeasurementsOff, 'v', linestyle='-',
-             color=colors[0],  markersize=4, label='New Negotiation')
+             color=colors[0],  markersize=4, label='New Offer')
     plt.plot(range(1, 26), gasMeasurementsAcc, 'v', linestyle='-',
-             color=colors[1],  markersize=4, label='New Offer')
+             color=colors[1],  markersize=4, label='Accept Offer')
     plt.plot(range(1, 26), gasMeasurementsNeg, 'v', linestyle='-',
-             color=colors[2],  markersize=4, label='Accept Offer')
+             color=colors[2],  markersize=4, label='New Negotiation')
 
     plt.legend(title='')
     # plt.show()
