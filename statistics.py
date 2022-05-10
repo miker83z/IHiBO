@@ -9,6 +9,10 @@ gasMeasurementsExt = []
 tmpGasRed = []
 tmpGasExt = []
 
+gasMeasurementsNeg = []
+gasMeasurementsOff = []
+gasMeasurementsAcc = []
+
 
 def plot1():
     fig, _ = plt.subplots(nrows=1, ncols=1, constrained_layout=True)
@@ -16,7 +20,7 @@ def plot1():
     blue_patch = mpatches.Patch(
         color='tab:blue', label='Enumerating Preferred Extensions of AF method')
     red_patch = mpatches.Patch(
-        color='tab:red', label='Reductions of PAF to AF (PR3) method')
+        color='tab:red', label='Reductions of PAF to AF method')
 
     sxrange = []
     width = 0.4
@@ -39,11 +43,11 @@ def plot1():
             align='center')
     plt.bar(sxrange + (width/4), gasMeasurementsExt, (width/2), color='tab:blue',
             align='center')
-    plt.xticks(sxrange, ['0.33\n', '0.5\n(5 arguments)', '0.66\n',
-                         '0.33\n', '0.5\n(10 arguments)', '0.66\n',
-                         '0.33\n', '0.5\n(15 arguments)', '0.66\n',
-                         '0.33\n', '0.5\n(20 arguments)', '0.66\n'])
-    plt.xlabel('Attack Formation Probability (p)', fontsize=12)
+    plt.xticks(sxrange, ['0.33\n', '0.5\n5 nodes\n(i.e. arguments)', '0.66\n',
+                         '0.33\n', '0.5\n10 nodes\n(i.e. arguments)', '0.66\n',
+                         '0.33\n', '0.5\n15 nodes\n(i.e. arguments)', '0.66\n',
+                         '0.33\n', '0.5\n20 nodes\n(i.e. arguments)', '0.66\n'])
+    plt.xlabel('Edge (i.e. attack) Formation Probability (p)', fontsize=12)
 
     plt.legend(handles=[blue_patch, red_patch], fontsize='large')
     plt.show()
@@ -60,7 +64,7 @@ def plot12():
     # ['tab:blue', 'tab:red', 'tab:green']
     colors = list(mcolors.TABLEAU_COLORS).copy()
 
-    fig, axs = plt.subplots(1, 3, sharey=True, figsize=(10.6, 6))
+    fig, axs = plt.subplots(1, 3, sharey=True, figsize=(7, 5))
 
     for c in range(len(matrxT1)):
         axs[0].plot(range(5, 21, 5), matrxT1[c], 'v', linestyle='-',
@@ -75,13 +79,49 @@ def plot12():
 
     axs[2].legend(title='')
     axs[0].set_ylabel('Gas used', fontsize=12)
-    axs[1].set_xlabel('Arguments Number', fontsize=12)
+    axs[1].set_xlabel('Arguments Number (Graph size)', fontsize=12)
     axs[0].set_title('0.33')
     axs[1].set_title('Attack Formation Probability (p)\n0.5')
     axs[2].set_title('0.66')
 
     # plt.show()
     plt.savefig('./gas-cost12.png', bbox_inches='tight', dpi=300)
+
+
+def plot2():
+    fig, _ = plt.subplots(nrows=1, ncols=1, constrained_layout=True)
+    fig.set_size_inches(5, 4)
+
+    width = 0.5
+    plt.ylabel('Gas Cost', fontsize=12)
+    plt.xlabel('Issues Number', fontsize=12)
+    # plt.title('Argumentation Gas Cost', fontdict={'fontsize': 16}, weight='heavy')
+    # plt.ylim(72000, 558547)
+    plt.bar(range(1, 26), gasMeasurementsNeg, width,
+            align='center')
+
+    # plt.show()
+    plt.savefig('./gas-cost2.png', bbox_inches='tight', dpi=300)
+
+
+def plot22():
+    colors = list(mcolors.TABLEAU_COLORS).copy()
+    fig, _ = plt.subplots(nrows=1, ncols=1, constrained_layout=True)
+    fig.set_size_inches(5, 4)
+
+    plt.ylabel('Gas used', fontsize=12)
+    plt.xlabel('Issues number', fontsize=12)
+    # plt.ylim(72000, 558547)
+    plt.plot(range(1, 26), gasMeasurementsOff, 'v', linestyle='-',
+             color=colors[0],  markersize=4, label='New Negotiation')
+    plt.plot(range(1, 26), gasMeasurementsAcc, 'v', linestyle='-',
+             color=colors[1],  markersize=4, label='New Offer')
+    plt.plot(range(1, 26), gasMeasurementsNeg, 'v', linestyle='-',
+             color=colors[2],  markersize=4, label='Accept Offer')
+
+    plt.legend(title='')
+    # plt.show()
+    plt.savefig('./gas-cost22.png', bbox_inches='tight', dpi=300)
 
 
 with open('data.csv', 'r') as csvFile:
@@ -110,3 +150,13 @@ with open('data.csv', 'r') as csvFile:
     gasMeasurementsExt.append(np.mean(tmpGasExt))
     # plot1()
     plot12()
+
+with open('data2.csv', 'r') as csvFile:
+    reader = csv.reader(csvFile)
+    next(reader)
+    for row in reader:
+        gasMeasurementsNeg.append(int(row[1]))
+        gasMeasurementsOff.append(int(row[2]))
+        gasMeasurementsAcc.append(int(row[3]))
+    # plot2()
+    plot22()

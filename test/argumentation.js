@@ -1,5 +1,4 @@
 const Argumentation = artifacts.require('Argumentation');
-const Negotiation = artifacts.require('Negotiation');
 const fs = require('fs');
 const filepath = './data.csv';
 
@@ -23,7 +22,7 @@ const getRandomIntInclusive = (min, max) => {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 };
-/*
+
 contract('Argumentation 0', (accounts) => {
   const alpha = accounts[0];
   const beta = accounts[1];
@@ -71,7 +70,6 @@ contract('Argumentation 0', (accounts) => {
     //});
   });
 });
-*/
 
 contract('Argumentation 1', (accounts) => {
   const alpha = accounts[0];
@@ -140,10 +138,108 @@ contract('Argumentation 1', (accounts) => {
     printGraph(g);
 
     const resReduction3 = await sc.pafReductionToAfPr3();
-    const r3 = await sc.getGraph(3);
+    const r3 = await sc.getGraph(2);
     printGraph(r3);
     const resReduction3GasUsed = resReduction3.receipt.gasUsed;
     console.log('pafReductionToAfPr3(): ', resReduction3GasUsed);
+
+    const r4 = await sc.enumeratingPreferredExtensions(2);
+    r4.logs.forEach((element) => {
+      console.log('*************************************');
+      console.log(element.args.args);
+    });
+    const r4GasUsed = r4.receipt.gasUsed;
+    console.log('enumeratingPreferredExtensions(): ', r4GasUsed);
+  });
+});
+
+contract('Argumentation 2', (accounts) => {
+  const alpha = accounts[0];
+  const beta = accounts[1];
+  const gamma = accounts[2];
+
+  it('graph 3, new graph', async () => {
+    const sc = await Argumentation.deployed();
+
+    const resAlpha = await sc.insertArgument('a', {
+      from: alpha,
+    });
+    const resAlphaGasUsed = resAlpha.receipt.gasUsed;
+    const resGamma = await sc.insertArgument('b', {
+      from: gamma,
+    });
+    const resGammaGasUsed = resGamma.receipt.gasUsed;
+    const resBeta = await sc.insertArgument('c', {
+      from: beta,
+    });
+    const resBetaGasUsed = resBeta.receipt.gasUsed;
+    const resGamma2 = await sc.insertArgument('d', {
+      from: gamma,
+    });
+    const resGamma2GasUsed = resGamma2.receipt.gasUsed;
+    console.log(
+      'insertArgument(): ',
+      (resAlphaGasUsed + resBetaGasUsed + resGammaGasUsed + resGamma2GasUsed) /
+        4
+    );
+
+    const resBetaSupport = await sc.supportArgument(1, {
+      from: beta,
+    });
+    const resBetaSupportGasUsed = resBetaSupport.receipt.gasUsed;
+    const resAlphaSupport = await sc.supportArgument(3, {
+      from: alpha,
+    });
+    const resAlphaSupportGasUsed = resAlphaSupport.receipt.gasUsed;
+    console.log(
+      'supportArgument(): ',
+      (resBetaSupportGasUsed + resAlphaSupportGasUsed) / 2
+    );
+
+    const edgeGasUsed = [];
+    const edgeAB = await sc.insertAttack(1, 2, '');
+    edgeGasUsed.push(edgeAB.receipt.gasUsed);
+    const edgeAC = await sc.insertAttack(1, 3, '');
+    edgeGasUsed.push(edgeAC.receipt.gasUsed);
+    const edgeAD = await sc.insertAttack(1, 4, '');
+    edgeGasUsed.push(edgeAD.receipt.gasUsed);
+
+    const edgeBA = await sc.insertAttack(2, 1, '');
+    edgeGasUsed.push(edgeBA.receipt.gasUsed);
+    const edgeBC = await sc.insertAttack(2, 3, '');
+    edgeGasUsed.push(edgeBC.receipt.gasUsed);
+    const edgeBD = await sc.insertAttack(2, 4, '');
+    edgeGasUsed.push(edgeBD.receipt.gasUsed);
+
+    const edgeCA = await sc.insertAttack(3, 1, '');
+    edgeGasUsed.push(edgeCA.receipt.gasUsed);
+    const edgeCB = await sc.insertAttack(3, 2, '');
+    edgeGasUsed.push(edgeCB.receipt.gasUsed);
+    const edgeCD = await sc.insertAttack(3, 4, '');
+    edgeGasUsed.push(edgeCD.receipt.gasUsed);
+
+    const edgeDA = await sc.insertAttack(4, 1, '');
+    edgeGasUsed.push(edgeDA.receipt.gasUsed);
+    const edgeDB = await sc.insertAttack(4, 2, '');
+    edgeGasUsed.push(edgeDB.receipt.gasUsed);
+    const edgeDC = await sc.insertAttack(4, 3, '');
+    edgeGasUsed.push(edgeDC.receipt.gasUsed);
+
+    let avgGasUsed = 0;
+    for (const gu of edgeGasUsed) {
+      avgGasUsed += gu;
+    }
+    avgGasUsed /= edgeGasUsed.length;
+    console.log('insertAttack(): ', avgGasUsed);
+
+    const g = await sc.getGraph(1);
+    printGraph(g);
+
+    const resReduction3 = await sc.pafReductionToAfPr1();
+    const r3 = await sc.getGraph(2);
+    printGraph(r3);
+    const resReduction3GasUsed = resReduction3.receipt.gasUsed;
+    console.log('pafReductionToAfPr1(): ', resReduction3GasUsed);
 
     const r4 = await sc.enumeratingPreferredExtensions(2);
     r4.logs.forEach((element) => {
@@ -217,188 +313,3 @@ for (let i = 0; i < 1; i++) {
   });
 }
 */
-
-////////////////////////////// NEGOTIATION
-const negotiationPoly = (t, tmax, beta, constj) => {
-  return (
-    constj.kj + (1 - constj.kj) * Math.pow(Math.min(t, tmax) / tmax, 1 / beta)
-  );
-};
-
-const timeDependentTactic = (t, tmax, beta, constj) => {
-  const alphaj = negotiationPoly(t, tmax, beta, constj);
-  return constj.Vjdec
-    ? constj.minj + alphaj * (constj.maxj - constj.minj)
-    : constj.minj + (1 - alphaj) * (constj.maxj - constj.minj);
-};
-
-const scoringFunction = (xj, constj) => {
-  const v = (xj - constj.minj) / (constj.maxj - constj.minj);
-  return constj.Vjdec ? 1 - v : v;
-};
-
-const multiDimensionalScoringFunction = (x, constAll) => {
-  let finalValue = 0;
-  for (let j = 0; j < constAll.constj.length; j++) {
-    finalValue +=
-      constAll.constj[j].weight * scoringFunction(x[j], constAll.constj[j]);
-  }
-  return finalValue;
-};
-
-const interpretation = (t, xba, constAll) => {
-  if (t > constAll.tmax) {
-    return false;
-  } else {
-    const xab = [];
-    for (let j = 0; j < xba.length; j++) {
-      xab.push(
-        timeDependentTactic(t, constAll.tmax, constAll.beta, constAll.constj[j])
-      );
-    }
-    console.log(multiDimensionalScoringFunction(xba, constAll));
-    console.log(multiDimensionalScoringFunction(xab, constAll));
-    if (
-      multiDimensionalScoringFunction(xba, constAll) >=
-      multiDimensionalScoringFunction(xab, constAll)
-    ) {
-      return true;
-    } else {
-      return xab;
-    }
-  }
-};
-
-contract('Negotiation', (accounts) => {
-  const alpha = accounts[0];
-  const beta = accounts[1];
-
-  it('negotiation 1', async () => {
-    const sc = await Negotiation.deployed();
-    const tmax = 100;
-    const constjAlpha = {
-      tmax,
-      beta: 0.9,
-      constj: [
-        {
-          namej: 'price',
-          weight: 0.4,
-          minj: 146,
-          maxj: 155,
-          kj: 0.1,
-          Vjdec: false,
-        },
-        {
-          namej: 'quantity',
-          weight: 0.6,
-          minj: 1050,
-          maxj: 1190,
-          kj: 0.2,
-          Vjdec: true,
-        },
-      ],
-    };
-    const constjBeta = {
-      tmax,
-      beta: 1.2,
-      constj: [
-        {
-          namej: 'price',
-          weight: 0.45,
-          minj: 140,
-          maxj: 149,
-          kj: 0.1,
-          Vjdec: true,
-        },
-        {
-          namej: 'quantity',
-          weight: 0.55,
-          minj: 1100,
-          maxj: 1250,
-          kj: 0.2,
-          Vjdec: false,
-        },
-      ],
-    };
-    const res1 = await sc.newNegotiation(beta, {
-      from: alpha,
-    });
-    console.log('newNegotiation(): ', res1.receipt.gasUsed);
-
-    // negotiation thread
-    const proposalsGasUsage = [];
-
-    let xba = [];
-    for (let j = 0; j < constjBeta.constj.length; j++) {
-      xba.push(
-        timeDependentTactic(
-          0,
-          constjBeta.tmax,
-          constjBeta.beta,
-          constjBeta.constj[j]
-        )
-      );
-    }
-    const res2 = await sc.newOffer(
-      0,
-      xba.map((x) => Math.floor(x * 10000)),
-      {
-        from: beta,
-      }
-    );
-    proposalsGasUsage.push(res2.receipt.gasUsed);
-    let xab = [];
-    for (let t = 1; t <= tmax + 1; t++) {
-      if (t % 2) {
-        console.log('a)');
-        const res = interpretation(t, xba, constjAlpha);
-        console.log(t, ') - a - ', res);
-        if (typeof res === 'boolean') {
-          if (res) {
-            const resFinalA = await sc.accept(0, {
-              from: alpha,
-            });
-            console.log('accept(): ', resFinalA.receipt.gasUsed);
-          }
-          break;
-        }
-        xab = res;
-        const res3 = await sc.newOffer(
-          0,
-          xab.map((x) => Math.floor(x * 10000)),
-          {
-            from: alpha,
-          }
-        );
-        proposalsGasUsage.push(res3.receipt.gasUsed);
-      } else {
-        console.log('b)');
-        const res = interpretation(t, xab, constjBeta);
-        console.log(t, ') - b - ', res);
-        if (typeof res === 'boolean') {
-          if (res) {
-            const resFinalB = await sc.accept(0, {
-              from: beta,
-            });
-            console.log('accept(): ', resFinalB.receipt.gasUsed);
-          }
-          break;
-        }
-        xba = res;
-        const res4 = await sc.newOffer(
-          0,
-          xba.map((x) => Math.floor(x * 10000)),
-          {
-            from: beta,
-          }
-        );
-        proposalsGasUsage.push(res4.receipt.gasUsed);
-      }
-    }
-    let gasAvgProp = 0;
-    for (const propG of proposalsGasUsage) {
-      gasAvgProp += propG;
-    }
-    console.log('newOffer(): ', gasAvgProp / proposalsGasUsage.length);
-  });
-});
