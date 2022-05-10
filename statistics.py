@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+import matplotlib.colors as mcolors
 import csv
 import numpy as np
 
@@ -45,8 +46,42 @@ def plot1():
     plt.xlabel('Attack Formation Probability (p)', fontsize=12)
 
     plt.legend(handles=[blue_patch, red_patch], fontsize='large')
+    plt.show()
+    #plt.savefig('./gas-cost.png', bbox_inches='tight', dpi=300)
+
+
+def plot12():
+    matrxT1 = [gasMeasurementsExt[::3], gasMeasurementsRed[::3]]
+    matrxT2 = [gasMeasurementsExt[1::3], gasMeasurementsRed[1::3]]
+    matrxT3 = [gasMeasurementsExt[2::3], gasMeasurementsRed[2::3]]
+    labls = ['Enumerating Preferred\nExtensions of AF method',
+             'Reductions of PAF\nto AF (PR3) method']
+
+    # ['tab:blue', 'tab:red', 'tab:green']
+    colors = list(mcolors.TABLEAU_COLORS).copy()
+
+    fig, axs = plt.subplots(1, 3, sharey=True, figsize=(10.6, 6))
+
+    for c in range(len(matrxT1)):
+        axs[0].plot(range(5, 21, 5), matrxT1[c], 'v', linestyle='-',
+                    color=colors[c],  markersize=4)
+        axs[1].plot(range(5, 21, 5), matrxT2[c], 'v',
+                    linestyle='-', color=colors[c], markersize=4)
+        axs[2].plot(range(5, 21, 5), matrxT3[c], 'v',
+                    linestyle='-', color=colors[c], label=labls[c], markersize=4)
+        axs[0].grid(color='0.95')
+        axs[1].grid(color='0.95')
+        axs[2].grid(color='0.95')
+
+    axs[2].legend(title='')
+    axs[0].set_ylabel('Gas used', fontsize=12)
+    axs[1].set_xlabel('Arguments Number', fontsize=12)
+    axs[0].set_title('0.33')
+    axs[1].set_title('Attack Formation Probability (p)\n0.5')
+    axs[2].set_title('0.66')
+
     # plt.show()
-    plt.savefig('./gas-cost.png', bbox_inches='tight', dpi=300)
+    plt.savefig('./gas-cost12.png', bbox_inches='tight', dpi=300)
 
 
 with open('data.csv', 'r') as csvFile:
@@ -73,4 +108,5 @@ with open('data.csv', 'r') as csvFile:
         tmpGasExt.append(prefExtensionsGas)
     gasMeasurementsRed.append(np.mean(tmpGasRed))
     gasMeasurementsExt.append(np.mean(tmpGasExt))
-    plot1()
+    # plot1()
+    plot12()
