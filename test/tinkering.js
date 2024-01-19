@@ -23,53 +23,132 @@ const getRandomIntInclusive = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 };
 
-contract('Tinkering 0', (accounts) => {
+contract('Tinkering 1', (accounts) => {
   const alpha = accounts[0];
   const beta = accounts[1];
   const gamma = accounts[2];
+  const delta = accounts[3];
 
-  console.log(accounts);
-
-  it('graph 1, IHiBO original', async () => {
+  it('Test 1', async () => {
+    // Connect with Argumentation Contract
     const sc = await Argumentation.deployed();
 
-    const resAlpha = await sc.insertArgument('a', {
+
+    // Making Graph
+    const resAlpha1 = await sc.insertArgument('a', {
       from: alpha,
     });
-    const resBeta = await sc.insertArgument('b', {
-      from: beta,
-    });
-    const resGamma = await sc.insertArgument('c', {
-      from: gamma,
-    });
-    const resBetaSupport = await sc.supportArgument(3, {
-      from: beta,
-    });
-    const resGammaSupport = await sc.supportArgument(2, {
-      from: gamma,
+    const resAlpha2 = await sc.insertArgument('b', {
+      from: alpha,
     });
 
     const edgeAB = await sc.insertAttack(1, 2, '');
-    const edgeBA = await sc.insertAttack(2, 1, '');
-    const edgeAC = await sc.insertAttack(1, 3, '');
-    const edgeCA = await sc.insertAttack(3, 1, '');
 
+
+    // Graph operations
     const g = await sc.getGraph(1);
-    //printGraph(g);
-
+    
     const resReduction1 = await sc.pafReductionToAfPr1();
-    //const r1 = await sc.getGraph(2);
-    //printGraph(r1);
+    const r1 = await sc.getGraph(2);
+
+    const resReduction2 = await sc.pafReductionToAfPr2();
+    const r2 = await sc.getGraph(3);
 
     const resReduction3 = await sc.pafReductionToAfPr3();
-    //const r3 = await sc.getGraph(3);
-    //printGraph(r3);
+    const r3 = await sc.getGraph(4);
+    
+    const r4 = await sc.enumeratingPreferredExtensions(4);
 
-    const r4 = await sc.enumeratingPreferredExtensions(3);
-    //r4.logs.forEach((element) => {
-    //  console.log('***************************************');
-    //  console.log(element.args.args);
-    //});
+    const resReduction4 = await sc.pafReductionToAfPr4();
+    const r5 = await sc.getGraph(5);
+    
+    const r6 = await sc.enumeratingPreferredExtensions(5);
+
+
+    // Printing
+    printGraph(g);
+
+    printGraph(r1);
+    printGraph(r2);
+    printGraph(r3);
+
+    r4.logs.forEach((element) => {
+      console.log('***************************************');
+      console.log(element.args.args);
+    });
+
+    printGraph(r5);
+    r6.logs.forEach((element) => {
+      console.log('***************************************');
+      console.log(element.args.args);
+    });
+  });
+});
+
+contract('Tinkering 2', (accounts) => {
+  const alpha = accounts[0];
+  const beta = accounts[1];
+  const gamma = accounts[2];
+  const delta = accounts[3];
+
+  it('Test 2', async () => {
+    // Connect with Argumentation Contract
+    const sc = await Argumentation.deployed();
+
+
+    // Making Graph
+    const resAlpha1 = await sc.insertArgument('a', {
+      from: alpha,
+    });
+    const resAlpha2 = await sc.insertArgument('b', {
+      from: alpha,
+    });
+
+    const resBetaSupport = await sc.supportArgument(2, {
+        from: beta,
+      });
+
+    const edgeAB = await sc.insertAttack(1, 2, '');
+
+
+    // Graph operations
+    const g = await sc.getGraph(1);
+    
+    const resReduction1 = await sc.pafReductionToAfPr1();
+    const r1 = await sc.getGraph(2);
+
+    const resReduction2 = await sc.pafReductionToAfPr2();
+    const r2 = await sc.getGraph(3);
+
+    const resReduction3 = await sc.pafReductionToAfPr3();
+    const r3 = await sc.getGraph(4);
+    
+    const r4 = await sc.enumeratingPreferredExtensions(4);
+
+    const resReduction4 = await sc.pafReductionToAfPr4();
+    const r5 = await sc.getGraph(5);
+    
+    const r6 = await sc.enumeratingPreferredExtensions(5);
+
+
+    // Printing
+    printGraph(g);
+
+    printGraph(r1);
+    printGraph(r2);
+    printGraph(r3);
+    
+
+    r4.logs.forEach((element) => {
+      console.log('***************************************');
+      console.log(element.args.args);
+    });
+
+    printGraph(r5);
+    r6.logs.forEach((element) => {
+      console.log('***************************************');
+      console.log(element.args.args);
+    });
   });
 });
 
