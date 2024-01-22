@@ -1,3 +1,5 @@
+//ganache-cli -p 8545 -i 5777 -l 9000000000000000
+// inside ihibo folder: truffle test ./test/tinkering.js
 const Argumentation = artifacts.require('Argumentation');
 const fs = require('fs');
 const filepath = './data.csv';
