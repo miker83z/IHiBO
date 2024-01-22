@@ -84,6 +84,18 @@ contract('Tinkering 1', (accounts) => {
       console.log('***************************************');
       console.log(element.args.args);
     });
+
+    // let x = await sc.getNodeValue();
+    // console.log(x);
+    // n = await sc.getGraphIds();
+    // console.log('number of graphs: ', n);
+    // let x = await sc.getGraphIds();
+    // console.log(x);
+    let x = await sc.getNodeValue(0);
+    let y = await sc.getNodeValue(1);
+    console.log(x.toString(), y.toString());
+
+
   });
 });
 
@@ -151,6 +163,12 @@ contract('Tinkering 2', (accounts) => {
       console.log('***************************************');
       console.log(element.args.args);
     });
+
+
+    let x = await sc.getNodeValue(0);
+    let y = await sc.getNodeValue(1);
+    console.log(x.toString(), y.toString());
+    
   });
 });
 

@@ -27,6 +27,21 @@ contract Argumentation {
         graphsIds.insert(bytes32(uint256(1)));
     }
 
+////////////////////
+    function getNodeValue(uint256 argID) 
+        public
+        view
+        returns (uint256 value)
+    {
+        // assumes argID exists
+        
+        DirectedGraph.Graph storage graph = graphs[1];
+        uint256 nodeId = uint256(graph.nodesIds.keyAtIndex(argID));
+        DirectedGraph.Node storage node = graph.nodes[nodeId];
+        value = node.value;
+    }
+///////////////////////////////
+
     function insertArgument(string memory metadata)
         public
         returns (uint256 argId)
@@ -58,6 +73,7 @@ contract Argumentation {
         DirectedGraph.Graph storage graph = graphs[1];
         edgeId = graph.insertEdge(sourceId, targetId, metadata);
     }
+
 
     // reduction of PAF to AF; PR(PAF)=AF
     function pafReductionToAfPr1() public returns (uint256 graphId) {

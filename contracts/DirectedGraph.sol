@@ -27,6 +27,10 @@ library DirectedGraph {
         mapping(uint256 => Edge) edges;
     }
 
+///////////////////////////
+
+///////////////////////////
+
     function insertNode(Graph storage g, string memory metadata)
         internal
         returns (uint256 nodeId)
