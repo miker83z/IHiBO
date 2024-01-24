@@ -243,6 +243,40 @@ contract Argumentation {
         }
     }
 
+/////////////////////////////////////////////
+    function getGraph2(uint256 graphId)
+        public
+        view
+        returns (
+            uint256[] memory nodes,
+            uint256[] memory votes,
+            uint256[] memory edgesSource,
+            uint256[] memory edgesTarget
+        )
+    {
+        DirectedGraph.Graph storage graph = graphs[graphId];
+        uint256 nodesCount = graph.nodesIds.count();
+        uint256 edgesCount = graph.edgesIds.count();
+
+        nodes = new uint256[](nodesCount);
+        votes = new uint256[](nodesCount);
+        edgesSource = new uint256[](edgesCount);
+        edgesTarget = new uint256[](edgesCount);
+
+        for (uint256 i = 0; i < graph.nodesIds.count(); i++) {
+            nodes[i] = uint256(graph.nodesIds.keyAtIndex(i));
+            votes[i] = uint256(graph.nodes[nodes[i]].value);
+        }
+
+        for (uint256 i = 0; i < graph.edgesIds.count(); i++) {
+            uint256 edgeId = uint256(graph.edgesIds.keyAtIndex(i));
+            DirectedGraph.Edge storage edge = graph.edges[edgeId];
+            edgesSource[i] = edge.source;
+            edgesTarget[i] = edge.target;
+        }
+    }
+///////////////////////////////////////////
+
     function enumeratingPreferredExtensions(uint256 graphId)
         public
         returns (uint256[] memory args)
