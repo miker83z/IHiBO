@@ -23,6 +23,7 @@ const getRandomIntInclusive = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 };
 
+/*
 contract('Argumentation 0', (accounts) => {
   const alpha = accounts[0];
   const beta = accounts[1];
@@ -70,7 +71,8 @@ contract('Argumentation 0', (accounts) => {
     //});
   });
 });
-
+*/
+/*
 contract('Argumentation 1', (accounts) => {
   const alpha = accounts[0];
   const beta = accounts[1];
@@ -152,7 +154,8 @@ contract('Argumentation 1', (accounts) => {
     console.log('enumeratingPreferredExtensions(): ', r4GasUsed);
   });
 });
-
+*/
+/*
 contract('Argumentation 2', (accounts) => {
   const alpha = accounts[0];
   const beta = accounts[1];
@@ -250,6 +253,7 @@ contract('Argumentation 2', (accounts) => {
     console.log('enumeratingPreferredExtensions(): ', r4GasUsed);
   });
 });
+*/
 
 /*
 for (let i = 0; i < 1; i++) {
@@ -264,6 +268,13 @@ for (let i = 0; i < 1; i++) {
 
     it('random graphs', async () => {
       const sc = await Argumentation.deployed();
+
+      fs.writeFile(filepath, `NodesNumber, EdgesNumber, EdgesP, PrefP, ReductionPref3, PrefExtensionsGas\n`, (err) => {
+        if (err) throw err;
+        console.log('New data file has been saved!');
+      });
+  
+      for (let i = 0; i < 1; i++) {
 
       for (let j = 0; j < nodesNumber; j++) {
         await sc.insertArgument(`a`, {

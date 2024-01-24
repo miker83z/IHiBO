@@ -1,6 +1,6 @@
 const Negotiation = artifacts.require('Negotiation');
 const fs = require('fs');
-const filepath2 = './data2.csv';
+const filepath = './data2.csv';
 
 const negotiationPoly = (t, tmax, beta, constj) => {
   return (
@@ -50,7 +50,8 @@ const interpretation = (t, xba, constAll) => {
   }
 };
 
-contract('Negotiation', (accounts) => {
+/*
+contract('Negotiation 1', (accounts) => {
   const alpha = accounts[0];
   const beta = accounts[1];
 
@@ -183,8 +184,9 @@ contract('Negotiation', (accounts) => {
     console.log('newOffer(): ', gasAvgProp / proposalsGasUsage.length);
   });
 });
-
-contract('Negotiation', (accounts) => {
+*/
+// /*
+contract('Negotiation 2', (accounts) => {
   const alpha = accounts[0];
   const beta = accounts[1];
 
@@ -207,6 +209,16 @@ contract('Negotiation', (accounts) => {
       kj: 0.1,
       Vjdec: true,
     };
+
+    // fs.writeFileSync(
+    //   filepath2,
+    //   `IssueNumber, NewNegotiation, NewOffer, Accept\n`,
+    //   { flag: 'a' }
+    // );
+    fs.writeFile(filepath, `IssueNumber, NewNegotiation, NewOffer, Accept\n`, (err) => {
+      if (err) throw err;
+      console.log('New data file has been saved!');
+    });
 
     for (let issuesStep = 1; issuesStep <= 10; issuesStep++) {
       const constjAlpha = {
@@ -311,7 +323,7 @@ contract('Negotiation', (accounts) => {
       console.log('newOffer(): ', finalGas);
 
       fs.writeFileSync(
-        filepath2,
+        filepath,
         `${issuesStep},${negotiationGasUsage}, ${Math.floor(
           finalGas
         )}, ${acceptGasUsage}\n`,
@@ -320,3 +332,4 @@ contract('Negotiation', (accounts) => {
     }
   });
 });
+// */
