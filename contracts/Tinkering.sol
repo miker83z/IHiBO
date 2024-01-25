@@ -10,6 +10,22 @@ contract Argumentation {
     using HitchensUnorderedKeySetLib for HitchensUnorderedKeySetLib.Set;
     using EMap for EMap.LabelMap;
 
+    // uint256 disNum;
+    // mapping(uint256 => DisStruct) disputes;
+
+    // struct DisStruct {
+    //     HitchensUnorderedKeySetLib.Set graphsIds;
+    //     mapping(uint256 => DirectedGraph.Graph) graphs;
+
+    //     // Arguments Sets
+    //     mapping(address => HitchensUnorderedKeySetLib.Set) agentsArguments;
+
+    //     uint256 labsNum;
+    //     mapping(uint256 => EMap.LabelMap) labs;
+    //     uint256 prefExtensionsNum;
+    //     mapping(uint256 => HitchensUnorderedKeySetLib.Set) prefExtensions;
+    // }
+
     HitchensUnorderedKeySetLib.Set graphsIds;
     mapping(uint256 => DirectedGraph.Graph) graphs;
 
@@ -26,6 +42,37 @@ contract Argumentation {
     constructor() public {
         graphsIds.insert(bytes32(uint256(1)));
     }
+
+    // function newDis() public returns (uint256 disId) {
+    //     disId = disNum++;
+    //     DisStruct storage dis = disputes[disId];
+    //     dis.graphsIds.insert(bytes32(uint256(1)));
+    // }
+
+    // function instantiateDis(uint256 disID) {
+    //     DisStruct storage dis = disputes[disID];
+    //     graphsIds = dis.graphsIds;
+    //     graphs = dis.graphs;
+    //     agentsArguments = dis.agentsArguments;
+    //     labsNum = dis.labsNum;
+    //     prefExtensionsNum = dis.prefExtensionsNum;
+    //     prefExtensions = dis.prefExtensions;
+    // }
+
+////////////////////
+    function getNodeValue(uint256 argID) 
+        public
+        view
+        returns (uint256 value)
+    {
+        // assumes argID exists
+        
+        DirectedGraph.Graph storage graph = graphs[1];
+        uint256 nodeId = uint256(graph.nodesIds.keyAtIndex(argID));
+        DirectedGraph.Node storage node = graph.nodes[nodeId];
+        value = node.value;
+    }
+///////////////////////////////
 
     function insertArgument(string memory metadata)
         public
@@ -59,7 +106,14 @@ contract Argumentation {
         edgeId = graph.insertEdge(sourceId, targetId, metadata);
     }
 
+
+    // reduction of PAF to AF; PR(PAF)=AF
     function pafReductionToAfPr1() public returns (uint256 graphId) {
+        // This function takes an argumentation graph with agent votes on arguments
+        // And for each edge consideres the support for the target and the source
+        // if the target does not have more support than the source then the attack will be added.
+        // !(sup(t)>sup(s)) => s->t
+        // this version also rejects the nodes if the attack is rejected
         graphId = graphsIds.count() + 1;
         graphsIds.insert(bytes32(graphId));
 
@@ -87,7 +141,43 @@ contract Argumentation {
         }
     }
 
+        // reduction of PAF to AF; PR(PAF)=AF
+    function pafReductionToAfPr2() public returns (uint256 graphId) {
+        // This function takes an argumentation graph with agent votes on arguments
+        // And for each edge consideres the support for the target and the source
+        // if the target does not have more support than the source then the attack will be added.
+        // !(sup(t)>sup(s)) => s->t
+        graphId = graphsIds.count() + 1;
+        graphsIds.insert(bytes32(graphId));
+
+        DirectedGraph.Graph storage paf = graphs[1];
+        DirectedGraph.Graph storage af = graphs[graphId];
+
+        for (uint256 i = 0; i < paf.edgesIds.count(); i++) {
+            uint256 edgeId = uint256(paf.edgesIds.keyAtIndex(i));
+            DirectedGraph.Edge storage edge = paf.edges[edgeId];
+
+            DirectedGraph.Node storage s = paf.nodes[edge.source];
+            DirectedGraph.Node storage t = paf.nodes[edge.target];
+            bool notBpreferredToA = !(t.value > s.value);
+
+            //insert to af
+            if (!af.nodesIds.exists(bytes32(edge.source))) {
+                af.insertNodeWithId(edge.source);
+            }
+            if (!af.nodesIds.exists(bytes32(edge.target))) {
+                af.insertNodeWithId(edge.target);
+            }
+            if (notBpreferredToA) {
+                af.insertEdge(edge.source, edge.target, "");
+            }
+        }
+    }
+
+    // reduction of 
     function pafReductionToAfPr3() public returns (uint256 graphId) {
+        //
+        // !(sup(t)>sup(s)) || (sup(t)>0 && sup(s)>0) => s->t
         graphId = graphsIds.count() + 1;
         graphsIds.insert(bytes32(graphId));
 
@@ -115,6 +205,42 @@ contract Argumentation {
                 if (!af.nodesIds.exists(bytes32(edge.target))) {
                     af.insertNodeWithId(edge.target);
                 }
+                af.insertEdge(edge.source, edge.target, "");
+            }
+        }
+    }
+
+        // reduction of 
+    function pafReductionToAfPr4() public returns (uint256 graphId) {
+        //
+        // !(sup(t)>sup(s)) || (sup(t)>0 && sup(s)>0) => s->t
+        graphId = graphsIds.count() + 1;
+        graphsIds.insert(bytes32(graphId));
+
+        DirectedGraph.Graph storage paf = graphs[1];
+        DirectedGraph.Graph storage af = graphs[graphId];
+
+        for (uint256 i = 0; i < paf.edgesIds.count(); i++) {
+            uint256 edgeId = uint256(paf.edgesIds.keyAtIndex(i));
+            DirectedGraph.Edge storage edge = paf.edges[edgeId];
+
+            DirectedGraph.Node storage s = paf.nodes[edge.source];
+            DirectedGraph.Node storage t = paf.nodes[edge.target];
+            bool notBpreferredToA = !(t.value > s.value);
+
+            DirectedGraph.Edge storage edgeReverse = paf.edges[
+                DirectedGraph.cantorPairing(edge.target, edge.source)
+            ];
+            bool notBtoA = edgeReverse.source > 0 && edgeReverse.target > 0;
+
+            //insert to af
+            if (!af.nodesIds.exists(bytes32(edge.source))) {
+                af.insertNodeWithId(edge.source);
+            }
+            if (!af.nodesIds.exists(bytes32(edge.target))) {
+                af.insertNodeWithId(edge.target);
+            }
+            if (notBpreferredToA || notBtoA) {
                 af.insertEdge(edge.source, edge.target, "");
             }
         }
@@ -148,6 +274,40 @@ contract Argumentation {
             edgesTarget[i] = edge.target;
         }
     }
+
+/////////////////////////////////////////////
+    function getGraph2(uint256 graphId)
+        public
+        view
+        returns (
+            uint256[] memory nodes,
+            uint256[] memory votes,
+            uint256[] memory edgesSource,
+            uint256[] memory edgesTarget
+        )
+    {
+        DirectedGraph.Graph storage graph = graphs[graphId];
+        uint256 nodesCount = graph.nodesIds.count();
+        uint256 edgesCount = graph.edgesIds.count();
+
+        nodes = new uint256[](nodesCount);
+        votes = new uint256[](nodesCount);
+        edgesSource = new uint256[](edgesCount);
+        edgesTarget = new uint256[](edgesCount);
+
+        for (uint256 i = 0; i < graph.nodesIds.count(); i++) {
+            nodes[i] = uint256(graph.nodesIds.keyAtIndex(i));
+            votes[i] = uint256(graph.nodes[nodes[i]].value);
+        }
+
+        for (uint256 i = 0; i < graph.edgesIds.count(); i++) {
+            uint256 edgeId = uint256(graph.edgesIds.keyAtIndex(i));
+            DirectedGraph.Edge storage edge = graph.edges[edgeId];
+            edgesSource[i] = edge.source;
+            edgesTarget[i] = edge.target;
+        }
+    }
+///////////////////////////////////////////
 
     function enumeratingPreferredExtensions(uint256 graphId)
         public

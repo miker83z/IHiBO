@@ -23,7 +23,6 @@ const getRandomIntInclusive = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 };
 
-/*
 contract('Argumentation 0', (accounts) => {
   const alpha = accounts[0];
   const beta = accounts[1];
@@ -54,25 +53,24 @@ contract('Argumentation 0', (accounts) => {
     const edgeCA = await sc.insertAttack(3, 1, '');
 
     const g = await sc.getGraph(1);
-    //printGraph(g);
+    printGraph(g);
 
     const resReduction1 = await sc.pafReductionToAfPr1();
-    //const r1 = await sc.getGraph(2);
-    //printGraph(r1);
+    const r1 = await sc.getGraph(2);
+    printGraph(r1);
 
     const resReduction3 = await sc.pafReductionToAfPr3();
-    //const r3 = await sc.getGraph(3);
-    //printGraph(r3);
+    const r3 = await sc.getGraph(3);
+    printGraph(r3);
 
     const r4 = await sc.enumeratingPreferredExtensions(3);
-    //r4.logs.forEach((element) => {
-    //  console.log('***************************************');
-    //  console.log(element.args.args);
-    //});
+    r4.logs.forEach((element) => {
+      console.log('***************************************');
+      console.log(element.args.args);
+    });
   });
 });
-*/
-/*
+
 contract('Argumentation 1', (accounts) => {
   const alpha = accounts[0];
   const beta = accounts[1];
@@ -154,8 +152,7 @@ contract('Argumentation 1', (accounts) => {
     console.log('enumeratingPreferredExtensions(): ', r4GasUsed);
   });
 });
-*/
-/*
+
 contract('Argumentation 2', (accounts) => {
   const alpha = accounts[0];
   const beta = accounts[1];
@@ -253,7 +250,6 @@ contract('Argumentation 2', (accounts) => {
     console.log('enumeratingPreferredExtensions(): ', r4GasUsed);
   });
 });
-*/
 
 /*
 for (let i = 0; i < 1; i++) {
@@ -268,13 +264,6 @@ for (let i = 0; i < 1; i++) {
 
     it('random graphs', async () => {
       const sc = await Argumentation.deployed();
-
-      fs.writeFile(filepath, `NodesNumber, EdgesNumber, EdgesP, PrefP, ReductionPref3, PrefExtensionsGas\n`, (err) => {
-        if (err) throw err;
-        console.log('New data file has been saved!');
-      });
-  
-      for (let i = 0; i < 1; i++) {
 
       for (let j = 0; j < nodesNumber; j++) {
         await sc.insertArgument(`a`, {
