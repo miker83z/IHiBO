@@ -1,6 +1,6 @@
 //ganache-cli -p 8545 -i 5777 -l 9000000000000000
 // inside ihibo folder: truffle test ./test/tinkering.js
-const Argumentation = artifacts.require('Argumentation');
+const Tinkering = artifacts.require('Tinkering');
 const fs = require('fs');
 const filepath = './data3.csv';
 
@@ -50,8 +50,8 @@ contract('Tinkering 1', (accounts) => {
   const delta = accounts[3];
 
   it('Test 1', async () => {
-    // Connect with Argumentation Contract
-    const sc = await Argumentation.deployed();
+    // Connect with Tinkering Contract
+    const sc = await Tinkering.deployed();
 
 
     // Making Graph
@@ -140,8 +140,8 @@ contract('Tinkering 2', (accounts) => {
   const delta = accounts[3];
 
   it('Test 2', async () => {
-    // Connect with Argumentation Contract
-    const sc = await Argumentation.deployed();
+    // Connect with Tinkering Contract
+    const sc = await Tinkering.deployed();
 
 
     // Making Graph
@@ -222,13 +222,13 @@ contract('Tinkering 2', (accounts) => {
 */
 
 /*
-contract('Argumentation 0', (accounts) => {
+contract('Tinkering 0', (accounts) => {
   const alpha = accounts[0];
   const beta = accounts[1];
   const gamma = accounts[2];
 
   it('graph 1, IHiBO original', async () => {
-    const sc = await Argumentation.deployed();
+    const sc = await Tinkering.deployed();
 
     const resAlpha = await sc.insertArgument('a', {
       from: alpha,
@@ -271,13 +271,13 @@ contract('Argumentation 0', (accounts) => {
 });
 */
 /*
-contract('Argumentation 1', (accounts) => {
+contract('Tinkering 1', (accounts) => {
   const alpha = accounts[0];
   const beta = accounts[1];
   const gamma = accounts[2];
 
   it('graph 2, related work', async () => {
-    const sc = await Argumentation.deployed();
+    const sc = await Tinkering.deployed();
 
     const resAlpha = await sc.insertArgument('b', {
       from: alpha,
@@ -355,13 +355,13 @@ contract('Argumentation 1', (accounts) => {
 */
 
 /*
-contract('Argumentation 2', (accounts) => {
+contract('Tinkering 2', (accounts) => {
   const alpha = accounts[0];
   const beta = accounts[1];
   const gamma = accounts[2];
 
   it('graph 3, new graph', async () => {
-    const sc = await Argumentation.deployed();
+    const sc = await Tinkering.deployed();
 
     const resAlpha = await sc.insertArgument('a', {
       from: alpha,
@@ -471,7 +471,7 @@ for (let i = 0; i < 12; i++) {
     let edgesNumber = 0;
 
     it('random graphs', async () => {
-      const sc = await Argumentation.deployed();
+      const sc = await Tinkering.deployed();
 
       if (i==1) {
         const g = await sc.getGraph2(1);

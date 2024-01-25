@@ -5,7 +5,7 @@ pragma solidity ^0.5.1;
 import "./DirectedGraph.sol";
 import "./EnumerableMap.sol";
 
-contract Argumentation {
+contract Tinkering {
     using DirectedGraph for DirectedGraph.Graph;
     using HitchensUnorderedKeySetLib for HitchensUnorderedKeySetLib.Set;
     using EMap for EMap.LabelMap;

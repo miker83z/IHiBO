@@ -74,14 +74,21 @@ contract Argumentation {
             DirectedGraph.Node storage t = paf.nodes[edge.target];
             bool notBpreferredToA = !(t.value > s.value);
 
-            if (notBpreferredToA) {
+            // [Vincent: i.e. Like this]
+            if (!af.nodesIds.exists(bytes32(edge.source))) {
+                af.insertNodeWithId(edge.source);
+            }
+            if (!af.nodesIds.exists(bytes32(edge.target))) {
+                af.insertNodeWithId(edge.target);
+            }
+            if (notBpreferredToA) { // [Vincent: node should be considered to be added regardless of this if]
                 //insert to af
-                if (!af.nodesIds.exists(bytes32(edge.source))) {
-                    af.insertNodeWithId(edge.source);
-                }
-                if (!af.nodesIds.exists(bytes32(edge.target))) {
-                    af.insertNodeWithId(edge.target);
-                }
+                // if (!af.nodesIds.exists(bytes32(edge.source))) {
+                //     af.insertNodeWithId(edge.source);
+                // }
+                // if (!af.nodesIds.exists(bytes32(edge.target))) {
+                //     af.insertNodeWithId(edge.target);
+                // }
                 af.insertEdge(edge.source, edge.target, "");
             }
         }
@@ -107,14 +114,20 @@ contract Argumentation {
             ];
             bool notBtoA = edgeReverse.source > 0 && edgeReverse.target > 0;
 
-            if (notBpreferredToA || notBtoA) {
+            // [Vincent: i.e. like this]
+            if (!af.nodesIds.exists(bytes32(edge.source))) {
+                af.insertNodeWithId(edge.source);
+            }
+            if (!af.nodesIds.exists(bytes32(edge.target))) {
+                af.insertNodeWithId(edge.target);
+            if (notBpreferredToA || notBtoA) { // [Vincent: node should be considered to be added regardless of this if]
                 //insert to af
-                if (!af.nodesIds.exists(bytes32(edge.source))) {
-                    af.insertNodeWithId(edge.source);
-                }
-                if (!af.nodesIds.exists(bytes32(edge.target))) {
-                    af.insertNodeWithId(edge.target);
-                }
+                // if (!af.nodesIds.exists(bytes32(edge.source))) {
+                //     af.insertNodeWithId(edge.source);
+                // }
+                // if (!af.nodesIds.exists(bytes32(edge.target))) {
+                //     af.insertNodeWithId(edge.target);
+                // }
                 af.insertEdge(edge.source, edge.target, "");
             }
         }
