@@ -3,6 +3,9 @@
 const Tinkering = artifacts.require('Tinkering');
 const fs = require('fs');
 const filepath = './data3.csv';
+// import LogRocket from 'logrocket';
+
+// LogRocket.init('2dxvqu/bullshit');
 
 const printGraph = (g) => {
   console.log('--------Graph--------');
@@ -42,7 +45,7 @@ const getRandomIntInclusive = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 };
 
-/*
+// /*
 contract('Tinkering 1', (accounts) => {
   const alpha = accounts[0];
   const beta = accounts[1];
@@ -61,6 +64,9 @@ contract('Tinkering 1', (accounts) => {
     const resAlpha2 = await sc.insertArgument('b', {
       from: alpha,
     });
+    const resAlpha3 = await sc.insertArgument('c', {
+      from: alpha,
+    });
 
     const edgeAB = await sc.insertAttack(1, 2, '');
 
@@ -71,18 +77,13 @@ contract('Tinkering 1', (accounts) => {
     const resReduction1 = await sc.pafReductionToAfPr1();
     const r1 = await sc.getGraph(2);
 
-    const resReduction2 = await sc.pafReductionToAfPr2();
-    const r2 = await sc.getGraph(3);
-
     const resReduction3 = await sc.pafReductionToAfPr3();
     const r3 = await sc.getGraph(4);
     
     const r4 = await sc.enumeratingPreferredExtensions(4);
 
-    const resReduction4 = await sc.pafReductionToAfPr4();
-    const r5 = await sc.getGraph(5);
-    
-    const r6 = await sc.enumeratingPreferredExtensions(5);
+  
+   
 
 
     // Printing
@@ -100,8 +101,8 @@ contract('Tinkering 1', (accounts) => {
     //   console.log(element.args.args);
     // });
 
-    // console.log('pafReductionToAfPr4');
-    // printGraph(r5);
+    // console.log('pafReductionToAfPr3');
+    // printGraph(r3);
     // r6.logs.forEach((element) => {
     //   console.log('***************************************');
     //   console.log(element.args.args);
@@ -121,17 +122,20 @@ contract('Tinkering 1', (accounts) => {
     console.log('Original');
     printGraph2(t1);
 
-    const t2 = await sc.getGraph2(3);
-    console.log('pafReductionToAfPr1 (f2)');
+    const t2 = await sc.getGraph2(2);
+    console.log('pafReductionToAfPr1 (f1)');
     printGraph(t2);
 
-    const t3 = await sc.getGraph2(5);
-    console.log('pafReductionToAfPr2 (f4)');
+
+    const t3 = await sc.getGraph2(3);
+    console.log('pafReductionToAfPr3 (f3)');
     printGraph(t3);
+
+
     
   });
 });
-*/
+// */
 /*
 contract('Tinkering 2', (accounts) => {
   const alpha = accounts[0];
@@ -165,18 +169,12 @@ contract('Tinkering 2', (accounts) => {
     const resReduction1 = await sc.pafReductionToAfPr1();
     const r1 = await sc.getGraph(2);
 
-    const resReduction2 = await sc.pafReductionToAfPr2();
-    const r2 = await sc.getGraph(3);
-
     const resReduction3 = await sc.pafReductionToAfPr3();
-    const r3 = await sc.getGraph(4);
+    const r3 = await sc.getGraph(3);
     
-    const r4 = await sc.enumeratingPreferredExtensions(4);
+    const r4 = await sc.enumeratingPreferredExtensions(3);
 
-    const resReduction4 = await sc.pafReductionToAfPr4();
-    const r5 = await sc.getGraph(5);
-    
-    const r6 = await sc.enumeratingPreferredExtensions(5);
+
 
 
     // Printing
@@ -184,8 +182,6 @@ contract('Tinkering 2', (accounts) => {
 
     // console.log('pafReductionToAfPr1');
     // printGraph(r1);
-    // console.log('pafReductionToAfPr2');
-    // printGraph(r2);
 
     // console.log('pafReductionToAfPr3');
     // printGraph(r3);
@@ -194,12 +190,7 @@ contract('Tinkering 2', (accounts) => {
     //   console.log(element.args.args);
     // });
 
-    // console.log('pafReductionToAfPr4');
-    // printGraph(r5);
-    // r6.logs.forEach((element) => {
-    //   console.log('***************************************');
-    //   console.log(element.args.args);
-    // });
+  
 
 
     // let x = await sc.getNodeValue(0);
@@ -209,12 +200,12 @@ contract('Tinkering 2', (accounts) => {
     console.log('Original');
     printGraph2(t1);
 
-    const t2 = await sc.getGraph2(3);
-    console.log('pafReductionToAfPr1 (f2)');
+    const t2 = await sc.getGraph2(2);
+    console.log('pafReductionToAfPr1 (f1)');
     printGraph(t2);
 
-    const t3 = await sc.getGraph2(5);
-    console.log('pafReductionToAfPr2 (f4)');
+    const t3 = await sc.getGraph2(3);
+    console.log('pafReductionToAfPr2 (f3)');
     printGraph(t3);
     
   });
@@ -454,61 +445,90 @@ contract('Tinkering 2', (accounts) => {
 });
 */
 
-// /*
+/*
 fs.writeFile(filepath, `NodesNumber, EdgesNumber, EdgesP, PrefP, ReductionPref3, PrefExtensionsGas\n`, (err) => {
   if (err) throw err;
   console.log('New data file has been saved!');
 });
 
-for (let i = 0; i < 12; i++) {
-  contract('Tinkering N', (accounts) => {
+for (let i = 0; i < 2; i++) {
+
+  console.log('checkpoint: 1');
+
+  contract('Tinkering N:' + i, (accounts) => {
     const alpha = accounts[0];
     const beta = accounts[1];
     const gamma = accounts[2];
     const prefP = 0.25;
-    const nodesNumber = [5,10,15,20];
+    const nodesNumber = [2,3,2,3];
     const edgesP = [0.33,0.5,0.66];
     let edgesNumber = 0;
 
+    console.log('checkpoint: 2');
+
     it('random graphs', async () => {
+
+      console.log(i, nodesNumber[i%4], edgesP[i%3]);
+
+      console.log('checkpoint: 3');
+
       const sc = await Tinkering.deployed();
 
-      if (i==1) {
-        const g = await sc.getGraph2(1);
-        printGraph2(g);
+      console.log('checkpoint: 4');
+
+      if (i>=1) {
+        const k = await sc.getGraph2(1);
+        printGraph2(k);
       }
+
+      console.log('checkpoint: 5');
       
       for (let j = 0; j < nodesNumber[i%4]; j++) {
+        console.log('insert node!');
         await sc.insertArgument(`a`, {
           from: accounts[j % 3],
         });
+        console.log('bla');
         for (let k = 1; k <= 2; k++) {
+          console.log('support node?');
           if (Math.random() < prefP) {
+            console.log('support node!');
             await sc.supportArgument(j + 1, {
               from: accounts[(j + k) % 3],
             });
           }
         }
+        console.log('blabla');
       }
 
+      console.log('checkpoint: 6');
+
       for (let source = 1; source <= nodesNumber[i%4]; source++) {
+        console.log('bla');
         for (let target = 1; target <= nodesNumber[i%4]; target++) {
+          console.log('insert edge?');
           if (Math.random() < edgesP[i%3] && source != target) {
+            console.log('insert edge!');
             await sc.insertAttack(source, target, '');
             edgesNumber++;
           }
         }
+        console.log('blabla');
       }
+
+      console.log('checkpoint: 7');
 
       const g = await sc.getGraph2(1);
       printGraph2(g);
 
-      const resReduction3 = await sc.pafReductionToAfPr4();
+      console.log('reduction');
+      const resReduction3 = await sc.pafReductionToAfPr3();
       //const r3 = await sc.getGraph(3);
       //printGraph(r3);
       const reductionGasUsed = resReduction3.receipt.gasUsed;
       console.log(reductionGasUsed);
 
+      console.log('extension');
       const r4 = await sc.enumeratingPreferredExtensions(2);
       //r4.logs.forEach((element) => {
       //  console.log('*************************************');
@@ -522,7 +542,11 @@ for (let i = 0; i < 12; i++) {
         `${nodesNumber[i%4]}, ${edgesNumber}, ${edgesP[i%3]}, ${prefP}, ${reductionGasUsed}, ${gasUsed}\n`,
         { flag: 'a' }
       );
+
+      console.log('checkpoint: 8');
     });
+    console.log('checkpoint: 9');
   });
+  console.log('checkpoint: 10');
 };
-// */
+*/

@@ -74,14 +74,11 @@ contract Argumentation {
             DirectedGraph.Node storage t = paf.nodes[edge.target];
             bool notBpreferredToA = !(t.value > s.value);
 
-            // [Vincent: i.e. Like this]
-            // if (!af.nodesIds.exists(bytes32(edge.source))) {
-            //     af.insertNodeWithId(edge.source);
+            // for (uint256 j = 0; j < paf.nodesIds.count(); j++) {
+            //     af.insertNodeWithId(j+1);
             // }
-            // if (!af.nodesIds.exists(bytes32(edge.target))) {
-            //     af.insertNodeWithId(edge.target);
-            // }
-            if (notBpreferredToA) { // [Vincent: node should be considered to be added regardless of this if]
+
+            if (notBpreferredToA) { // [Vincent: all args should be ported over.
                 //insert to af
                 if (!af.nodesIds.exists(bytes32(edge.source))) {
                     af.insertNodeWithId(edge.source);
@@ -114,12 +111,10 @@ contract Argumentation {
             ];
             bool notBtoA = edgeReverse.source > 0 && edgeReverse.target > 0;
 
-            // [Vincent: i.e. like this]
-            // if (!af.nodesIds.exists(bytes32(edge.source))) {
-            //     af.insertNodeWithId(edge.source);
+            // for (uint256 j = 0; j < paf.nodesIds.count(); j++) {
+            //     af.insertNodeWithId(j+1);
             // }
-            // if (!af.nodesIds.exists(bytes32(edge.target))) {
-            //     af.insertNodeWithId(edge.target);
+
             if (notBpreferredToA || notBtoA) { // [Vincent: node should be considered to be added regardless of this if]
                 // insert to af
                 if (!af.nodesIds.exists(bytes32(edge.source))) {
