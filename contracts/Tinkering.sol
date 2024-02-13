@@ -134,49 +134,50 @@ contract Tinkering {
 
             if (notBpreferredToA) {
                 //insert to af
-                if (!af.nodesIds.exists(bytes32(edge.source))) {
-                    af.insertNodeWithId(edge.source);
-                }
-                if (!af.nodesIds.exists(bytes32(edge.target))) {
-                    af.insertNodeWithId(edge.target);
-                }
                 af.insertEdge(edge.source, edge.target, "");
             }
         }
     }
 
-    // // reduction of PAF to AF; PR(PAF)=AF
-    // function pafReductionToAfPr2() public returns (uint256 graphId) {
-    //     // This function takes an argumentation graph with agent votes on arguments
-    //     // And for each edge consideres the support for the target and the source
-    //     // if the target does not have more support than the source then the attack will be added.
-    //     // !(sup(t)>sup(s)) => s->t
-    //     graphId = graphsIds.count() + 1;
-    //     graphsIds.insert(bytes32(graphId));
+    // reduction of PAF to AF; PR(PAF)=AF
+    function pafReductionToAfPr2() public returns (uint256 graphId) {
+        // This function takes an argumentation graph with agent votes on arguments
+        // And for each edge consideres the support for the target and the source
+        // if the target does not have more support than the source then the attack will be added.
+        // !(sup(t)>sup(s)) => s->t
+        graphId = graphsIds.count() + 1;
+        graphsIds.insert(bytes32(graphId));
 
-    //     DirectedGraph.Graph storage paf = graphs[1];
-    //     DirectedGraph.Graph storage af = graphs[graphId];
+        DirectedGraph.Graph storage paf = graphs[1];
+        DirectedGraph.Graph storage af = graphs[graphId];
 
-    //     for (uint256 i = 0; i < paf.edgesIds.count(); i++) {
-    //         uint256 edgeId = uint256(paf.edgesIds.keyAtIndex(i));
-    //         DirectedGraph.Edge storage edge = paf.edges[edgeId];
+        for (uint256 j = 0; j < paf.nodesIds.count(); j++) {
+            af.insertNodeWithId(j+1);
+        }
 
-    //         DirectedGraph.Node storage s = paf.nodes[edge.source];
-    //         DirectedGraph.Node storage t = paf.nodes[edge.target];
-    //         bool notBpreferredToA = !(t.value > s.value);
+        for (uint256 i = 0; i < paf.edgesIds.count(); i++) {
+            uint256 edgeId = uint256(paf.edgesIds.keyAtIndex(i));
+            DirectedGraph.Edge storage edge = paf.edges[edgeId];
 
-    //         //insert to af
-    //         if (!af.nodesIds.exists(bytes32(edge.source))) {
-    //             af.insertNodeWithId(edge.source);
-    //         }
-    //         if (!af.nodesIds.exists(bytes32(edge.target))) {
-    //             af.insertNodeWithId(edge.target);
-    //         }
-    //         if (notBpreferredToA || someothercondition) {
-    //             af.insertEdge(edge.source, edge.target, "");
-    //         }
-    //     }
-    // }
+            DirectedGraph.Node storage s = paf.nodes[edge.source];
+            DirectedGraph.Node storage t = paf.nodes[edge.target];
+            bool notBpreferredToA = !(t.value > s.value);
+
+            // DirectedGraph.Edge storage edgeReverse = paf.edges[
+            //     DirectedGraph.cantorPairing(edge.target, edge.source)
+            // ];
+            // bool notBtoA = edgeReverse.source > 0 && edgeReverse.target > 0;
+
+            //insert to af
+            if (notBpreferredToA) {
+                af.insertEdge(edge.source, edge.target, "");
+            }
+            
+            if (!notBpreferredToA) {
+                af.insertEdge(edge.target, edge.source, "");
+            }
+        }
+    }
 
     // reduction of 
     function pafReductionToAfPr3() public returns (uint256 graphId) {
@@ -187,6 +188,10 @@ contract Tinkering {
 
         DirectedGraph.Graph storage paf = graphs[1];
         DirectedGraph.Graph storage af = graphs[graphId];
+
+        for (uint256 j = 0; j < paf.nodesIds.count(); j++) {
+            af.insertNodeWithId(j+1);
+        }
 
         for (uint256 i = 0; i < paf.edgesIds.count(); i++) {
             uint256 edgeId = uint256(paf.edgesIds.keyAtIndex(i));
@@ -201,58 +206,49 @@ contract Tinkering {
             ];
             bool notBtoA = edgeReverse.source > 0 && edgeReverse.target > 0;
 
-            for (uint256 j = 0; j < paf.nodesIds.count(); j++) {
-                af.insertNodeWithId(j+1);
-            }
-
             if (notBpreferredToA || notBtoA) {
                 //insert to af
-                if (!af.nodesIds.exists(bytes32(edge.source))) {
-                    af.insertNodeWithId(edge.source);
-                }
-                if (!af.nodesIds.exists(bytes32(edge.target))) {
-                    af.insertNodeWithId(edge.target);
-                }
                 af.insertEdge(edge.source, edge.target, "");
             }
         }
     }
 
-    //     // reduction of 
-    // function pafReductionToAfPr4() public returns (uint256 graphId) {
-    //     //
-    //     // !(sup(t)>sup(s)) || (sup(t)>0 && sup(s)>0) => s->t
-    //     graphId = graphsIds.count() + 1;
-    //     graphsIds.insert(bytes32(graphId));
+        // reduction of 
+    function pafReductionToAfPr4() public returns (uint256 graphId) {
+        //
+        // !(sup(t)>sup(s)) || (sup(t)>0 && sup(s)>0) => s->t
+        graphId = graphsIds.count() + 1;
+        graphsIds.insert(bytes32(graphId));
 
-    //     DirectedGraph.Graph storage paf = graphs[1];
-    //     DirectedGraph.Graph storage af = graphs[graphId];
+        DirectedGraph.Graph storage paf = graphs[1];
+        DirectedGraph.Graph storage af = graphs[graphId];
 
-    //     for (uint256 i = 0; i < paf.edgesIds.count(); i++) {
-    //         uint256 edgeId = uint256(paf.edgesIds.keyAtIndex(i));
-    //         DirectedGraph.Edge storage edge = paf.edges[edgeId];
+        for (uint256 j = 0; j < paf.nodesIds.count(); j++) {
+            af.insertNodeWithId(j+1);
+        }
 
-    //         DirectedGraph.Node storage s = paf.nodes[edge.source];
-    //         DirectedGraph.Node storage t = paf.nodes[edge.target];
-    //         bool notBpreferredToA = !(t.value > s.value);
+        for (uint256 i = 0; i < paf.edgesIds.count(); i++) {
+            uint256 edgeId = uint256(paf.edgesIds.keyAtIndex(i));
+            DirectedGraph.Edge storage edge = paf.edges[edgeId];
 
-    //         DirectedGraph.Edge storage edgeReverse = paf.edges[
-    //             DirectedGraph.cantorPairing(edge.target, edge.source)
-    //         ];
-    //         bool notBtoA = edgeReverse.source > 0 && edgeReverse.target > 0;
+            DirectedGraph.Node storage s = paf.nodes[edge.source];
+            DirectedGraph.Node storage t = paf.nodes[edge.target];
+            bool notBpreferredToA = !(t.value > s.value);
 
-    //         //insert to af
-    //         if (!af.nodesIds.exists(bytes32(edge.source))) {
-    //             af.insertNodeWithId(edge.source);
-    //         }
-    //         if (!af.nodesIds.exists(bytes32(edge.target))) {
-    //             af.insertNodeWithId(edge.target);
-    //         }
-    //         if (notBpreferredToA || notBtoA || someothercondition) {
-    //             af.insertEdge(edge.source, edge.target, "");
-    //         }
-    //     }
-    // }
+            DirectedGraph.Edge storage edgeReverse = paf.edges[
+                DirectedGraph.cantorPairing(edge.target, edge.source)
+            ];
+            bool notBtoA = edgeReverse.source > 0 && edgeReverse.target > 0;
+
+            //insert to af
+            if (notBpreferredToA || notBtoA) {
+                af.insertEdge(edge.source, edge.target, "");
+            }
+            if (!notBpreferredToA) {
+                af.insertEdge(edge.target, edge.source, "");
+            }
+        }
+    }
 
     function getGraph(uint256 graphId)
         public

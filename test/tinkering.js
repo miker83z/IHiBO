@@ -68,6 +68,10 @@ contract('Tinkering 1', (accounts) => {
       from: alpha,
     });
 
+    const resBetaSupport = await sc.supportArgument(2, {
+      from: beta,
+    });
+
     const edgeAB = await sc.insertAttack(1, 2, '');
 
 
@@ -77,11 +81,18 @@ contract('Tinkering 1', (accounts) => {
     const resReduction1 = await sc.pafReductionToAfPr1();
     const r1 = await sc.getGraph(2);
 
+    const resReduction2 = await sc.pafReductionToAfPr2();
+    const r2 = await sc.getGraph(3);
+
     const resReduction3 = await sc.pafReductionToAfPr3();
     const r3 = await sc.getGraph(4);
     
-    const r4 = await sc.enumeratingPreferredExtensions(4);
+    // const r4 = await sc.enumeratingPreferredExtensions(4);
 
+    const resReduction4 = await sc.pafReductionToAfPr3();
+    const r5 = await sc.getGraph(5);
+    
+    // const r6 = await sc.enumeratingPreferredExtensions(5);
   
    
 
@@ -122,15 +133,21 @@ contract('Tinkering 1', (accounts) => {
     console.log('Original');
     printGraph2(t1);
 
-    const t2 = await sc.getGraph2(2);
-    console.log('pafReductionToAfPr1 (f1)');
+    const t2 = await sc.getGraph(2);
+    console.log('pafReductionToAfPr1');
     printGraph(t2);
 
-
-    const t3 = await sc.getGraph2(3);
-    console.log('pafReductionToAfPr3 (f3)');
+    const t3 = await sc.getGraph(3);
+    console.log('pafReductionToAfPr2');
     printGraph(t3);
 
+    const t4 = await sc.getGraph(4);
+    console.log('pafReductionToAfPr3');
+    printGraph(t4);
+
+    const t5 = await sc.getGraph(5);
+    console.log('pafReductionToAfPr4');
+    printGraph(t5);
 
     
   });
