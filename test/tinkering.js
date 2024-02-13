@@ -89,7 +89,7 @@ contract('Tinkering 1', (accounts) => {
     
     // const r4 = await sc.enumeratingPreferredExtensions(4);
 
-    const resReduction4 = await sc.pafReductionToAfPr3();
+    const resReduction4 = await sc.pafReductionToAfPr4();
     const r5 = await sc.getGraph(5);
     
     // const r6 = await sc.enumeratingPreferredExtensions(5);

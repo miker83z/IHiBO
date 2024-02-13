@@ -206,8 +206,8 @@ contract Tinkering {
             ];
             bool notBtoA = edgeReverse.source > 0 && edgeReverse.target > 0;
 
-            if (notBpreferredToA || notBtoA) {
-                //insert to af
+            //insert to af
+            if (notBpreferredToA || !notBtoA) {
                 af.insertEdge(edge.source, edge.target, "");
             }
         }
@@ -241,7 +241,7 @@ contract Tinkering {
             bool notBtoA = edgeReverse.source > 0 && edgeReverse.target > 0;
 
             //insert to af
-            if (notBpreferredToA || notBtoA) {
+            if (notBpreferredToA || !notBtoA) {
                 af.insertEdge(edge.source, edge.target, "");
             }
             if (!notBpreferredToA) {
