@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.5.1;
+pragma experimental ABIEncoderV2; // experimental feature | do not use in live deployments
 
 // import "./DirectedGraph.sol";
 // import "./EnumerableMap.sol";
@@ -17,9 +18,13 @@ contract Balancing {
     }
 
     struct Context {
-        HitchensUnorderedKeySetLib.Set reasonsIds;
-        mapping(uint256 => Reason) reasons;
+        uint256[] reasons;
         uint256 issue;
+    }
+
+    struct ReCo { // reason-context pair
+        Reason reason;
+        Context context;
     }
 
     HitchensUnorderedKeySetLib.Set contextsIds;
@@ -29,9 +34,13 @@ contract Balancing {
 
     mapping(address => HitchensUnorderedKeySetLib.Set) sources;
 
+    event Bla(
+        int value
+    );
+
 
     constructor() public {
-        // contextsIds.insert(bytes32(uint256(1)));
+        contextsIds.insert(bytes32(uint256(1)));
     }
 
     function getReasons()
@@ -61,60 +70,79 @@ contract Balancing {
 
     function insertReason(uint256 justification, uint256 issue, uint256 polarity) 
         public
-        returns (uint256 reasonID)
+        returns (int256 re)
     {
-        // TODO check that reason does not exist yet.
 
-        reasonID = reasonsIds.count() + 1;
-        reasonsIds.insert(bytes32(reasonID));
-        Reason storage reason = reasons[reasonID];
-        reason.justification = justification;
-        reason.issue = issue;
-        reason.polarity = polarity;
- 
+        re = 0;
+        // check that reason does is not known yet.
+        for (uint256 j = 0; j < reasonsIds.count() + 1; j++) {
+            if (reasons[j].justification == justification && 
+            reasons[j].issue == issue && reasons[j].polarity == polarity) {
+                // conclude reason is already in reasons
+                re = -1;
+                break;
+            }
+        }
+
+        if (re == 0) {
+            uint256 reasonID = reasonsIds.count() + 1;
+            reasonsIds.insert(bytes32(reasonID));
+            Reason storage reason = reasons[reasonID];
+            reason.justification = justification;
+            reason.issue = issue;
+            reason.polarity = polarity;
+    
+            HitchensUnorderedKeySetLib.Set storage source = sources[
+                msg.sender
+            ];
+            source.insert(bytes32(reasonID));
+            re = int256(reasonID);
+        }
+
+    }
+
+    function getContexts()
+        public
+        view
+        returns (
+            uint256[][] memory reasonss,
+            uint256[] memory issues
+        )
+    {
+        uint256 contextsCount = contextsIds.count();
+
+        reasonss = new uint256[][](contextsCount);
+        issues = new uint256[](contextsCount);
+
+        for (uint256 i = 0; i < contextsIds.count(); i++) {
+            uint256 contextId = uint256(contextsIds.keyAtIndex(i));
+            Context storage context = contexts[contextId];
+            reasonss[i] = context.reasons;
+            issues[i] = context.issue;
+        }
+    }
+    
+
+    function insertContext(uint256[] memory rs, uint256 issue) 
+        public
+        returns (uint256 contextID)
+    {
+        
+        contextID = contextsIds.count() + 1;
+        contextsIds.insert(bytes32(contextID));
+        Context storage context = contexts[contextID];
+        context.reasons = rs;
+        context.issue = issue;
 
         HitchensUnorderedKeySetLib.Set storage source = sources[
             msg.sender
         ];
-        source.insert(bytes32(reasonID));
+        // *10 short term solution writing from insert reason and insert context
+        source.insert(bytes32(contextID*10));
 
     }
-    
 
-    // function insertContext(uint256[] memory rs, uint256 issue) 
-    //     public
-    //     returns (uint256 contextID)
-    // {
-        
-    //     contextID = contextsIds.count() + 1;
-    //     contextsIds.insert(bytes32(contextID));
-    //     Context storage context = contexts[contextID];
-    //     for (uint256 i = 0; i < rs.length; i++) {
-    //         reasonID = context.reasonsIds.count() + 1;
-    //         context.reasonIds.insert(bytes32(reasonID));
-    //         Reason storage r = context.rs[reasonID];
-    //         uint256 rID = uin256(reasonsIds.keyAtIndex(i));
-    //         reason.justification = rs[rID].justifcation;
-    //         reason.issue = rs[rID].issue;
-    //         reason.polarity = rs[rID].polarity;
-    //     }
-    //     context.issue = issue;
 
-    // }
-
-    // function insertReason(uint256 justification, uint256 issue, uint256 polarity) 
-    //     public
-    //     returns (uint256 reasonID)
-    // {
-        
-    //     reasonID = reasonsIds.count() + 1;
-    //     reasonIds.insert(bytes32(reasonID));
-    //     Reason storage reason = reasons[reasonID];
-    //     reason.justification = justifcation;
-    //     reason.issue = issue;
-    //     reason.polarity = polarity;
-
-    // }
 
 
 

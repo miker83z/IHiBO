@@ -29,7 +29,7 @@ const printReasons = (R) => {
   for (let i = 0; i < R.justifications.length; i++) {
     if (R.polarities[i] == 0 || R.polarities[i] == 1 || R.polarities[i] == 2 ) {
       console.log(
-        i,
+        "r" + i.toString(),
         ' =  (',
         R.justifications[i].toString(),
         ', ',
@@ -40,7 +40,7 @@ const printReasons = (R) => {
       );
     } else {
       console.log(
-        i,
+        "r" + i.toString(),
         ' =  (',
         R.justifications[i].toString(),
         ', ',
@@ -54,6 +54,22 @@ const printReasons = (R) => {
   console.log('-----------------------');
 };
 
+const printContexts = (C) => {
+  console.log('--------Contexts--------');
+
+    for (let i = 0; i < C.issues.length; i++) {
+      console.log(
+        "c" + i.toString(),
+        ' = ((',
+        C.reasonss[i].toString(),
+        '), ',
+        C.issues[i].toString(),
+        ')'
+      );
+    } 
+
+  console.log('------------------------');
+};
 
 // /*
 contract('Balancing 1', (accounts) => {
@@ -66,23 +82,51 @@ contract('Balancing 1', (accounts) => {
     // Connect with Balancing Contract
     const sc = await Balancing.deployed();
 
+    const resAlpha10 = await sc.insertReason.call(1,1,0, {
+      from: alpha,
+    });
     const resAlpha1 = await sc.insertReason(1,1,0, {
       from: alpha,
     });
-    
+    const resAlpha12 = await sc.insertReason.call(1,1,0, {
+      from: alpha,
+    });
+
+    const resAlpha20 = await sc.insertReason.call(2,1,0, {
+      from: alpha,
+    });
+    const resAlpha2 = await sc.insertReason(2,1,0, {
+      from: alpha,
+    });
+    const resAlpha22 = await sc.insertReason.call(2,1,0, {
+      from: alpha,
+    });
+
+    const resAlpha30 = await sc.insertReason.call(3,1,0, {
+      from: alpha,
+    });
+    const resAlpha3 = await sc.insertReason(3,1,0, {
+      from: alpha,
+    });
+    const resAlpha31 = await sc.insertReason.call(3,1,0, {
+      from: alpha,
+    });
+
+    console.log(resAlpha10.toString(), resAlpha1.toString(), resAlpha12.toString());
+    console.log(resAlpha20.toString(), resAlpha2.toString(), resAlpha22.toString());
+    console.log(resAlpha30.toString(), resAlpha3.toString(), resAlpha31.toString());
 
     const reasons = await sc.getReasons();
 
     printReasons(reasons);
 
-    // Context context;
-    // context.issue = 1;
-
-    // Reason r1 = (1,1,1);
-    // Reason r2 = (2,1,-1);
-    // context.reasons[1] = r1;
-    // context.reasons[2] = r2;
+    const conAlpha1 = await sc.insertContext.call([0,1],1, {
+      from: alpha,
+    });
     
+    const contexts = await sc.getContexts();
+
+    printContexts(contexts);
 
   });
 });
