@@ -58,9 +58,14 @@ const printContexts = (C) => {
   console.log('--------Contexts--------');
 
   for (let i = 0; i < C.issues.length; i++) {
-    let x = C.reasonss[i][0].toString();
-    for (let j = 1; j < C.reasonss[i].length; j++) {
-      x = x + ', ' + C.reasonss[i][j].toString();
+    let x = '';
+    if (C.reasonss[i].length > 0) {
+      x = C.reasonss[i][0].toString();
+      for (let j = 1; j < C.reasonss[i].length; j++) {
+        x = x + ', ' + C.reasonss[i][j].toString();
+      }
+    } 
+    else {
     }
     console.log(
       "c" + i.toString(),
@@ -129,14 +134,13 @@ contract('Balancing 1', (accounts) => {
       from: alpha,
     });
 
-    const conAlpha12 = await sc.insertContext.call([0,1],3, {
-      from: alpha,
-    });
+    // const conAlpha12 = await sc.insertContext.call([0,1],3, {
+    //   from: alpha,
+    // });
 
     const conAlpha2 = await sc.insertContext([35,36],42, {
       from: alpha,
     });
-
     
     const contexts = await sc.getContexts();
 

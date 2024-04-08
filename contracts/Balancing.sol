@@ -128,10 +128,29 @@ contract Balancing {
         public
         returns (uint256 contextID)
     {
+        uint256 reasonsCount = reasonsIds.count();
+        uint256[] memory rss = new uint256[](reasonsCount);
+        uint256 amount = 0;
+        for (uint256 i = 0; i < rs.length; i++) {
+            if (rs[i] < reasonsCount) {
+                rss[i] = 1;
+                amount += 1;
+            }
+        }
+
+        uint256[] memory rsss = new uint256[](amount);
+        uint256 j = 0;
+        for (uint256 i = 0; i < rs.length; i++) {
+            if (rs[i] < reasonsCount) {
+                rsss[j] = rs[i];
+                j += 1;
+            }
+        }
+
         contextID = contextsIds.count() + 1;
         contextsIds.insert(bytes32(contextID));
         Context storage context = contexts[contextID];
-        context.reasons = rs;
+        context.reasons = rsss;
         context.issue = issue; // does not really do what it should
 
         HitchensUnorderedKeySetLib.Set storage source = sources[
