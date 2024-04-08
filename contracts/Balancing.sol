@@ -40,7 +40,7 @@ contract Balancing {
 
 
     constructor() public {
-        contextsIds.insert(bytes32(uint256(1)));
+        // contextsIds.insert(bytes32(uint256(1)));
     }
 
     function getReasons()
@@ -114,7 +114,8 @@ contract Balancing {
         reasonss = new uint256[][](contextsCount);
         issues = new uint256[](contextsCount);
 
-        for (uint256 i = 0; i < contextsIds.count(); i++) {
+        for (uint256 i = 0; i < contextsCount; i++) {
+            reasonss[i] = new uint256[](10);
             uint256 contextId = uint256(contextsIds.keyAtIndex(i));
             Context storage context = contexts[contextId];
             reasonss[i] = context.reasons;
@@ -127,12 +128,11 @@ contract Balancing {
         public
         returns (uint256 contextID)
     {
-        
         contextID = contextsIds.count() + 1;
         contextsIds.insert(bytes32(contextID));
         Context storage context = contexts[contextID];
         context.reasons = rs;
-        context.issue = issue;
+        context.issue = issue; // does not really do what it should
 
         HitchensUnorderedKeySetLib.Set storage source = sources[
             msg.sender

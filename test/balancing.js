@@ -57,16 +57,20 @@ const printReasons = (R) => {
 const printContexts = (C) => {
   console.log('--------Contexts--------');
 
-    for (let i = 0; i < C.issues.length; i++) {
-      console.log(
-        "c" + i.toString(),
-        ' = ((',
-        C.reasonss[i].toString(),
-        '), ',
-        C.issues[i].toString(),
-        ')'
-      );
-    } 
+  for (let i = 0; i < C.issues.length; i++) {
+    let x = C.reasonss[i][0].toString();
+    for (let j = 1; j < C.reasonss[i].length; j++) {
+      x = x + ', ' + C.reasonss[i][j].toString();
+    }
+    console.log(
+      "c" + i.toString(),
+      ' = ( (',
+      x,             
+      '), ',
+      C.issues[i].toString(),
+      ')'
+    );
+  } 
 
   console.log('------------------------');
 };
@@ -120,13 +124,30 @@ contract('Balancing 1', (accounts) => {
 
     printReasons(reasons);
 
-    const conAlpha1 = await sc.insertContext.call([0,1],1, {
+    
+    const conAlpha1 = await sc.insertContext([0,1],3, {
       from: alpha,
     });
+
+    const conAlpha12 = await sc.insertContext.call([0,1],3, {
+      from: alpha,
+    });
+
+    const conAlpha2 = await sc.insertContext([35,36],42, {
+      from: alpha,
+    });
+
     
     const contexts = await sc.getContexts();
 
     printContexts(contexts);
+
+    // console.log(Array.isArray(contexts.issues));
+
+    // console.log('printing contexts array:');
+    // contexts[1].forEach(function(entry) {
+    //   console.log(entry.toString());
+    // });
 
   });
 });
