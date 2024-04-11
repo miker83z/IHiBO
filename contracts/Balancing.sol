@@ -90,6 +90,7 @@ contract Balancing {
             uint256[] memory weights
         )
     {
+        // TODO not finished yet this is only considering context 0.
         WeightSystem storage weightSystem = weightSystems[wsId];
         weights = new uint256[](reasonsIds.count());
         for (uint256 i = 0; i < 1; i++) {

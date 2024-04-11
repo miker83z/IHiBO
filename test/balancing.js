@@ -57,6 +57,19 @@ const printContexts = (C) => {
   console.log('------------------------');
 };
 
+const printWeights = (W) => {
+  console.log('--------Weights--------');
+  // TODO after getWeights is finished
+  for (let i = 0; i < W[0].length; i++) {
+    for (let j = 0; j < W[][0].length; j++) {
+      let input = '(r' + i.toString() + ', c' + j.toString() + ')';
+      console.log('f_w(' + input + ') = ' + W[j][i]);
+    }
+  }
+
+  console.log('------------------------');
+};
+
 // /*
 contract('Balancing 1', (accounts) => {
   const alpha = accounts[0];
@@ -126,6 +139,8 @@ contract('Balancing 1', (accounts) => {
     const weights = await sc.getWeights.call(0);
 
     console.log(weights.toString());
+
+    printWeights(weights)
     
 
     // sc.Bla().watch({}, '', function(error, result)) {
