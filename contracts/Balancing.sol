@@ -22,25 +22,79 @@ contract Balancing {
         uint256 issue;
     }
 
-    struct ReCo { // reason-context pair
-        Reason reason;
-        Context context;
+    struct WeightSystem {
+        mapping(uint256 => mapping(uint256 => uint256)) weights;
     }
 
     HitchensUnorderedKeySetLib.Set contextsIds;
     mapping(uint256 => Context) contexts;
     HitchensUnorderedKeySetLib.Set reasonsIds;
     mapping(uint256 => Reason) reasons;
+    HitchensUnorderedKeySetLib.Set weightSystemIds;
+    mapping(uint256 => WeightSystem) weightSystems;
 
     mapping(address => HitchensUnorderedKeySetLib.Set) sources;
 
-    event Bla(
-        int value
-    );
 
 
     constructor() public {
-        // contextsIds.insert(bytes32(uint256(1)));
+        weightSystemIds.insert(bytes32(uint256(1)));
+        // initReasons();
+
+        uint256 reasonID = reasonsIds.count() + 1;
+        reasonsIds.insert(bytes32(reasonID));
+        Reason storage reason = reasons[reasonID];
+        reason.justification = 0;
+        reason.issue = 0;
+        reason.polarity = 0;
+
+        uint256 contextID = contextsIds.count() + 1;
+        contextsIds.insert(bytes32(contextID));
+        Context storage context = contexts[contextID];
+        context.reasons = [0];
+        context.issue = 0;
+    }
+
+    function changeWeight(uint256 weightSystemId, uint256 reason, uint256 context, uint256 newWeight) 
+        public
+    {
+        assert(reason != 0);
+        WeightSystem storage weightSystem = weightSystems[weightSystemId];
+        weightSystem.weights[reason][context] = newWeight;
+    }
+
+    // function initializeNewWeights() 
+    //     public
+    // {
+    //     for (uint256 i = 0; i < weightSystemIds.count(); i++) {
+    //         uint256 wsId = uint256(weightSystemIds.keyAtIndex(i));
+    //         WeightSystem storage weightSystem = weightSystems[wsId];
+
+
+    //         for (uint256 r = 0; r < reasonsIds.count(); r++) {
+    //             for (uint256 c = 0; c < contextsIds.count(); c++) {
+    //                 if (r > weightSystem.numberOfReasons || c > weightSystem.numberOfContexts) {
+    //                     weightSystem.weights[r][c] = 0;
+    //                 }
+    //             }
+    //         }
+    //         weightSystem.numberOfContexts = contextsIds.count();
+    //         weightSystem.numberOfReasons = reasonsIds.count();
+    //     }
+    // }
+
+    function getWeights(uint256 wsId)
+        public
+        view
+        returns (
+            uint256[] memory weights
+        )
+    {
+        WeightSystem storage weightSystem = weightSystems[wsId];
+        weights = new uint256[](reasonsIds.count());
+        for (uint256 i = 0; i < 1; i++) {
+            weights[i] = weightSystem.weights[0][i];
+        }
     }
 
     function getReasons()
@@ -74,11 +128,12 @@ contract Balancing {
     {
 
         re = 0;
-        // check that reason does is not known yet.
+        // check that reason is not known yet.
         for (uint256 j = 0; j < reasonsIds.count() + 1; j++) {
             if (reasons[j].justification == justification && 
             reasons[j].issue == issue && reasons[j].polarity == polarity) {
                 // conclude reason is already in reasons
+                // return false;
                 re = -1;
                 break;
             }
@@ -128,17 +183,19 @@ contract Balancing {
         public
         returns (uint256 contextID)
     {
+        // possible TODO: instead of removing unknown reasons add them to known reasons
+        // but with ?'s as x, y and v.
+
         uint256 reasonsCount = reasonsIds.count();
         uint256[] memory rss = new uint256[](reasonsCount);
         uint256 amount = 0;
         for (uint256 i = 0; i < rs.length; i++) {
             if (rs[i] < reasonsCount) {
-                rss[i] = 1;
-                amount += 1;
+                rss[i] = rs[i];
             }
         }
 
-        uint256[] memory rsss = new uint256[](amount);
+        uint256[] memory rsss = new uint256[](rs.length);
         uint256 j = 0;
         for (uint256 i = 0; i < rs.length; i++) {
             if (rs[i] < reasonsCount) {
@@ -160,6 +217,8 @@ contract Balancing {
         source.insert(bytes32(contextID*10));
 
     }
+
+
 
 
 

@@ -5,50 +5,28 @@ const filepath = './data4.csv';
 
 // LogRocket.init('2dxvqu/bullshit');
 
-const printStuff = (g) => {
-  console.log('--------Graph--------');
-  for (const node of g.nodes) {
-    console.log('Node:', node.toString());
-  }
-
-  for (let i = 0; i < g.edgesSource.length; i++) {
-    console.log(
-      g.edgesSource[i].toString(),
-      ' -> ',
-      g.edgesTarget[i].toString()
-    );
-  }
-  console.log('---------------------');
-};
 
 const printReasons = (R) => {
   console.log('--------Reasons--------');
 
-  const V = ['+', '-', '0'];
+  const V = ['?', '-', '+'];
 
   for (let i = 0; i < R.justifications.length; i++) {
     if (R.polarities[i] == 0 || R.polarities[i] == 1 || R.polarities[i] == 2 ) {
+      let x = "x";
+      let y = "y";
+      let r = "r";
+      R.justifications[i] == 0 ? x += "?" : x += R.justifications[i].toString();
+      R.issues[i] == 0 ? y += "?" : y += R.issues[i].toString();
+      i == 0 ? r += "?" : r += i.toString();
+
       console.log(
-        "r" + i.toString(),
-        ' =  (',
-        R.justifications[i].toString(),
-        ', ',
-        R.issues[i].toString(),
-        ', ',
-        V[R.polarities[i]],
-        ')'
+        r,
+        ' =  (', x, ', ',  y, ', ',
+        V[R.polarities[i]], ')'
       );
     } else {
-      console.log(
-        "r" + i.toString(),
-        ' =  (',
-        R.justifications[i].toString(),
-        ', ',
-        R.issues[i].toString(),
-        ', ',
-        '?',
-        ')'
-      );
+      console.log("NaR: Not available Reason");
     }
   }
   console.log('-----------------------');
@@ -60,20 +38,19 @@ const printContexts = (C) => {
   for (let i = 0; i < C.issues.length; i++) {
     let x = '';
     if (C.reasonss[i].length > 0) {
-      x = C.reasonss[i][0].toString();
+      C.reasonss[i][0] == 0 ? x = 'r?' : x = 'r' + C.reasonss[i][0].toString();
       for (let j = 1; j < C.reasonss[i].length; j++) {
-        x = x + ', ' + C.reasonss[i][j].toString();
+        C.reasonss[i][j] == 0 ? x = x + ', r?' : x = x + ', r' + C.reasonss[i][j].toString();
       }
     } 
     else {
     }
+    let y = 'y';
+    let c = 'c';
+    C.issues[i] == 0 ? y += '?' : y += C.issues[i].toString();
+    i == 0 ? c += '?' : c += i.toString();
     console.log(
-      "c" + i.toString(),
-      ' = ( (',
-      x,             
-      '), ',
-      C.issues[i].toString(),
-      ')'
+      c, ' = ( (', x, '), ', y, ')'
     );
   } 
 
@@ -91,23 +68,23 @@ contract('Balancing 1', (accounts) => {
     // Connect with Balancing Contract
     const sc = await Balancing.deployed();
 
-    const resAlpha10 = await sc.insertReason.call(1,1,0, {
+    const resAlpha10 = await sc.insertReason.call(1,1,1, {
       from: alpha,
     });
-    const resAlpha1 = await sc.insertReason(1,1,0, {
+    const resAlpha1 = await sc.insertReason(1,1,1, {
       from: alpha,
     });
-    const resAlpha12 = await sc.insertReason.call(1,1,0, {
+    const resAlpha12 = await sc.insertReason.call(1,1,1, {
       from: alpha,
     });
 
-    const resAlpha20 = await sc.insertReason.call(2,1,0, {
+    const resAlpha20 = await sc.insertReason.call(2,1,2, {
       from: alpha,
     });
-    const resAlpha2 = await sc.insertReason(2,1,0, {
+    const resAlpha2 = await sc.insertReason(2,1,2, {
       from: alpha,
     });
-    const resAlpha22 = await sc.insertReason.call(2,1,0, {
+    const resAlpha22 = await sc.insertReason.call(2,1,2, {
       from: alpha,
     });
 
@@ -121,9 +98,9 @@ contract('Balancing 1', (accounts) => {
       from: alpha,
     });
 
-    console.log(resAlpha10.toString(), resAlpha1.toString(), resAlpha12.toString());
-    console.log(resAlpha20.toString(), resAlpha2.toString(), resAlpha22.toString());
-    console.log(resAlpha30.toString(), resAlpha3.toString(), resAlpha31.toString());
+    // console.log(resAlpha10.toString(), resAlpha1.toString(), resAlpha12.toString());
+    // console.log(resAlpha20.toString(), resAlpha2.toString(), resAlpha22.toString());
+    // console.log(resAlpha30.toString(), resAlpha3.toString(), resAlpha31.toString());
 
     const reasons = await sc.getReasons();
 
@@ -145,6 +122,15 @@ contract('Balancing 1', (accounts) => {
     const contexts = await sc.getContexts();
 
     printContexts(contexts);
+
+    const weights = await sc.getWeights.call(0);
+
+    console.log(weights.toString());
+    
+
+    // sc.Bla().watch({}, '', function(error, result)) {
+    //   console.log(result);
+    // }
 
     // console.log(Array.isArray(contexts.issues));
 
