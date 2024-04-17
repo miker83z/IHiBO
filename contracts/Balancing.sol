@@ -18,6 +18,7 @@ contract Balancing {
     }
 
     struct Context {
+        uint256 rcount;
         uint256[] reasons;
         uint256 issue;
     }
@@ -38,8 +39,13 @@ contract Balancing {
 
 
     constructor() public {
-        weightSystemIds.insert(bytes32(uint256(1)));
+        uint256 wsID = weightSystemIds.count() + 1;
+        weightSystemIds.insert(bytes32(wsID));
+        WeightSystem storage weightSystem = weightSystems[wsID];
+        // weightSystem.weights[1][1] = 2;
+
         // initReasons();
+        // changeWeight(0,0,0,1);
 
         uint256 reasonID = reasonsIds.count() + 1;
         reasonsIds.insert(bytes32(reasonID));
@@ -52,14 +58,26 @@ contract Balancing {
         contextsIds.insert(bytes32(contextID));
         Context storage context = contexts[contextID];
         context.reasons = [0];
+        context.rcount = 1;
         context.issue = 0;
+
+    }
+
+    function returnWeight(uint256 r, uint256 c) 
+        public
+        view
+        returns (uint256 weight) 
+    {
+        WeightSystem storage weightSystem = weightSystems[1];
+        weight = weightSystem.weights[r][c];
     }
 
     function changeWeight(uint256 weightSystemId, uint256 reason, uint256 context, uint256 newWeight) 
         public
     {
         assert(reason != 0);
-        WeightSystem storage weightSystem = weightSystems[weightSystemId];
+        uint256 key = uint256(weightSystemIds.keyAtIndex(weightSystemId));
+        WeightSystem storage weightSystem = weightSystems[key];
         weightSystem.weights[reason][context] = newWeight;
     }
 
@@ -87,15 +105,28 @@ contract Balancing {
         public
         view
         returns (
-            uint256[] memory weights
+            uint256[5][3] memory weights
         )
     {
         // TODO not finished yet this is only considering context 0.
-        WeightSystem storage weightSystem = weightSystems[wsId];
-        weights = new uint256[](reasonsIds.count());
-        for (uint256 i = 0; i < 1; i++) {
-            weights[i] = weightSystem.weights[0][i];
+        uint256 key = uint256(weightSystemIds.keyAtIndex(wsId));
+        WeightSystem storage weightSystem = weightSystems[key];
+
+        // uint256 rs = reasonsIds.count();
+        // uint256 cs = contextsIds.count();
+        // uint256[5][3] memory weights;
+
+        // uint256[] memory _weights = new uint256[](reasonsIds.count());
+        // weights = new uint256[][](contextsIds.count());
+
+        for (uint256 j = 0; j < contextsIds.count(); j++) {
+            for (uint256 i = 0; i < reasonsIds.count(); i++) {
+                // _weights[i] = weightSystem.weights[i][j];
+                weights[j][i] = weightSystem.weights[i][j];
+            }
+            // weights[j] = _weights;
         }
+        return weights;
     }
 
     function getReasons()
@@ -171,7 +202,7 @@ contract Balancing {
         issues = new uint256[](contextsCount);
 
         for (uint256 i = 0; i < contextsCount; i++) {
-            reasonss[i] = new uint256[](10);
+            reasonss[i] = new uint256[](10); // 10 was a temporary solution
             uint256 contextId = uint256(contextsIds.keyAtIndex(i));
             Context storage context = contexts[contextId];
             reasonss[i] = context.reasons;
@@ -186,6 +217,7 @@ contract Balancing {
     {
         // possible TODO: instead of removing unknown reasons add them to known reasons
         // but with ?'s as x, y and v.
+        // part of this function is redone to put ?'s but this makes part of the function redundant
 
         uint256 reasonsCount = reasonsIds.count();
         uint256[] memory rss = new uint256[](reasonsCount);
@@ -204,17 +236,19 @@ contract Balancing {
                 j += 1;
             }
         }
-
+// does not really do what it should
         contextID = contextsIds.count() + 1;
         contextsIds.insert(bytes32(contextID));
         Context storage context = contexts[contextID];
+        context.rcount = rs.length;
         context.reasons = rsss;
-        context.issue = issue; // does not really do what it should
+        context.issue = issue; 
 
         HitchensUnorderedKeySetLib.Set storage source = sources[
             msg.sender
         ];
-        // *10 short term solution writing from insert reason and insert context
+
+        // TODO *10 short term solution writing from insert reason and insert context
         source.insert(bytes32(contextID*10));
 
     }
@@ -224,29 +258,51 @@ contract Balancing {
 
 
 
+    function procedureAdditive(uint256 wsID, uint256[] memory con)
+        public 
+        returns (int256[] memory sum)
+    {
+        // int256[] memory sum;
+        sum = new int256[](con.length);
 
-    // function procedureAdditive(Context c, uint256[] weightsc)
-    //     public 
-    //     view
-    //     returns (uint256 value)
-    // {
-    //     for (i = 0; i < c.reasons.count(); i++){
-    //         sum = 0;
-    //         r = c.reasons[i];
-    //         if (r[2] = c.issue) {
-    //             sum += r[3]*weightsc[i];
-    //         }
-    //     }
-    //     if (sum > 0) {
-    //         value = 1;
-    //     }
-    //     else if (sum < 0) {
-    //         value = -1;
-    //     }
-    //     else {
-    //         value = 0;
-    //     }
-    // }
+        uint256 wkey = uint256(weightSystemIds.keyAtIndex(wsID));
+        WeightSystem storage weightSystem = weightSystems[wkey];
+
+        for (uint256 j = 0; j < con.length; j++) {
+            uint256 ckey = uint256(contextsIds.keyAtIndex(con[j]));
+            Context storage context = contexts[ckey];
+
+            sum[j] = 0;
+            
+            for (uint256 i = 0; i < context.rcount; i++){
+                
+                uint256 r = context.reasons[i];
+                uint256 reasonId = uint256(reasonsIds.keyAtIndex(r));
+                Reason storage reason = reasons[reasonId];
+
+                if (reason.issue == context.issue) {
+                    if (reason.polarity == 0) { // condition polarity is ?
+                        continue;
+                    }
+                    else if (reason.polarity == 1) { // condition polarity -
+                        sum[j] -= int256(weightSystem.weights[r][con[j]]);
+                    }
+                    else if (reason.polarity == 2) { // condition polarity +
+                        sum[j] += int256(weightSystem.weights[r][con[j]]);
+                    }
+                }
+            }   
+             if (sum[j] > 0) {
+                sum[j] = 2;
+            }
+            else if (sum[j] < 0) {
+                sum[j] = 1;
+            }
+            else {
+                sum[j] = 0;
+            }
+        }
+    }
 
     // function getGraph(uint256 graphId)
     //     public

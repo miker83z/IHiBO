@@ -60,14 +60,29 @@ const printContexts = (C) => {
 const printWeights = (W) => {
   console.log('--------Weights--------');
   // TODO after getWeights is finished
-  for (let i = 0; i < W[0].length; i++) {
-    for (let j = 0; j < W[][0].length; j++) {
-      let input = '(r' + i.toString() + ', c' + j.toString() + ')';
-      console.log('f_w(' + input + ') = ' + W[j][i]);
+  for (let i = 0; i < W.length; i++) {
+    for (let j = 0; j < W[i].length; j++) {
+      let input = '(r' + j.toString() + ', c' + i.toString() + ')';
+      console.log('f_{w?}(' + input + ') = ' + W[i][j]);
     }
   }
 
   console.log('------------------------');
+};
+
+const printValuation = (cases, p) => {
+  console.log('--------valuations--------');
+
+  const V = ['?', '-', '+'];
+
+  assert(cases.length == p.length);
+  for (let i = 0; i < p.length; i++) {
+    assert(p[i]<3);
+    const valuation = V[p[i]];
+    console.log('c'+cases[i].toString(), ': ', valuation);    
+  }
+  
+  console.log('-----------------------');
 };
 
 // /*
@@ -111,6 +126,10 @@ contract('Balancing 1', (accounts) => {
       from: alpha,
     });
 
+    const resAlpha4 = await sc.insertReason(4,1,0, {
+      from: alpha,
+    });
+
     // console.log(resAlpha10.toString(), resAlpha1.toString(), resAlpha12.toString());
     // console.log(resAlpha20.toString(), resAlpha2.toString(), resAlpha22.toString());
     // console.log(resAlpha30.toString(), resAlpha3.toString(), resAlpha31.toString());
@@ -119,8 +138,7 @@ contract('Balancing 1', (accounts) => {
 
     printReasons(reasons);
 
-    
-    const conAlpha1 = await sc.insertContext([0,1],3, {
+    const conAlpha1 = await sc.insertContext([1,2],1, {
       from: alpha,
     });
 
@@ -136,11 +154,42 @@ contract('Balancing 1', (accounts) => {
 
     printContexts(contexts);
 
+    // sc.changeWeight(0,0,1,1);
+    // const weight = await sc.returnWeight.call(0,0);
+    // console.log(weight.toString());
+
+    // const w20 = await sc.returnWeight.call(3,0);
+    // console.log(w20.toString());
+
+    await sc.changeWeight(0,1,1,3);
+    // await sc.changeWeight(0,2,1,3);
+
+    // const w21 = await sc.returnWeight.call(3,0);
+    // console.log(w21.toString());
+
     const weights = await sc.getWeights.call(0);
 
-    console.log(weights.toString());
+    // console.log(weights.toString());
 
-    printWeights(weights)
+    printWeights(weights);
+
+
+    const pa1 = await sc.procedureAdditive.call(0,[1,2]);
+
+    console.log(pa1.toString());
+
+    printValuation([1,2], pa1);
+
+    
+  
+
+    // const pa1 = await sc.bla.call(0,1);
+
+    // console.log(pa1.toString());
+
+    // const pa1 = await sc.alb.call(0);
+
+    // console.log(pa1.toString());
     
 
     // sc.Bla().watch({}, '', function(error, result)) {
