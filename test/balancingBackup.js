@@ -69,36 +69,20 @@ const printWeights = (W) => {
   console.log('------------------------');
 };
 
-// const printValuation = (cases, p) => {
-//   console.log('-------Valuations-------');
-
-//   const V = ['?', '-', '+'];
-
-//   assert(cases.length == p.length);
-//   for (let i = 0; i < p.length; i++) {
-//     assert(p[i]<3);
-//     const valuation = V[p[i]];
-//     console.log('c'+cases[i].toString(), ': ', valuation);    
-//   }
-  
-//   console.log('------------------------');
-// };
-
-
-const printValuation = (p) => {
+const printValuation = (cases, p) => {
   console.log('-------Valuations-------');
 
   const V = ['?', '-', '+'];
 
-
-  assert(p<3);
-  const valuation = V[p];
-  console.log('case: ' + valuation);    
-
+  assert(cases.length == p.length);
+  for (let i = 0; i < p.length; i++) {
+    assert(p[i]<3);
+    const valuation = V[p[i]];
+    console.log('c'+cases[i].toString(), ': ', valuation);    
+  }
   
   console.log('------------------------');
 };
-
 
 // /*
 contract('Balancing 1', (accounts) => {
@@ -153,21 +137,21 @@ contract('Balancing 1', (accounts) => {
 
     printReasons(reasons);
 
-    // const conAlpha1 = await sc.insertContext([1,2],1, {
+    const conAlpha1 = await sc.insertContext([1,2],1, {
+      from: alpha,
+    });
+
+    // const conAlpha12 = await sc.insertContext.call([0,1],3, {
     //   from: alpha,
     // });
 
-    // // const conAlpha12 = await sc.insertContext.call([0,1],3, {
-    // //   from: alpha,
-    // // });
-
-    // const conAlpha2 = await sc.insertContext([35,36],42, {
-    //   from: alpha,
-    // });
+    const conAlpha2 = await sc.insertContext([35,36],42, {
+      from: alpha,
+    });
     
-    // const contexts = await sc.getContexts();
+    const contexts = await sc.getContexts();
 
-    // printContexts(contexts);
+    printContexts(contexts);
 
     // sc.changeWeight(0,0,1,1);
     // const weight = await sc.returnWeight.call(0,0);
@@ -176,27 +160,24 @@ contract('Balancing 1', (accounts) => {
     // const w20 = await sc.returnWeight.call(3,0);
     // console.log(w20.toString());
 
-    // await sc.changeWeight(0,1,1,3);
+    await sc.changeWeight(0,1,1,3);
     // await sc.changeWeight(0,2,1,3);
 
     // const w21 = await sc.returnWeight.call(3,0);
     // console.log(w21.toString());
 
-    const issue = await sc.getIssue();
-    console.log('issue: ' + issue.toString());
+    const weights = await sc.getWeights.call(0);
 
-    const weights = await sc.getWeights.call(); //*
+    // console.log(weights.toString());
 
-    console.log(weights.toString());
-
-    // printWeights(weights); //*
+    printWeights(weights);
 
 
-    const pa1 = await sc.procedureAdditive.call(); // *
+    const pa1 = await sc.procedureAdditive.call(0,[1,2]);
 
-    console.log(pa1.toString());
+    // console.log(pa1.toString());
 
-    printValuation(pa1); // *
+    printValuation([1,2], pa1);
 
     
   

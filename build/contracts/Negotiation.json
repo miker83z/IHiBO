@@ -1,0 +1,4345 @@
+{
+  "contractName": "Negotiation",
+  "abi": [
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "b",
+          "type": "address"
+        }
+      ],
+      "name": "newNegotiation",
+      "outputs": [
+        {
+          "name": "negotiationId",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "negId",
+          "type": "uint256"
+        },
+        {
+          "name": "offer",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "newOffer",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "negId",
+          "type": "uint256"
+        }
+      ],
+      "name": "accept",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.1+commit.c8a2cb62\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[{\"name\":\"negId\",\"type\":\"uint256\"}],\"name\":\"accept\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"negId\",\"type\":\"uint256\"},{\"name\":\"offer\",\"type\":\"uint256[]\"}],\"name\":\"newOffer\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"b\",\"type\":\"address\"}],\"name\":\"newNegotiation\",\"outputs\":[{\"name\":\"negotiationId\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Negotiation.sol\":\"Negotiation\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Negotiation.sol\":{\"keccak256\":\"0x4aafb52c0d5969ed4638de5dfb99c5afc5b3507f3051527ce9615faa76993fcb\",\"urls\":[\"bzzr://f5dd66c27baf8342c1aed08bef0a9e638e94946bb9d38de79abc07ad796d311b\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506104bc806100206000396000f3fe608060405260043610610050577c0100000000000000000000000000000000000000000000000000000000600035046319b05f4981146100555780635b1cfcaf14610081578063ddf3486f14610138575b600080fd5b34801561006157600080fd5b5061007f6004803603602081101561007857600080fd5b503561017d565b005b34801561008d57600080fd5b5061007f600480360360408110156100a457600080fd5b813591908101906040810160208201356401000000008111156100c657600080fd5b8201836020820111156100d857600080fd5b803590602001918460208302840111640100000000831117156100fa57600080fd5b919080806020026020016040519081016040528093929190818152602001838360200280828437600092019190915250929550610273945050505050565b34801561014457600080fd5b5061016b6004803603602081101561015b57600080fd5b5035600160a060020a03166103d5565b60408051918252519081900360200190f35b60008181526001602052604090208054600160a060020a03163314806101af57506001810154600160a060020a031633145b1515610205576040805160e560020a62461bcd02815260206004820152601f60248201527f4e65676f74696174696f6e3a2053656e646572206e6f7420616c6c6f77656400604482015290519081900360640190fd5b600481015460ff1615610262576040805160e560020a62461bcd02815260206004820152601d60248201527f4e65676f74696174696f6e3a20416c7265616479206163636570746564000000604482015290519081900360640190fd5b600401805460ff1916600117905550565b60008281526001602052604090208054600160a060020a03163314806102a557506001810154600160a060020a031633145b15156102fb576040805160e560020a62461bcd02815260206004820152601f60248201527f4e65676f74696174696f6e3a2053656e646572206e6f7420616c6c6f77656400604482015290519081900360640190fd5b600481015460ff1615610358576040805160e560020a62461bcd02815260206004820152601d60248201527f4e65676f74696174696f6e3a20416c7265616479206163636570746564000000604482015290519081900360640190fd5b8054600160a060020a031633141561039f576002810180546001810180835560009283526020928390208551919361039893919091019190860190610428565b50506103d0565b600381018054600181018083556000928352602092839020855191936103cd93919091019190860190610428565b50505b505050565b60008054600180820183558183526020819052604090922080543373ffffffffffffffffffffffffffffffffffffffff1991821617825592018054909216600160a060020a039390931692909217905590565b828054828255906000526020600020908101928215610463579160200282015b82811115610463578251825591602001919060010190610448565b5061046f929150610473565b5090565b61048d91905b8082111561046f5760008155600101610479565b9056fea165627a7a72305820714f47f8eea579240490125d7b1ae9086abed65dcbd652788147f8b946ad6a970029",
+  "deployedBytecode": "0x608060405260043610610050577c0100000000000000000000000000000000000000000000000000000000600035046319b05f4981146100555780635b1cfcaf14610081578063ddf3486f14610138575b600080fd5b34801561006157600080fd5b5061007f6004803603602081101561007857600080fd5b503561017d565b005b34801561008d57600080fd5b5061007f600480360360408110156100a457600080fd5b813591908101906040810160208201356401000000008111156100c657600080fd5b8201836020820111156100d857600080fd5b803590602001918460208302840111640100000000831117156100fa57600080fd5b919080806020026020016040519081016040528093929190818152602001838360200280828437600092019190915250929550610273945050505050565b34801561014457600080fd5b5061016b6004803603602081101561015b57600080fd5b5035600160a060020a03166103d5565b60408051918252519081900360200190f35b60008181526001602052604090208054600160a060020a03163314806101af57506001810154600160a060020a031633145b1515610205576040805160e560020a62461bcd02815260206004820152601f60248201527f4e65676f74696174696f6e3a2053656e646572206e6f7420616c6c6f77656400604482015290519081900360640190fd5b600481015460ff1615610262576040805160e560020a62461bcd02815260206004820152601d60248201527f4e65676f74696174696f6e3a20416c7265616479206163636570746564000000604482015290519081900360640190fd5b600401805460ff1916600117905550565b60008281526001602052604090208054600160a060020a03163314806102a557506001810154600160a060020a031633145b15156102fb576040805160e560020a62461bcd02815260206004820152601f60248201527f4e65676f74696174696f6e3a2053656e646572206e6f7420616c6c6f77656400604482015290519081900360640190fd5b600481015460ff1615610358576040805160e560020a62461bcd02815260206004820152601d60248201527f4e65676f74696174696f6e3a20416c7265616479206163636570746564000000604482015290519081900360640190fd5b8054600160a060020a031633141561039f576002810180546001810180835560009283526020928390208551919361039893919091019190860190610428565b50506103d0565b600381018054600181018083556000928352602092839020855191936103cd93919091019190860190610428565b50505b505050565b60008054600180820183558183526020819052604090922080543373ffffffffffffffffffffffffffffffffffffffff1991821617825592018054909216600160a060020a039390931692909217905590565b828054828255906000526020600020908101928215610463579160200282015b82811115610463578251825591602001919060010190610448565b5061046f929150610473565b5090565b61048d91905b8082111561046f5760008155600101610479565b9056fea165627a7a72305820714f47f8eea579240490125d7b1ae9086abed65dcbd652788147f8b946ad6a970029",
+  "sourceMap": "62:1508:7:-;;;343:23;8:9:-1;5:2;;;30:1;27;20:12;5:2;343:23:7;62:1508;;;;;;",
+  "deployedSourceMap": "62:1508:7:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1189:378;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1189:378:7;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;1189:378:7;;:::i;:::-;;650:531;;8:9:-1;5:2;;;30:1;27;20:12;5:2;650:531:7;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;650:531:7;;;;;;;;;;;;;;21:11:-1;5:28;;2:2;;;46:1;43;36:12;2:2;650:531:7;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;650:531:7;;;;;;101:9:-1;95:2;81:12;77:21;67:8;63:36;60:51;39:11;25:12;22:29;11:108;8:2;;;132:1;129;122:12;8:2;650:531:7;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;81:16;;74:27;;;;-1:-1;650:531:7;;-1:-1:-1;650:531:7;;-1:-1:-1;;;;;650:531:7:i;374:268::-;;8:9:-1;5:2;;;30:1;27;20:12;5:2;374:268:7;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;374:268:7;-1:-1:-1;;;;;374:268:7;;:::i;:::-;;;;;;;;;;;;;;;;1189:378;1238:37;1278:19;;;:12;:19;;;;;1344:13;;-1:-1:-1;;;;;1344:13:7;1330:10;:27;;:58;;-1:-1:-1;1375:13:7;;;;-1:-1:-1;;;;;1375:13:7;1361:10;:27;1330:58;1308:139;;;;;;;-1:-1:-1;;;;;1308:139:7;;;;;;;;;;;;;;;;;;;;;;;;;;;;1467:20;;;;;;1466:21;1458:63;;;;;-1:-1:-1;;;;;1458:63:7;;;;;;;;;;;;;;;;;;;;;;;;;;;;1532:20;;:27;;-1:-1:-1;;1532:27:7;1555:4;1532:27;;;-1:-1:-1;1189:378:7:o;650:531::-;725:37;765:19;;;:12;:19;;;;;831:13;;-1:-1:-1;;;;;831:13:7;817:10;:27;;:58;;-1:-1:-1;862:13:7;;;;-1:-1:-1;;;;;862:13:7;848:10;:27;817:58;795:139;;;;;;;-1:-1:-1;;;;;795:139:7;;;;;;;;;;;;;;;;;;;;;;;;;;;;954:20;;;;;;953:21;945:63;;;;;-1:-1:-1;;;;;945:63:7;;;;;;;;;;;;;;;;;;;;;;;;;;;;1037:13;;-1:-1:-1;;;;;1037:13:7;1023:10;:27;1019:155;;;1067:19;;;27:10:-1;;39:1;23:18;;45:23;;;-1:-1;1067:31:7;;;;;;;;;;23:18:-1;;1067:31:7;;;;;;;;;;;;:::i;:::-;;;1019:155;;;1131:19;;;27:10:-1;;39:1;23:18;;45:23;;;-1:-1;1131:31:7;;;;;;;;;;23:18:-1;;1131:31:7;;;;;;;;;;;;:::i;:::-;;;1019:155;650:531;;;:::o;374:268::-;425:21;475:16;;;;;;;;542:27;;;;;;;;;;;580:26;;596:10;-1:-1:-1;;580:26:7;;;;;;617:13;;:17;;;;;-1:-1:-1;;;;;617:17:7;;;;;;;;;;475:16;374:268::o;62:1508::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;62:1508:7;;;-1:-1:-1;62:1508:7;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;:::o",
+  "source": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity ^0.5.1;\r\n\r\ncontract Negotiation {\r\n    uint256 negotiationNum;\r\n    mapping(uint256 => NegotiationStruct) negotiations;\r\n\r\n    struct NegotiationStruct {\r\n        address a;\r\n        address b;\r\n        uint256[][] aOffers;\r\n        uint256[][] bOffers;\r\n        bool accepted;\r\n    }\r\n\r\n    constructor() public {}\r\n\r\n    function newNegotiation(address b) public returns (uint256 negotiationId) {\r\n        negotiationId = negotiationNum++;\r\n        NegotiationStruct storage negotiation = negotiations[negotiationId];\r\n        negotiation.a = msg.sender;\r\n        negotiation.b = b;\r\n    }\r\n\r\n    function newOffer(uint256 negId, uint256[] memory offer) public {\r\n        NegotiationStruct storage negotiation = negotiations[negId];\r\n        require(\r\n            msg.sender == negotiation.a || msg.sender == negotiation.b,\r\n            \"Negotiation: Sender not allowed\"\r\n        );\r\n        require(!negotiation.accepted, \"Negotiation: Already accepted\");\r\n        if (msg.sender == negotiation.a) {\r\n            negotiation.aOffers.push(offer);\r\n        } else {\r\n            negotiation.bOffers.push(offer);\r\n        }\r\n    }\r\n\r\n    function accept(uint256 negId) public {\r\n        NegotiationStruct storage negotiation = negotiations[negId];\r\n        require(\r\n            msg.sender == negotiation.a || msg.sender == negotiation.b,\r\n            \"Negotiation: Sender not allowed\"\r\n        );\r\n        require(!negotiation.accepted, \"Negotiation: Already accepted\");\r\n        negotiation.accepted = true;\r\n    }\r\n}\r\n",
+  "sourcePath": "C:\\Users\\vincent.dewit\\Documents\\Code\\IHiBO_2.0\\contracts\\Negotiation.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/Negotiation.sol",
+    "exportedSymbols": {
+      "Negotiation": [
+        4372
+      ]
+    },
+    "id": 4373,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 4213,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".1"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "35:23:7"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 4372,
+        "linearizedBaseContracts": [
+          4372
+        ],
+        "name": "Negotiation",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 4215,
+            "name": "negotiationNum",
+            "nodeType": "VariableDeclaration",
+            "scope": 4372,
+            "src": "90:22:7",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 4214,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "90:7:7",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 4219,
+            "name": "negotiations",
+            "nodeType": "VariableDeclaration",
+            "scope": 4372,
+            "src": "119:50:7",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_NegotiationStruct_$4234_storage_$",
+              "typeString": "mapping(uint256 => struct Negotiation.NegotiationStruct)"
+            },
+            "typeName": {
+              "id": 4218,
+              "keyType": {
+                "id": 4216,
+                "name": "uint256",
+                "nodeType": "ElementaryTypeName",
+                "src": "127:7:7",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "119:37:7",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_NegotiationStruct_$4234_storage_$",
+                "typeString": "mapping(uint256 => struct Negotiation.NegotiationStruct)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 4217,
+                "name": "NegotiationStruct",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 4234,
+                "src": "138:17:7",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage_ptr",
+                  "typeString": "struct Negotiation.NegotiationStruct"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "canonicalName": "Negotiation.NegotiationStruct",
+            "id": 4234,
+            "members": [
+              {
+                "constant": false,
+                "id": 4221,
+                "name": "a",
+                "nodeType": "VariableDeclaration",
+                "scope": 4234,
+                "src": "214:9:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 4220,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "214:7:7",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 4223,
+                "name": "b",
+                "nodeType": "VariableDeclaration",
+                "scope": 4234,
+                "src": "234:9:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 4222,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "234:7:7",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 4227,
+                "name": "aOffers",
+                "nodeType": "VariableDeclaration",
+                "scope": 4234,
+                "src": "254:19:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_array$_t_uint256_$dyn_storage_$dyn_storage_ptr",
+                  "typeString": "uint256[][]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "baseType": {
+                      "id": 4224,
+                      "name": "uint256",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "254:7:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 4225,
+                    "length": null,
+                    "nodeType": "ArrayTypeName",
+                    "src": "254:9:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                      "typeString": "uint256[]"
+                    }
+                  },
+                  "id": 4226,
+                  "length": null,
+                  "nodeType": "ArrayTypeName",
+                  "src": "254:11:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_array$_t_uint256_$dyn_storage_$dyn_storage_ptr",
+                    "typeString": "uint256[][]"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 4231,
+                "name": "bOffers",
+                "nodeType": "VariableDeclaration",
+                "scope": 4234,
+                "src": "284:19:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_array$_t_uint256_$dyn_storage_$dyn_storage_ptr",
+                  "typeString": "uint256[][]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "baseType": {
+                      "id": 4228,
+                      "name": "uint256",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "284:7:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 4229,
+                    "length": null,
+                    "nodeType": "ArrayTypeName",
+                    "src": "284:9:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                      "typeString": "uint256[]"
+                    }
+                  },
+                  "id": 4230,
+                  "length": null,
+                  "nodeType": "ArrayTypeName",
+                  "src": "284:11:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_array$_t_uint256_$dyn_storage_$dyn_storage_ptr",
+                    "typeString": "uint256[][]"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 4233,
+                "name": "accepted",
+                "nodeType": "VariableDeclaration",
+                "scope": 4234,
+                "src": "314:13:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 4232,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "314:4:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "NegotiationStruct",
+            "nodeType": "StructDefinition",
+            "scope": 4372,
+            "src": "178:157:7",
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 4237,
+              "nodeType": "Block",
+              "src": "364:2:7",
+              "statements": []
+            },
+            "documentation": null,
+            "id": 4238,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4235,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "354:2:7"
+            },
+            "returnParameters": {
+              "id": 4236,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "364:0:7"
+            },
+            "scope": 4372,
+            "src": "343:23:7",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 4269,
+              "nodeType": "Block",
+              "src": "448:194:7",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 4248,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 4245,
+                      "name": "negotiationId",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4243,
+                      "src": "459:13:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 4247,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "UnaryOperation",
+                      "operator": "++",
+                      "prefix": false,
+                      "src": "475:16:7",
+                      "subExpression": {
+                        "argumentTypes": null,
+                        "id": 4246,
+                        "name": "negotiationNum",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4215,
+                        "src": "475:14:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "459:32:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 4249,
+                  "nodeType": "ExpressionStatement",
+                  "src": "459:32:7"
+                },
+                {
+                  "assignments": [
+                    4251
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 4251,
+                      "name": "negotiation",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 4269,
+                      "src": "502:37:7",
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage_ptr",
+                        "typeString": "struct Negotiation.NegotiationStruct"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 4250,
+                        "name": "NegotiationStruct",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 4234,
+                        "src": "502:17:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage_ptr",
+                          "typeString": "struct Negotiation.NegotiationStruct"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 4255,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "baseExpression": {
+                      "argumentTypes": null,
+                      "id": 4252,
+                      "name": "negotiations",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4219,
+                      "src": "542:12:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_NegotiationStruct_$4234_storage_$",
+                        "typeString": "mapping(uint256 => struct Negotiation.NegotiationStruct storage ref)"
+                      }
+                    },
+                    "id": 4254,
+                    "indexExpression": {
+                      "argumentTypes": null,
+                      "id": 4253,
+                      "name": "negotiationId",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4243,
+                      "src": "555:13:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "542:27:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage",
+                      "typeString": "struct Negotiation.NegotiationStruct storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "502:67:7"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 4261,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 4256,
+                        "name": "negotiation",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4251,
+                        "src": "580:11:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage_ptr",
+                          "typeString": "struct Negotiation.NegotiationStruct storage pointer"
+                        }
+                      },
+                      "id": 4258,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "a",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 4221,
+                      "src": "580:13:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 4259,
+                        "name": "msg",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6542,
+                        "src": "596:3:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_magic_message",
+                          "typeString": "msg"
+                        }
+                      },
+                      "id": 4260,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "sender",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "596:10:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address_payable",
+                        "typeString": "address payable"
+                      }
+                    },
+                    "src": "580:26:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 4262,
+                  "nodeType": "ExpressionStatement",
+                  "src": "580:26:7"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 4267,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 4263,
+                        "name": "negotiation",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4251,
+                        "src": "617:11:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage_ptr",
+                          "typeString": "struct Negotiation.NegotiationStruct storage pointer"
+                        }
+                      },
+                      "id": 4265,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "b",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 4223,
+                      "src": "617:13:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 4266,
+                      "name": "b",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4240,
+                      "src": "633:1:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "617:17:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 4268,
+                  "nodeType": "ExpressionStatement",
+                  "src": "617:17:7"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 4270,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "newNegotiation",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4241,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4240,
+                  "name": "b",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4270,
+                  "src": "398:9:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 4239,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "398:7:7",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "397:11:7"
+            },
+            "returnParameters": {
+              "id": 4244,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4243,
+                  "name": "negotiationId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4270,
+                  "src": "425:21:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 4242,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "425:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "424:23:7"
+            },
+            "scope": 4372,
+            "src": "374:268:7",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 4330,
+              "nodeType": "Block",
+              "src": "714:467:7",
+              "statements": [
+                {
+                  "assignments": [
+                    4279
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 4279,
+                      "name": "negotiation",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 4330,
+                      "src": "725:37:7",
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage_ptr",
+                        "typeString": "struct Negotiation.NegotiationStruct"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 4278,
+                        "name": "NegotiationStruct",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 4234,
+                        "src": "725:17:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage_ptr",
+                          "typeString": "struct Negotiation.NegotiationStruct"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 4283,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "baseExpression": {
+                      "argumentTypes": null,
+                      "id": 4280,
+                      "name": "negotiations",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4219,
+                      "src": "765:12:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_NegotiationStruct_$4234_storage_$",
+                        "typeString": "mapping(uint256 => struct Negotiation.NegotiationStruct storage ref)"
+                      }
+                    },
+                    "id": 4282,
+                    "indexExpression": {
+                      "argumentTypes": null,
+                      "id": 4281,
+                      "name": "negId",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4272,
+                      "src": "778:5:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "765:19:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage",
+                      "typeString": "struct Negotiation.NegotiationStruct storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "725:59:7"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "commonType": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        "id": 4295,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "argumentTypes": null,
+                          "commonType": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          },
+                          "id": 4289,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftExpression": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 4285,
+                              "name": "msg",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 6542,
+                              "src": "817:3:7",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_magic_message",
+                                "typeString": "msg"
+                              }
+                            },
+                            "id": 4286,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "sender",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": null,
+                            "src": "817:10:7",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address_payable",
+                              "typeString": "address payable"
+                            }
+                          },
+                          "nodeType": "BinaryOperation",
+                          "operator": "==",
+                          "rightExpression": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 4287,
+                              "name": "negotiation",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 4279,
+                              "src": "831:11:7",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage_ptr",
+                                "typeString": "struct Negotiation.NegotiationStruct storage pointer"
+                              }
+                            },
+                            "id": 4288,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "a",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 4221,
+                            "src": "831:13:7",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          },
+                          "src": "817:27:7",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "||",
+                        "rightExpression": {
+                          "argumentTypes": null,
+                          "commonType": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          },
+                          "id": 4294,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftExpression": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 4290,
+                              "name": "msg",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 6542,
+                              "src": "848:3:7",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_magic_message",
+                                "typeString": "msg"
+                              }
+                            },
+                            "id": 4291,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "sender",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": null,
+                            "src": "848:10:7",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address_payable",
+                              "typeString": "address payable"
+                            }
+                          },
+                          "nodeType": "BinaryOperation",
+                          "operator": "==",
+                          "rightExpression": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 4292,
+                              "name": "negotiation",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 4279,
+                              "src": "862:11:7",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage_ptr",
+                                "typeString": "struct Negotiation.NegotiationStruct storage pointer"
+                              }
+                            },
+                            "id": 4293,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "b",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 4223,
+                            "src": "862:13:7",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          },
+                          "src": "848:27:7",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "src": "817:58:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "4e65676f74696174696f6e3a2053656e646572206e6f7420616c6c6f776564",
+                        "id": 4296,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "890:33:7",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_7590963bc1d76a7acf341aa610889695a8ed4391b2416bb7c2733ff4ce17d65d",
+                          "typeString": "literal_string \"Negotiation: Sender not allowed\""
+                        },
+                        "value": "Negotiation: Sender not allowed"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_7590963bc1d76a7acf341aa610889695a8ed4391b2416bb7c2733ff4ce17d65d",
+                          "typeString": "literal_string \"Negotiation: Sender not allowed\""
+                        }
+                      ],
+                      "id": 4284,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        6545,
+                        6546
+                      ],
+                      "referencedDeclaration": 6546,
+                      "src": "795:7:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 4297,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "795:139:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 4298,
+                  "nodeType": "ExpressionStatement",
+                  "src": "795:139:7"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 4302,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "UnaryOperation",
+                        "operator": "!",
+                        "prefix": true,
+                        "src": "953:21:7",
+                        "subExpression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 4300,
+                            "name": "negotiation",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4279,
+                            "src": "954:11:7",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage_ptr",
+                              "typeString": "struct Negotiation.NegotiationStruct storage pointer"
+                            }
+                          },
+                          "id": 4301,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "accepted",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 4233,
+                          "src": "954:20:7",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "4e65676f74696174696f6e3a20416c7265616479206163636570746564",
+                        "id": 4303,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "976:31:7",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_4d97563b5913328328197e1cf8828aad1a703721801a9e2e6aedcc13ba13db38",
+                          "typeString": "literal_string \"Negotiation: Already accepted\""
+                        },
+                        "value": "Negotiation: Already accepted"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_4d97563b5913328328197e1cf8828aad1a703721801a9e2e6aedcc13ba13db38",
+                          "typeString": "literal_string \"Negotiation: Already accepted\""
+                        }
+                      ],
+                      "id": 4299,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        6545,
+                        6546
+                      ],
+                      "referencedDeclaration": 6546,
+                      "src": "945:7:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 4304,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "945:63:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 4305,
+                  "nodeType": "ExpressionStatement",
+                  "src": "945:63:7"
+                },
+                {
+                  "condition": {
+                    "argumentTypes": null,
+                    "commonType": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    },
+                    "id": 4310,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 4306,
+                        "name": "msg",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6542,
+                        "src": "1023:3:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_magic_message",
+                          "typeString": "msg"
+                        }
+                      },
+                      "id": 4307,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "sender",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "1023:10:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address_payable",
+                        "typeString": "address payable"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "==",
+                    "rightExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 4308,
+                        "name": "negotiation",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4279,
+                        "src": "1037:11:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage_ptr",
+                          "typeString": "struct Negotiation.NegotiationStruct storage pointer"
+                        }
+                      },
+                      "id": 4309,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "a",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 4221,
+                      "src": "1037:13:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "1023:27:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "falseBody": {
+                    "id": 4328,
+                    "nodeType": "Block",
+                    "src": "1116:58:7",
+                    "statements": [
+                      {
+                        "expression": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            {
+                              "argumentTypes": null,
+                              "id": 4325,
+                              "name": "offer",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 4275,
+                              "src": "1156:5:7",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                                "typeString": "uint256[] memory"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                                "typeString": "uint256[] memory"
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": null,
+                              "expression": {
+                                "argumentTypes": null,
+                                "id": 4320,
+                                "name": "negotiation",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 4279,
+                                "src": "1131:11:7",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage_ptr",
+                                  "typeString": "struct Negotiation.NegotiationStruct storage pointer"
+                                }
+                              },
+                              "id": 4323,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "memberName": "bOffers",
+                              "nodeType": "MemberAccess",
+                              "referencedDeclaration": 4231,
+                              "src": "1131:19:7",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_array$_t_array$_t_uint256_$dyn_storage_$dyn_storage",
+                                "typeString": "uint256[] storage ref[] storage ref"
+                              }
+                            },
+                            "id": 4324,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "push",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": null,
+                            "src": "1131:24:7",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_arraypush_nonpayable$_t_array$_t_uint256_$dyn_storage_$returns$_t_uint256_$",
+                              "typeString": "function (uint256[] storage ref) returns (uint256)"
+                            }
+                          },
+                          "id": 4326,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "1131:31:7",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "id": 4327,
+                        "nodeType": "ExpressionStatement",
+                        "src": "1131:31:7"
+                      }
+                    ]
+                  },
+                  "id": 4329,
+                  "nodeType": "IfStatement",
+                  "src": "1019:155:7",
+                  "trueBody": {
+                    "id": 4319,
+                    "nodeType": "Block",
+                    "src": "1052:58:7",
+                    "statements": [
+                      {
+                        "expression": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            {
+                              "argumentTypes": null,
+                              "id": 4316,
+                              "name": "offer",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 4275,
+                              "src": "1092:5:7",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                                "typeString": "uint256[] memory"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                                "typeString": "uint256[] memory"
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": null,
+                              "expression": {
+                                "argumentTypes": null,
+                                "id": 4311,
+                                "name": "negotiation",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 4279,
+                                "src": "1067:11:7",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage_ptr",
+                                  "typeString": "struct Negotiation.NegotiationStruct storage pointer"
+                                }
+                              },
+                              "id": 4314,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "memberName": "aOffers",
+                              "nodeType": "MemberAccess",
+                              "referencedDeclaration": 4227,
+                              "src": "1067:19:7",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_array$_t_array$_t_uint256_$dyn_storage_$dyn_storage",
+                                "typeString": "uint256[] storage ref[] storage ref"
+                              }
+                            },
+                            "id": 4315,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "push",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": null,
+                            "src": "1067:24:7",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_arraypush_nonpayable$_t_array$_t_uint256_$dyn_storage_$returns$_t_uint256_$",
+                              "typeString": "function (uint256[] storage ref) returns (uint256)"
+                            }
+                          },
+                          "id": 4317,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "1067:31:7",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "id": 4318,
+                        "nodeType": "ExpressionStatement",
+                        "src": "1067:31:7"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 4331,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "newOffer",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4276,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4272,
+                  "name": "negId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4331,
+                  "src": "668:13:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 4271,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "668:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4275,
+                  "name": "offer",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4331,
+                  "src": "683:22:7",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                    "typeString": "uint256[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 4273,
+                      "name": "uint256",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "683:7:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 4274,
+                    "length": null,
+                    "nodeType": "ArrayTypeName",
+                    "src": "683:9:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                      "typeString": "uint256[]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "667:39:7"
+            },
+            "returnParameters": {
+              "id": 4277,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "714:0:7"
+            },
+            "scope": 4372,
+            "src": "650:531:7",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 4370,
+              "nodeType": "Block",
+              "src": "1227:340:7",
+              "statements": [
+                {
+                  "assignments": [
+                    4337
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 4337,
+                      "name": "negotiation",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 4370,
+                      "src": "1238:37:7",
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage_ptr",
+                        "typeString": "struct Negotiation.NegotiationStruct"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 4336,
+                        "name": "NegotiationStruct",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 4234,
+                        "src": "1238:17:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage_ptr",
+                          "typeString": "struct Negotiation.NegotiationStruct"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 4341,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "baseExpression": {
+                      "argumentTypes": null,
+                      "id": 4338,
+                      "name": "negotiations",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4219,
+                      "src": "1278:12:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_NegotiationStruct_$4234_storage_$",
+                        "typeString": "mapping(uint256 => struct Negotiation.NegotiationStruct storage ref)"
+                      }
+                    },
+                    "id": 4340,
+                    "indexExpression": {
+                      "argumentTypes": null,
+                      "id": 4339,
+                      "name": "negId",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4333,
+                      "src": "1291:5:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "1278:19:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage",
+                      "typeString": "struct Negotiation.NegotiationStruct storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1238:59:7"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "commonType": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        "id": 4353,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "argumentTypes": null,
+                          "commonType": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          },
+                          "id": 4347,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftExpression": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 4343,
+                              "name": "msg",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 6542,
+                              "src": "1330:3:7",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_magic_message",
+                                "typeString": "msg"
+                              }
+                            },
+                            "id": 4344,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "sender",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": null,
+                            "src": "1330:10:7",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address_payable",
+                              "typeString": "address payable"
+                            }
+                          },
+                          "nodeType": "BinaryOperation",
+                          "operator": "==",
+                          "rightExpression": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 4345,
+                              "name": "negotiation",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 4337,
+                              "src": "1344:11:7",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage_ptr",
+                                "typeString": "struct Negotiation.NegotiationStruct storage pointer"
+                              }
+                            },
+                            "id": 4346,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "a",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 4221,
+                            "src": "1344:13:7",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          },
+                          "src": "1330:27:7",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "||",
+                        "rightExpression": {
+                          "argumentTypes": null,
+                          "commonType": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          },
+                          "id": 4352,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftExpression": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 4348,
+                              "name": "msg",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 6542,
+                              "src": "1361:3:7",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_magic_message",
+                                "typeString": "msg"
+                              }
+                            },
+                            "id": 4349,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "sender",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": null,
+                            "src": "1361:10:7",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address_payable",
+                              "typeString": "address payable"
+                            }
+                          },
+                          "nodeType": "BinaryOperation",
+                          "operator": "==",
+                          "rightExpression": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 4350,
+                              "name": "negotiation",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 4337,
+                              "src": "1375:11:7",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage_ptr",
+                                "typeString": "struct Negotiation.NegotiationStruct storage pointer"
+                              }
+                            },
+                            "id": 4351,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "b",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 4223,
+                            "src": "1375:13:7",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          },
+                          "src": "1361:27:7",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "src": "1330:58:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "4e65676f74696174696f6e3a2053656e646572206e6f7420616c6c6f776564",
+                        "id": 4354,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "1403:33:7",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_7590963bc1d76a7acf341aa610889695a8ed4391b2416bb7c2733ff4ce17d65d",
+                          "typeString": "literal_string \"Negotiation: Sender not allowed\""
+                        },
+                        "value": "Negotiation: Sender not allowed"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_7590963bc1d76a7acf341aa610889695a8ed4391b2416bb7c2733ff4ce17d65d",
+                          "typeString": "literal_string \"Negotiation: Sender not allowed\""
+                        }
+                      ],
+                      "id": 4342,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        6545,
+                        6546
+                      ],
+                      "referencedDeclaration": 6546,
+                      "src": "1308:7:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 4355,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1308:139:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 4356,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1308:139:7"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 4360,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "UnaryOperation",
+                        "operator": "!",
+                        "prefix": true,
+                        "src": "1466:21:7",
+                        "subExpression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 4358,
+                            "name": "negotiation",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4337,
+                            "src": "1467:11:7",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage_ptr",
+                              "typeString": "struct Negotiation.NegotiationStruct storage pointer"
+                            }
+                          },
+                          "id": 4359,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "accepted",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 4233,
+                          "src": "1467:20:7",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "4e65676f74696174696f6e3a20416c7265616479206163636570746564",
+                        "id": 4361,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "1489:31:7",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_4d97563b5913328328197e1cf8828aad1a703721801a9e2e6aedcc13ba13db38",
+                          "typeString": "literal_string \"Negotiation: Already accepted\""
+                        },
+                        "value": "Negotiation: Already accepted"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_4d97563b5913328328197e1cf8828aad1a703721801a9e2e6aedcc13ba13db38",
+                          "typeString": "literal_string \"Negotiation: Already accepted\""
+                        }
+                      ],
+                      "id": 4357,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        6545,
+                        6546
+                      ],
+                      "referencedDeclaration": 6546,
+                      "src": "1458:7:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 4362,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1458:63:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 4363,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1458:63:7"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 4368,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 4364,
+                        "name": "negotiation",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4337,
+                        "src": "1532:11:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_NegotiationStruct_$4234_storage_ptr",
+                          "typeString": "struct Negotiation.NegotiationStruct storage pointer"
+                        }
+                      },
+                      "id": 4366,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "accepted",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 4233,
+                      "src": "1532:20:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "hexValue": "74727565",
+                      "id": 4367,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "bool",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "1555:4:7",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      },
+                      "value": "true"
+                    },
+                    "src": "1532:27:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 4369,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1532:27:7"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 4371,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "accept",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4334,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4333,
+                  "name": "negId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4371,
+                  "src": "1205:13:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 4332,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1205:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1204:15:7"
+            },
+            "returnParameters": {
+              "id": 4335,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1227:0:7"
+            },
+            "scope": 4372,
+            "src": "1189:378:7",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 4373,
+        "src": "62:1508:7"
+      }
+    ],
+    "src": "35:1537:7"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/Negotiation.sol",
+      "exportedSymbols": {
+        "Negotiation": [
+          4372
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".1"
+          ]
+        },
+        "id": 4213,
+        "name": "PragmaDirective",
+        "src": "35:23:7"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            4372
+          ],
+          "name": "Negotiation",
+          "scope": 4373
+        },
+        "children": [
+          {
+            "attributes": {
+              "constant": false,
+              "name": "negotiationNum",
+              "scope": 4372,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "uint256",
+              "value": null,
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "name": "uint256",
+                  "type": "uint256"
+                },
+                "id": 4214,
+                "name": "ElementaryTypeName",
+                "src": "90:7:7"
+              }
+            ],
+            "id": 4215,
+            "name": "VariableDeclaration",
+            "src": "90:22:7"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "negotiations",
+              "scope": 4372,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "mapping(uint256 => struct Negotiation.NegotiationStruct)",
+              "value": null,
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "type": "mapping(uint256 => struct Negotiation.NegotiationStruct)"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint256",
+                      "type": "uint256"
+                    },
+                    "id": 4216,
+                    "name": "ElementaryTypeName",
+                    "src": "127:7:7"
+                  },
+                  {
+                    "attributes": {
+                      "contractScope": null,
+                      "name": "NegotiationStruct",
+                      "referencedDeclaration": 4234,
+                      "type": "struct Negotiation.NegotiationStruct"
+                    },
+                    "id": 4217,
+                    "name": "UserDefinedTypeName",
+                    "src": "138:17:7"
+                  }
+                ],
+                "id": 4218,
+                "name": "Mapping",
+                "src": "119:37:7"
+              }
+            ],
+            "id": 4219,
+            "name": "VariableDeclaration",
+            "src": "119:50:7"
+          },
+          {
+            "attributes": {
+              "canonicalName": "Negotiation.NegotiationStruct",
+              "name": "NegotiationStruct",
+              "scope": 4372,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "a",
+                  "scope": 4234,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "address",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "address",
+                      "stateMutability": "nonpayable",
+                      "type": "address"
+                    },
+                    "id": 4220,
+                    "name": "ElementaryTypeName",
+                    "src": "214:7:7"
+                  }
+                ],
+                "id": 4221,
+                "name": "VariableDeclaration",
+                "src": "214:9:7"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "b",
+                  "scope": 4234,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "address",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "address",
+                      "stateMutability": "nonpayable",
+                      "type": "address"
+                    },
+                    "id": 4222,
+                    "name": "ElementaryTypeName",
+                    "src": "234:7:7"
+                  }
+                ],
+                "id": 4223,
+                "name": "VariableDeclaration",
+                "src": "234:9:7"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "aOffers",
+                  "scope": 4234,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "uint256[][]",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "length": null,
+                      "type": "uint256[][]"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "length": null,
+                          "type": "uint256[]"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "name": "uint256",
+                              "type": "uint256"
+                            },
+                            "id": 4224,
+                            "name": "ElementaryTypeName",
+                            "src": "254:7:7"
+                          }
+                        ],
+                        "id": 4225,
+                        "name": "ArrayTypeName",
+                        "src": "254:9:7"
+                      }
+                    ],
+                    "id": 4226,
+                    "name": "ArrayTypeName",
+                    "src": "254:11:7"
+                  }
+                ],
+                "id": 4227,
+                "name": "VariableDeclaration",
+                "src": "254:19:7"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "bOffers",
+                  "scope": 4234,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "uint256[][]",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "length": null,
+                      "type": "uint256[][]"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "length": null,
+                          "type": "uint256[]"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "name": "uint256",
+                              "type": "uint256"
+                            },
+                            "id": 4228,
+                            "name": "ElementaryTypeName",
+                            "src": "284:7:7"
+                          }
+                        ],
+                        "id": 4229,
+                        "name": "ArrayTypeName",
+                        "src": "284:9:7"
+                      }
+                    ],
+                    "id": 4230,
+                    "name": "ArrayTypeName",
+                    "src": "284:11:7"
+                  }
+                ],
+                "id": 4231,
+                "name": "VariableDeclaration",
+                "src": "284:19:7"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "accepted",
+                  "scope": 4234,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "bool",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "bool",
+                      "type": "bool"
+                    },
+                    "id": 4232,
+                    "name": "ElementaryTypeName",
+                    "src": "314:4:7"
+                  }
+                ],
+                "id": 4233,
+                "name": "VariableDeclaration",
+                "src": "314:13:7"
+              }
+            ],
+            "id": 4234,
+            "name": "StructDefinition",
+            "src": "178:157:7"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": true,
+              "kind": "constructor",
+              "modifiers": [
+                null
+              ],
+              "name": "",
+              "scope": 4372,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 4235,
+                "name": "ParameterList",
+                "src": "354:2:7"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 4236,
+                "name": "ParameterList",
+                "src": "364:0:7"
+              },
+              {
+                "attributes": {
+                  "statements": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 4237,
+                "name": "Block",
+                "src": "364:2:7"
+              }
+            ],
+            "id": 4238,
+            "name": "FunctionDefinition",
+            "src": "343:23:7"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "newNegotiation",
+              "scope": 4372,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "b",
+                      "scope": 4270,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 4239,
+                        "name": "ElementaryTypeName",
+                        "src": "398:7:7"
+                      }
+                    ],
+                    "id": 4240,
+                    "name": "VariableDeclaration",
+                    "src": "398:9:7"
+                  }
+                ],
+                "id": 4241,
+                "name": "ParameterList",
+                "src": "397:11:7"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "negotiationId",
+                      "scope": 4270,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 4242,
+                        "name": "ElementaryTypeName",
+                        "src": "425:7:7"
+                      }
+                    ],
+                    "id": 4243,
+                    "name": "VariableDeclaration",
+                    "src": "425:21:7"
+                  }
+                ],
+                "id": 4244,
+                "name": "ParameterList",
+                "src": "424:23:7"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "uint256"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4243,
+                              "type": "uint256",
+                              "value": "negotiationId"
+                            },
+                            "id": 4245,
+                            "name": "Identifier",
+                            "src": "459:13:7"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "operator": "++",
+                              "prefix": false,
+                              "type": "uint256"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 4215,
+                                  "type": "uint256",
+                                  "value": "negotiationNum"
+                                },
+                                "id": 4246,
+                                "name": "Identifier",
+                                "src": "475:14:7"
+                              }
+                            ],
+                            "id": 4247,
+                            "name": "UnaryOperation",
+                            "src": "475:16:7"
+                          }
+                        ],
+                        "id": 4248,
+                        "name": "Assignment",
+                        "src": "459:32:7"
+                      }
+                    ],
+                    "id": 4249,
+                    "name": "ExpressionStatement",
+                    "src": "459:32:7"
+                  },
+                  {
+                    "attributes": {
+                      "assignments": [
+                        4251
+                      ]
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "constant": false,
+                          "name": "negotiation",
+                          "scope": 4269,
+                          "stateVariable": false,
+                          "storageLocation": "storage",
+                          "type": "struct Negotiation.NegotiationStruct",
+                          "value": null,
+                          "visibility": "internal"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "contractScope": null,
+                              "name": "NegotiationStruct",
+                              "referencedDeclaration": 4234,
+                              "type": "struct Negotiation.NegotiationStruct"
+                            },
+                            "id": 4250,
+                            "name": "UserDefinedTypeName",
+                            "src": "502:17:7"
+                          }
+                        ],
+                        "id": 4251,
+                        "name": "VariableDeclaration",
+                        "src": "502:37:7"
+                      },
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "type": "struct Negotiation.NegotiationStruct storage ref"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4219,
+                              "type": "mapping(uint256 => struct Negotiation.NegotiationStruct storage ref)",
+                              "value": "negotiations"
+                            },
+                            "id": 4252,
+                            "name": "Identifier",
+                            "src": "542:12:7"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4243,
+                              "type": "uint256",
+                              "value": "negotiationId"
+                            },
+                            "id": 4253,
+                            "name": "Identifier",
+                            "src": "555:13:7"
+                          }
+                        ],
+                        "id": 4254,
+                        "name": "IndexAccess",
+                        "src": "542:27:7"
+                      }
+                    ],
+                    "id": 4255,
+                    "name": "VariableDeclarationStatement",
+                    "src": "502:67:7"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "address"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": true,
+                              "member_name": "a",
+                              "referencedDeclaration": 4221,
+                              "type": "address"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 4251,
+                                  "type": "struct Negotiation.NegotiationStruct storage pointer",
+                                  "value": "negotiation"
+                                },
+                                "id": 4256,
+                                "name": "Identifier",
+                                "src": "580:11:7"
+                              }
+                            ],
+                            "id": 4258,
+                            "name": "MemberAccess",
+                            "src": "580:13:7"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "sender",
+                              "referencedDeclaration": null,
+                              "type": "address payable"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 6542,
+                                  "type": "msg",
+                                  "value": "msg"
+                                },
+                                "id": 4259,
+                                "name": "Identifier",
+                                "src": "596:3:7"
+                              }
+                            ],
+                            "id": 4260,
+                            "name": "MemberAccess",
+                            "src": "596:10:7"
+                          }
+                        ],
+                        "id": 4261,
+                        "name": "Assignment",
+                        "src": "580:26:7"
+                      }
+                    ],
+                    "id": 4262,
+                    "name": "ExpressionStatement",
+                    "src": "580:26:7"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "address"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": true,
+                              "member_name": "b",
+                              "referencedDeclaration": 4223,
+                              "type": "address"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 4251,
+                                  "type": "struct Negotiation.NegotiationStruct storage pointer",
+                                  "value": "negotiation"
+                                },
+                                "id": 4263,
+                                "name": "Identifier",
+                                "src": "617:11:7"
+                              }
+                            ],
+                            "id": 4265,
+                            "name": "MemberAccess",
+                            "src": "617:13:7"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4240,
+                              "type": "address",
+                              "value": "b"
+                            },
+                            "id": 4266,
+                            "name": "Identifier",
+                            "src": "633:1:7"
+                          }
+                        ],
+                        "id": 4267,
+                        "name": "Assignment",
+                        "src": "617:17:7"
+                      }
+                    ],
+                    "id": 4268,
+                    "name": "ExpressionStatement",
+                    "src": "617:17:7"
+                  }
+                ],
+                "id": 4269,
+                "name": "Block",
+                "src": "448:194:7"
+              }
+            ],
+            "id": 4270,
+            "name": "FunctionDefinition",
+            "src": "374:268:7"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "newOffer",
+              "scope": 4372,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "negId",
+                      "scope": 4331,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 4271,
+                        "name": "ElementaryTypeName",
+                        "src": "668:7:7"
+                      }
+                    ],
+                    "id": 4272,
+                    "name": "VariableDeclaration",
+                    "src": "668:13:7"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "offer",
+                      "scope": 4331,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "uint256[]",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "length": null,
+                          "type": "uint256[]"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "name": "uint256",
+                              "type": "uint256"
+                            },
+                            "id": 4273,
+                            "name": "ElementaryTypeName",
+                            "src": "683:7:7"
+                          }
+                        ],
+                        "id": 4274,
+                        "name": "ArrayTypeName",
+                        "src": "683:9:7"
+                      }
+                    ],
+                    "id": 4275,
+                    "name": "VariableDeclaration",
+                    "src": "683:22:7"
+                  }
+                ],
+                "id": 4276,
+                "name": "ParameterList",
+                "src": "667:39:7"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 4277,
+                "name": "ParameterList",
+                "src": "714:0:7"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "assignments": [
+                        4279
+                      ]
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "constant": false,
+                          "name": "negotiation",
+                          "scope": 4330,
+                          "stateVariable": false,
+                          "storageLocation": "storage",
+                          "type": "struct Negotiation.NegotiationStruct",
+                          "value": null,
+                          "visibility": "internal"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "contractScope": null,
+                              "name": "NegotiationStruct",
+                              "referencedDeclaration": 4234,
+                              "type": "struct Negotiation.NegotiationStruct"
+                            },
+                            "id": 4278,
+                            "name": "UserDefinedTypeName",
+                            "src": "725:17:7"
+                          }
+                        ],
+                        "id": 4279,
+                        "name": "VariableDeclaration",
+                        "src": "725:37:7"
+                      },
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "type": "struct Negotiation.NegotiationStruct storage ref"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4219,
+                              "type": "mapping(uint256 => struct Negotiation.NegotiationStruct storage ref)",
+                              "value": "negotiations"
+                            },
+                            "id": 4280,
+                            "name": "Identifier",
+                            "src": "765:12:7"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4272,
+                              "type": "uint256",
+                              "value": "negId"
+                            },
+                            "id": 4281,
+                            "name": "Identifier",
+                            "src": "778:5:7"
+                          }
+                        ],
+                        "id": 4282,
+                        "name": "IndexAccess",
+                        "src": "765:19:7"
+                      }
+                    ],
+                    "id": 4283,
+                    "name": "VariableDeclarationStatement",
+                    "src": "725:59:7"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_bool",
+                                  "typeString": "bool"
+                                },
+                                {
+                                  "typeIdentifier": "t_stringliteral_7590963bc1d76a7acf341aa610889695a8ed4391b2416bb7c2733ff4ce17d65d",
+                                  "typeString": "literal_string \"Negotiation: Sender not allowed\""
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                6545,
+                                6546
+                              ],
+                              "referencedDeclaration": 6546,
+                              "type": "function (bool,string memory) pure",
+                              "value": "require"
+                            },
+                            "id": 4284,
+                            "name": "Identifier",
+                            "src": "795:7:7"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "commonType": {
+                                "typeIdentifier": "t_bool",
+                                "typeString": "bool"
+                              },
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "operator": "||",
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "commonType": {
+                                    "typeIdentifier": "t_address",
+                                    "typeString": "address"
+                                  },
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "operator": "==",
+                                  "type": "bool"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "sender",
+                                      "referencedDeclaration": null,
+                                      "type": "address payable"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 6542,
+                                          "type": "msg",
+                                          "value": "msg"
+                                        },
+                                        "id": 4285,
+                                        "name": "Identifier",
+                                        "src": "817:3:7"
+                                      }
+                                    ],
+                                    "id": 4286,
+                                    "name": "MemberAccess",
+                                    "src": "817:10:7"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": true,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "a",
+                                      "referencedDeclaration": 4221,
+                                      "type": "address"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 4279,
+                                          "type": "struct Negotiation.NegotiationStruct storage pointer",
+                                          "value": "negotiation"
+                                        },
+                                        "id": 4287,
+                                        "name": "Identifier",
+                                        "src": "831:11:7"
+                                      }
+                                    ],
+                                    "id": 4288,
+                                    "name": "MemberAccess",
+                                    "src": "831:13:7"
+                                  }
+                                ],
+                                "id": 4289,
+                                "name": "BinaryOperation",
+                                "src": "817:27:7"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "commonType": {
+                                    "typeIdentifier": "t_address",
+                                    "typeString": "address"
+                                  },
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "operator": "==",
+                                  "type": "bool"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "sender",
+                                      "referencedDeclaration": null,
+                                      "type": "address payable"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 6542,
+                                          "type": "msg",
+                                          "value": "msg"
+                                        },
+                                        "id": 4290,
+                                        "name": "Identifier",
+                                        "src": "848:3:7"
+                                      }
+                                    ],
+                                    "id": 4291,
+                                    "name": "MemberAccess",
+                                    "src": "848:10:7"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": true,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "b",
+                                      "referencedDeclaration": 4223,
+                                      "type": "address"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 4279,
+                                          "type": "struct Negotiation.NegotiationStruct storage pointer",
+                                          "value": "negotiation"
+                                        },
+                                        "id": 4292,
+                                        "name": "Identifier",
+                                        "src": "862:11:7"
+                                      }
+                                    ],
+                                    "id": 4293,
+                                    "name": "MemberAccess",
+                                    "src": "862:13:7"
+                                  }
+                                ],
+                                "id": 4294,
+                                "name": "BinaryOperation",
+                                "src": "848:27:7"
+                              }
+                            ],
+                            "id": 4295,
+                            "name": "BinaryOperation",
+                            "src": "817:58:7"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "4e65676f74696174696f6e3a2053656e646572206e6f7420616c6c6f776564",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "string",
+                              "type": "literal_string \"Negotiation: Sender not allowed\"",
+                              "value": "Negotiation: Sender not allowed"
+                            },
+                            "id": 4296,
+                            "name": "Literal",
+                            "src": "890:33:7"
+                          }
+                        ],
+                        "id": 4297,
+                        "name": "FunctionCall",
+                        "src": "795:139:7"
+                      }
+                    ],
+                    "id": 4298,
+                    "name": "ExpressionStatement",
+                    "src": "795:139:7"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_bool",
+                                  "typeString": "bool"
+                                },
+                                {
+                                  "typeIdentifier": "t_stringliteral_4d97563b5913328328197e1cf8828aad1a703721801a9e2e6aedcc13ba13db38",
+                                  "typeString": "literal_string \"Negotiation: Already accepted\""
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                6545,
+                                6546
+                              ],
+                              "referencedDeclaration": 6546,
+                              "type": "function (bool,string memory) pure",
+                              "value": "require"
+                            },
+                            "id": 4299,
+                            "name": "Identifier",
+                            "src": "945:7:7"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "operator": "!",
+                              "prefix": true,
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "accepted",
+                                  "referencedDeclaration": 4233,
+                                  "type": "bool"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 4279,
+                                      "type": "struct Negotiation.NegotiationStruct storage pointer",
+                                      "value": "negotiation"
+                                    },
+                                    "id": 4300,
+                                    "name": "Identifier",
+                                    "src": "954:11:7"
+                                  }
+                                ],
+                                "id": 4301,
+                                "name": "MemberAccess",
+                                "src": "954:20:7"
+                              }
+                            ],
+                            "id": 4302,
+                            "name": "UnaryOperation",
+                            "src": "953:21:7"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "4e65676f74696174696f6e3a20416c7265616479206163636570746564",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "string",
+                              "type": "literal_string \"Negotiation: Already accepted\"",
+                              "value": "Negotiation: Already accepted"
+                            },
+                            "id": 4303,
+                            "name": "Literal",
+                            "src": "976:31:7"
+                          }
+                        ],
+                        "id": 4304,
+                        "name": "FunctionCall",
+                        "src": "945:63:7"
+                      }
+                    ],
+                    "id": 4305,
+                    "name": "ExpressionStatement",
+                    "src": "945:63:7"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "commonType": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          },
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "==",
+                          "type": "bool"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "sender",
+                              "referencedDeclaration": null,
+                              "type": "address payable"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 6542,
+                                  "type": "msg",
+                                  "value": "msg"
+                                },
+                                "id": 4306,
+                                "name": "Identifier",
+                                "src": "1023:3:7"
+                              }
+                            ],
+                            "id": 4307,
+                            "name": "MemberAccess",
+                            "src": "1023:10:7"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "a",
+                              "referencedDeclaration": 4221,
+                              "type": "address"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 4279,
+                                  "type": "struct Negotiation.NegotiationStruct storage pointer",
+                                  "value": "negotiation"
+                                },
+                                "id": 4308,
+                                "name": "Identifier",
+                                "src": "1037:11:7"
+                              }
+                            ],
+                            "id": 4309,
+                            "name": "MemberAccess",
+                            "src": "1037:13:7"
+                          }
+                        ],
+                        "id": 4310,
+                        "name": "BinaryOperation",
+                        "src": "1023:27:7"
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "isStructConstructorCall": false,
+                                  "lValueRequested": false,
+                                  "names": [
+                                    null
+                                  ],
+                                  "type": "uint256",
+                                  "type_conversion": false
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": [
+                                        {
+                                          "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                                          "typeString": "uint256[] memory"
+                                        }
+                                      ],
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "push",
+                                      "referencedDeclaration": null,
+                                      "type": "function (uint256[] storage ref) returns (uint256)"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "isConstant": false,
+                                          "isLValue": true,
+                                          "isPure": false,
+                                          "lValueRequested": false,
+                                          "member_name": "aOffers",
+                                          "referencedDeclaration": 4227,
+                                          "type": "uint256[] storage ref[] storage ref"
+                                        },
+                                        "children": [
+                                          {
+                                            "attributes": {
+                                              "argumentTypes": null,
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
+                                              "referencedDeclaration": 4279,
+                                              "type": "struct Negotiation.NegotiationStruct storage pointer",
+                                              "value": "negotiation"
+                                            },
+                                            "id": 4311,
+                                            "name": "Identifier",
+                                            "src": "1067:11:7"
+                                          }
+                                        ],
+                                        "id": 4314,
+                                        "name": "MemberAccess",
+                                        "src": "1067:19:7"
+                                      }
+                                    ],
+                                    "id": 4315,
+                                    "name": "MemberAccess",
+                                    "src": "1067:24:7"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 4275,
+                                      "type": "uint256[] memory",
+                                      "value": "offer"
+                                    },
+                                    "id": 4316,
+                                    "name": "Identifier",
+                                    "src": "1092:5:7"
+                                  }
+                                ],
+                                "id": 4317,
+                                "name": "FunctionCall",
+                                "src": "1067:31:7"
+                              }
+                            ],
+                            "id": 4318,
+                            "name": "ExpressionStatement",
+                            "src": "1067:31:7"
+                          }
+                        ],
+                        "id": 4319,
+                        "name": "Block",
+                        "src": "1052:58:7"
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "isStructConstructorCall": false,
+                                  "lValueRequested": false,
+                                  "names": [
+                                    null
+                                  ],
+                                  "type": "uint256",
+                                  "type_conversion": false
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": [
+                                        {
+                                          "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                                          "typeString": "uint256[] memory"
+                                        }
+                                      ],
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "push",
+                                      "referencedDeclaration": null,
+                                      "type": "function (uint256[] storage ref) returns (uint256)"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "isConstant": false,
+                                          "isLValue": true,
+                                          "isPure": false,
+                                          "lValueRequested": false,
+                                          "member_name": "bOffers",
+                                          "referencedDeclaration": 4231,
+                                          "type": "uint256[] storage ref[] storage ref"
+                                        },
+                                        "children": [
+                                          {
+                                            "attributes": {
+                                              "argumentTypes": null,
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
+                                              "referencedDeclaration": 4279,
+                                              "type": "struct Negotiation.NegotiationStruct storage pointer",
+                                              "value": "negotiation"
+                                            },
+                                            "id": 4320,
+                                            "name": "Identifier",
+                                            "src": "1131:11:7"
+                                          }
+                                        ],
+                                        "id": 4323,
+                                        "name": "MemberAccess",
+                                        "src": "1131:19:7"
+                                      }
+                                    ],
+                                    "id": 4324,
+                                    "name": "MemberAccess",
+                                    "src": "1131:24:7"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 4275,
+                                      "type": "uint256[] memory",
+                                      "value": "offer"
+                                    },
+                                    "id": 4325,
+                                    "name": "Identifier",
+                                    "src": "1156:5:7"
+                                  }
+                                ],
+                                "id": 4326,
+                                "name": "FunctionCall",
+                                "src": "1131:31:7"
+                              }
+                            ],
+                            "id": 4327,
+                            "name": "ExpressionStatement",
+                            "src": "1131:31:7"
+                          }
+                        ],
+                        "id": 4328,
+                        "name": "Block",
+                        "src": "1116:58:7"
+                      }
+                    ],
+                    "id": 4329,
+                    "name": "IfStatement",
+                    "src": "1019:155:7"
+                  }
+                ],
+                "id": 4330,
+                "name": "Block",
+                "src": "714:467:7"
+              }
+            ],
+            "id": 4331,
+            "name": "FunctionDefinition",
+            "src": "650:531:7"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "accept",
+              "scope": 4372,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "negId",
+                      "scope": 4371,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 4332,
+                        "name": "ElementaryTypeName",
+                        "src": "1205:7:7"
+                      }
+                    ],
+                    "id": 4333,
+                    "name": "VariableDeclaration",
+                    "src": "1205:13:7"
+                  }
+                ],
+                "id": 4334,
+                "name": "ParameterList",
+                "src": "1204:15:7"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 4335,
+                "name": "ParameterList",
+                "src": "1227:0:7"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "assignments": [
+                        4337
+                      ]
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "constant": false,
+                          "name": "negotiation",
+                          "scope": 4370,
+                          "stateVariable": false,
+                          "storageLocation": "storage",
+                          "type": "struct Negotiation.NegotiationStruct",
+                          "value": null,
+                          "visibility": "internal"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "contractScope": null,
+                              "name": "NegotiationStruct",
+                              "referencedDeclaration": 4234,
+                              "type": "struct Negotiation.NegotiationStruct"
+                            },
+                            "id": 4336,
+                            "name": "UserDefinedTypeName",
+                            "src": "1238:17:7"
+                          }
+                        ],
+                        "id": 4337,
+                        "name": "VariableDeclaration",
+                        "src": "1238:37:7"
+                      },
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "type": "struct Negotiation.NegotiationStruct storage ref"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4219,
+                              "type": "mapping(uint256 => struct Negotiation.NegotiationStruct storage ref)",
+                              "value": "negotiations"
+                            },
+                            "id": 4338,
+                            "name": "Identifier",
+                            "src": "1278:12:7"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4333,
+                              "type": "uint256",
+                              "value": "negId"
+                            },
+                            "id": 4339,
+                            "name": "Identifier",
+                            "src": "1291:5:7"
+                          }
+                        ],
+                        "id": 4340,
+                        "name": "IndexAccess",
+                        "src": "1278:19:7"
+                      }
+                    ],
+                    "id": 4341,
+                    "name": "VariableDeclarationStatement",
+                    "src": "1238:59:7"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_bool",
+                                  "typeString": "bool"
+                                },
+                                {
+                                  "typeIdentifier": "t_stringliteral_7590963bc1d76a7acf341aa610889695a8ed4391b2416bb7c2733ff4ce17d65d",
+                                  "typeString": "literal_string \"Negotiation: Sender not allowed\""
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                6545,
+                                6546
+                              ],
+                              "referencedDeclaration": 6546,
+                              "type": "function (bool,string memory) pure",
+                              "value": "require"
+                            },
+                            "id": 4342,
+                            "name": "Identifier",
+                            "src": "1308:7:7"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "commonType": {
+                                "typeIdentifier": "t_bool",
+                                "typeString": "bool"
+                              },
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "operator": "||",
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "commonType": {
+                                    "typeIdentifier": "t_address",
+                                    "typeString": "address"
+                                  },
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "operator": "==",
+                                  "type": "bool"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "sender",
+                                      "referencedDeclaration": null,
+                                      "type": "address payable"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 6542,
+                                          "type": "msg",
+                                          "value": "msg"
+                                        },
+                                        "id": 4343,
+                                        "name": "Identifier",
+                                        "src": "1330:3:7"
+                                      }
+                                    ],
+                                    "id": 4344,
+                                    "name": "MemberAccess",
+                                    "src": "1330:10:7"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": true,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "a",
+                                      "referencedDeclaration": 4221,
+                                      "type": "address"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 4337,
+                                          "type": "struct Negotiation.NegotiationStruct storage pointer",
+                                          "value": "negotiation"
+                                        },
+                                        "id": 4345,
+                                        "name": "Identifier",
+                                        "src": "1344:11:7"
+                                      }
+                                    ],
+                                    "id": 4346,
+                                    "name": "MemberAccess",
+                                    "src": "1344:13:7"
+                                  }
+                                ],
+                                "id": 4347,
+                                "name": "BinaryOperation",
+                                "src": "1330:27:7"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "commonType": {
+                                    "typeIdentifier": "t_address",
+                                    "typeString": "address"
+                                  },
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "operator": "==",
+                                  "type": "bool"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "sender",
+                                      "referencedDeclaration": null,
+                                      "type": "address payable"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 6542,
+                                          "type": "msg",
+                                          "value": "msg"
+                                        },
+                                        "id": 4348,
+                                        "name": "Identifier",
+                                        "src": "1361:3:7"
+                                      }
+                                    ],
+                                    "id": 4349,
+                                    "name": "MemberAccess",
+                                    "src": "1361:10:7"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": true,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "b",
+                                      "referencedDeclaration": 4223,
+                                      "type": "address"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 4337,
+                                          "type": "struct Negotiation.NegotiationStruct storage pointer",
+                                          "value": "negotiation"
+                                        },
+                                        "id": 4350,
+                                        "name": "Identifier",
+                                        "src": "1375:11:7"
+                                      }
+                                    ],
+                                    "id": 4351,
+                                    "name": "MemberAccess",
+                                    "src": "1375:13:7"
+                                  }
+                                ],
+                                "id": 4352,
+                                "name": "BinaryOperation",
+                                "src": "1361:27:7"
+                              }
+                            ],
+                            "id": 4353,
+                            "name": "BinaryOperation",
+                            "src": "1330:58:7"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "4e65676f74696174696f6e3a2053656e646572206e6f7420616c6c6f776564",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "string",
+                              "type": "literal_string \"Negotiation: Sender not allowed\"",
+                              "value": "Negotiation: Sender not allowed"
+                            },
+                            "id": 4354,
+                            "name": "Literal",
+                            "src": "1403:33:7"
+                          }
+                        ],
+                        "id": 4355,
+                        "name": "FunctionCall",
+                        "src": "1308:139:7"
+                      }
+                    ],
+                    "id": 4356,
+                    "name": "ExpressionStatement",
+                    "src": "1308:139:7"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_bool",
+                                  "typeString": "bool"
+                                },
+                                {
+                                  "typeIdentifier": "t_stringliteral_4d97563b5913328328197e1cf8828aad1a703721801a9e2e6aedcc13ba13db38",
+                                  "typeString": "literal_string \"Negotiation: Already accepted\""
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                6545,
+                                6546
+                              ],
+                              "referencedDeclaration": 6546,
+                              "type": "function (bool,string memory) pure",
+                              "value": "require"
+                            },
+                            "id": 4357,
+                            "name": "Identifier",
+                            "src": "1458:7:7"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "operator": "!",
+                              "prefix": true,
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "accepted",
+                                  "referencedDeclaration": 4233,
+                                  "type": "bool"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 4337,
+                                      "type": "struct Negotiation.NegotiationStruct storage pointer",
+                                      "value": "negotiation"
+                                    },
+                                    "id": 4358,
+                                    "name": "Identifier",
+                                    "src": "1467:11:7"
+                                  }
+                                ],
+                                "id": 4359,
+                                "name": "MemberAccess",
+                                "src": "1467:20:7"
+                              }
+                            ],
+                            "id": 4360,
+                            "name": "UnaryOperation",
+                            "src": "1466:21:7"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "4e65676f74696174696f6e3a20416c7265616479206163636570746564",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "string",
+                              "type": "literal_string \"Negotiation: Already accepted\"",
+                              "value": "Negotiation: Already accepted"
+                            },
+                            "id": 4361,
+                            "name": "Literal",
+                            "src": "1489:31:7"
+                          }
+                        ],
+                        "id": 4362,
+                        "name": "FunctionCall",
+                        "src": "1458:63:7"
+                      }
+                    ],
+                    "id": 4363,
+                    "name": "ExpressionStatement",
+                    "src": "1458:63:7"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "bool"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": true,
+                              "member_name": "accepted",
+                              "referencedDeclaration": 4233,
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 4337,
+                                  "type": "struct Negotiation.NegotiationStruct storage pointer",
+                                  "value": "negotiation"
+                                },
+                                "id": 4364,
+                                "name": "Identifier",
+                                "src": "1532:11:7"
+                              }
+                            ],
+                            "id": 4366,
+                            "name": "MemberAccess",
+                            "src": "1532:20:7"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "74727565",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "bool",
+                              "type": "bool",
+                              "value": "true"
+                            },
+                            "id": 4367,
+                            "name": "Literal",
+                            "src": "1555:4:7"
+                          }
+                        ],
+                        "id": 4368,
+                        "name": "Assignment",
+                        "src": "1532:27:7"
+                      }
+                    ],
+                    "id": 4369,
+                    "name": "ExpressionStatement",
+                    "src": "1532:27:7"
+                  }
+                ],
+                "id": 4370,
+                "name": "Block",
+                "src": "1227:340:7"
+              }
+            ],
+            "id": 4371,
+            "name": "FunctionDefinition",
+            "src": "1189:378:7"
+          }
+        ],
+        "id": 4372,
+        "name": "ContractDefinition",
+        "src": "62:1508:7"
+      }
+    ],
+    "id": 4373,
+    "name": "SourceUnit",
+    "src": "35:1537:7"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.1+commit.c8a2cb62.Emscripten.clang"
+  },
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0x790EBAd305fB575E88c819a0Ef13973a28A30F5E",
+      "transactionHash": "0xf72e45077d5fa7a4927692137cc58985b6a247db10cd2505bdfab551e7881a1a"
+    }
+  },
+  "schemaVersion": "3.4.16",
+  "updatedAt": "2024-04-30T13:30:22.514Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
