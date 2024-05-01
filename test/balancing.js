@@ -60,10 +60,8 @@ const printWeights = (W) => {
   console.log('--------Weights--------');
   // TODO after getWeights is finished
   for (let i = 0; i < W.length; i++) {
-    for (let j = 0; j < W[i].length; j++) {
-      let input = '(r' + j.toString() + ', c' + i.toString() + ')';
-      console.log('f_{w?}(' + input + ') = ' + W[i][j]);
-    }
+      let input = '(r' + i.toString() + ')';
+      console.log('f_{w}(' + input + ') = ' + W[i]);
   }
 
   console.log('------------------------');
@@ -85,7 +83,7 @@ const printWeights = (W) => {
 // };
 
 
-const printValuation = (p) => {
+const printValuation = (p, issue = 0) => {
   console.log('-------Valuations-------');
 
   const V = ['?', '-', '+'];
@@ -93,7 +91,7 @@ const printValuation = (p) => {
 
   assert(p<3);
   const valuation = V[p];
-  console.log('case: ' + valuation);    
+  console.log('issue: ' + issue + '; valuated at: ' + valuation);    
 
   
   console.log('------------------------');
@@ -101,7 +99,7 @@ const printValuation = (p) => {
 
 
 // /*
-contract('Balancing 1', (accounts) => {
+contract('Balancing debugging', (accounts) => {
   const alpha = accounts[0];
   // const beta = accounts[1];
   // const gamma = accounts[2];
@@ -111,37 +109,39 @@ contract('Balancing 1', (accounts) => {
     // Connect with Balancing Contract
     const sc = await Balancing.deployed();
 
-    const resAlpha10 = await sc.insertReason.call(1,1,1, {
+    sc.setIssue(1);
+
+    const resAlpha10 = await sc.voteOnReason.call(1,1,1, {
       from: alpha,
     });
-    const resAlpha1 = await sc.insertReason(1,1,1, {
+    const resAlpha1 = await sc.voteOnReason(1,1,1, {
       from: alpha,
     });
-    const resAlpha12 = await sc.insertReason.call(1,1,1, {
+    const resAlpha12 = await sc.voteOnReason.call(1,1,1, {
       from: alpha,
     });
 
-    const resAlpha20 = await sc.insertReason.call(2,1,2, {
+    const resAlpha20 = await sc.voteOnReason.call(2,1,2, {
       from: alpha,
     });
-    const resAlpha2 = await sc.insertReason(2,1,2, {
+    const resAlpha2 = await sc.voteOnReason(2,1,2, {
       from: alpha,
     });
-    const resAlpha22 = await sc.insertReason.call(2,1,2, {
-      from: alpha,
-    });
-
-    const resAlpha30 = await sc.insertReason.call(3,1,0, {
-      from: alpha,
-    });
-    const resAlpha3 = await sc.insertReason(3,1,0, {
-      from: alpha,
-    });
-    const resAlpha31 = await sc.insertReason.call(3,1,0, {
+    const resAlpha22 = await sc.voteOnReason.call(2,1,2, {
       from: alpha,
     });
 
-    const resAlpha4 = await sc.insertReason(4,1,0, {
+    const resAlpha30 = await sc.voteOnReason.call(3,1,0, {
+      from: alpha,
+    });
+    const resAlpha3 = await sc.voteOnReason(3,1,0, {
+      from: alpha,
+    });
+    const resAlpha31 = await sc.voteOnReason.call(3,1,0, {
+      from: alpha,
+    });
+
+    const resAlpha4 = await sc.voteOnReason(4,1,0, {
       from: alpha,
     });
 
@@ -187,16 +187,16 @@ contract('Balancing 1', (accounts) => {
 
     const weights = await sc.getWeights.call(); //*
 
-    console.log(weights.toString());
+    //console.log(weights.toString());
 
-    // printWeights(weights); //*
+    printWeights(weights); //*
 
 
     const pa1 = await sc.procedureAdditive.call(); // *
 
-    console.log(pa1.toString());
+    //console.log(pa1.toString());
 
-    printValuation(pa1); // *
+    printValuation(pa1, issue); // *
 
     
   
@@ -225,3 +225,320 @@ contract('Balancing 1', (accounts) => {
 });
 
 
+
+contract('Balancing 0', (accounts) => {
+  const alpha = accounts[0];
+  const beta = accounts[1];
+  const gamma = accounts[2];
+
+  it('graph 1, IHiBO original', async () => {
+    const sc = await Balancing.deployed();
+
+    sc.setIssue(1);
+
+    const resAlpha = await sc.voteOnReason(1,1,1, {
+      from: alpha,
+    });
+    const resBeta = await sc.voteOnReason(2,1,2, {
+      from: beta,
+    });
+    const resGamma = await sc.voteOnReason(3,1,2, {
+      from: gamma,
+    });
+    const resBetaSupport = await sc.voteOnReason(3,1,2, {
+      from: beta,
+    });
+    const resGammaSupport = await sc.voteOnReason(2,1,2, {
+      from: gamma,
+    });
+    
+/* 
+    // TODO are these attacks implemented in the example?
+    // i think i chose random polarities for the reasons.
+    // maybe 1 should have polarity 2 and 2 and 3 polarity 1?
+    const edgeAB = await sc.insertAttack(1, 2, '');
+    const edgeBA = await sc.insertAttack(2, 1, '');
+    const edgeAC = await sc.insertAttack(1, 3, '');
+    const edgeCA = await sc.insertAttack(3, 1, '');
+*/
+
+    const reasons = await sc.getReasons();
+    printReasons(reasons);
+    
+    const issue = await sc.getIssue();
+    // console.log('issue: ' + issue.toString());
+
+    const weights = await sc.getWeights.call();
+    printWeights(weights); //*
+
+    const pa1 = await sc.procedureAdditive.call();
+    printValuation(pa1, issue);
+    
+/*
+    const g = await sc.getGraph(1);
+    printGraph(g);
+
+    const resReduction1 = await sc.pafReductionToAfPr1();
+    const r1 = await sc.getGraph(2);
+    printGraph(r1);
+
+    const resReduction3 = await sc.pafReductionToAfPr3();
+    const r3 = await sc.getGraph(3);
+    printGraph(r3);
+
+    const r4 = await sc.enumeratingPreferredExtensions(3);
+    r4.logs.forEach((element) => {
+      console.log('***************************************');
+      console.log(element.args.args);
+    });*/
+  });
+});
+//*/
+
+/*
+contract('Balancing 1', (accounts) => {
+  const alpha = accounts[0];
+  const beta = accounts[1];
+  const gamma = accounts[2];
+
+  it('graph 2, related work', async () => {
+    const sc = await Argumentation.deployed();
+
+    const resAlpha = await sc.insertArgument('b', {
+      from: alpha,
+    });
+    const resAlphaGasUsed = resAlpha.receipt.gasUsed;
+    const resBeta = await sc.insertArgument('c', {
+      from: beta,
+    });
+    const resBetaGasUsed = resBeta.receipt.gasUsed;
+    const resGamma = await sc.insertArgument('d', {
+      from: gamma,
+    });
+    const resGammaGasUsed = resGamma.receipt.gasUsed;
+    const resAlpha2 = await sc.insertArgument('e', {
+      from: alpha,
+    });
+    const resAlpha2GasUsed = resAlpha2.receipt.gasUsed;
+    console.log(
+      'insertArgument(): ',
+      (resAlphaGasUsed + resBetaGasUsed + resGammaGasUsed + resAlpha2GasUsed) /
+        4
+    );
+
+    const resBetaSupport = await sc.supportArgument(3, {
+      from: beta,
+    });
+    const resBetaSupportGasUsed = resBetaSupport.receipt.gasUsed;
+    const resGammaSupport = await sc.supportArgument(2, {
+      from: gamma,
+    });
+    const resGammaSupportGasUsed = resGammaSupport.receipt.gasUsed;
+    console.log(
+      'supportArgument(): ',
+      (resBetaSupportGasUsed + resGammaSupportGasUsed) / 2
+    );
+
+    const edgeBC = await sc.insertAttack(1, 2, '');
+    const edgeBCGasUsed = edgeBC.receipt.gasUsed;
+    const edgeCD = await sc.insertAttack(2, 3, '');
+    const edgeCDGasUsed = edgeCD.receipt.gasUsed;
+    const edgeCE = await sc.insertAttack(2, 4, '');
+    const edgeCEGasUsed = edgeCE.receipt.gasUsed;
+    const edgeDB = await sc.insertAttack(3, 1, '');
+    const edgeDBGasUsed = edgeDB.receipt.gasUsed;
+    const edgeED = await sc.insertAttack(4, 3, '');
+    const edgeEDGasUsed = edgeED.receipt.gasUsed;
+    console.log(
+      'insertAttack(): ',
+      (edgeBCGasUsed +
+        edgeCDGasUsed +
+        edgeCEGasUsed +
+        edgeDBGasUsed +
+        edgeEDGasUsed) /
+        5
+    );
+
+    const g = await sc.getGraph(1);
+    printGraph(g);
+
+    const resReduction3 = await sc.pafReductionToAfPr3();
+    const r3 = await sc.getGraph(2);
+    printGraph(r3);
+    const resReduction3GasUsed = resReduction3.receipt.gasUsed;
+    console.log('pafReductionToAfPr3(): ', resReduction3GasUsed);
+
+    const r4 = await sc.enumeratingPreferredExtensions(2);
+    r4.logs.forEach((element) => {
+      console.log('*************************************');
+      console.log(element.args.args);
+    });
+    const r4GasUsed = r4.receipt.gasUsed;
+    console.log('enumeratingPreferredExtensions(): ', r4GasUsed);
+  });
+});
+*/
+/*
+contract('Balancing 2', (accounts) => {
+  const alpha = accounts[0];
+  const beta = accounts[1];
+  const gamma = accounts[2];
+
+  it('graph 3, new graph', async () => {
+    const sc = await Argumentation.deployed();
+
+    const resAlpha = await sc.insertArgument('a', {
+      from: alpha,
+    });
+    const resAlphaGasUsed = resAlpha.receipt.gasUsed;
+    const resGamma = await sc.insertArgument('b', {
+      from: gamma,
+    });
+    const resGammaGasUsed = resGamma.receipt.gasUsed;
+    const resBeta = await sc.insertArgument('c', {
+      from: beta,
+    });
+    const resBetaGasUsed = resBeta.receipt.gasUsed;
+    const resGamma2 = await sc.insertArgument('d', {
+      from: gamma,
+    });
+    const resGamma2GasUsed = resGamma2.receipt.gasUsed;
+    console.log(
+      'insertArgument(): ',
+      (resAlphaGasUsed + resBetaGasUsed + resGammaGasUsed + resGamma2GasUsed) /
+        4
+    );
+
+    const resBetaSupport = await sc.supportArgument(1, {
+      from: beta,
+    });
+    const resBetaSupportGasUsed = resBetaSupport.receipt.gasUsed;
+    const resAlphaSupport = await sc.supportArgument(3, {
+      from: alpha,
+    });
+    const resAlphaSupportGasUsed = resAlphaSupport.receipt.gasUsed;
+    console.log(
+      'supportArgument(): ',
+      (resBetaSupportGasUsed + resAlphaSupportGasUsed) / 2
+    );
+
+    const edgeGasUsed = [];
+    const edgeAB = await sc.insertAttack(1, 2, '');
+    edgeGasUsed.push(edgeAB.receipt.gasUsed);
+    const edgeAC = await sc.insertAttack(1, 3, '');
+    edgeGasUsed.push(edgeAC.receipt.gasUsed);
+    const edgeAD = await sc.insertAttack(1, 4, '');
+    edgeGasUsed.push(edgeAD.receipt.gasUsed);
+
+    const edgeBA = await sc.insertAttack(2, 1, '');
+    edgeGasUsed.push(edgeBA.receipt.gasUsed);
+    const edgeBC = await sc.insertAttack(2, 3, '');
+    edgeGasUsed.push(edgeBC.receipt.gasUsed);
+    const edgeBD = await sc.insertAttack(2, 4, '');
+    edgeGasUsed.push(edgeBD.receipt.gasUsed);
+
+    const edgeCA = await sc.insertAttack(3, 1, '');
+    edgeGasUsed.push(edgeCA.receipt.gasUsed);
+    const edgeCB = await sc.insertAttack(3, 2, '');
+    edgeGasUsed.push(edgeCB.receipt.gasUsed);
+    const edgeCD = await sc.insertAttack(3, 4, '');
+    edgeGasUsed.push(edgeCD.receipt.gasUsed);
+
+    const edgeDA = await sc.insertAttack(4, 1, '');
+    edgeGasUsed.push(edgeDA.receipt.gasUsed);
+    const edgeDB = await sc.insertAttack(4, 2, '');
+    edgeGasUsed.push(edgeDB.receipt.gasUsed);
+    const edgeDC = await sc.insertAttack(4, 3, '');
+    edgeGasUsed.push(edgeDC.receipt.gasUsed);
+
+    let avgGasUsed = 0;
+    for (const gu of edgeGasUsed) {
+      avgGasUsed += gu;
+    }
+    avgGasUsed /= edgeGasUsed.length;
+    console.log('insertAttack(): ', avgGasUsed);
+
+    const g = await sc.getGraph(1);
+    printGraph(g);
+
+    const resReduction3 = await sc.pafReductionToAfPr1();
+    const r3 = await sc.getGraph(2);
+    printGraph(r3);
+    const resReduction3GasUsed = resReduction3.receipt.gasUsed;
+    console.log('pafReductionToAfPr1(): ', resReduction3GasUsed);
+
+    const r4 = await sc.enumeratingPreferredExtensions(2);
+    r4.logs.forEach((element) => {
+      console.log('*************************************');
+      console.log(element.args.args);
+    });
+    const r4GasUsed = r4.receipt.gasUsed;
+    console.log('enumeratingPreferredExtensions(): ', r4GasUsed);
+  });
+});
+*/
+
+
+
+/*
+for (let i = 0; i < 1; i++) {
+  contract('Balancing N', (accounts) => {
+    const alpha = accounts[0];
+    const beta = accounts[1];
+    const gamma = accounts[2];
+    const prefP = 0.25;
+    const nodesNumber = 5;
+    const edgesP = 0.66;
+    let edgesNumber = 0;
+
+    it('random graphs', async () => {
+      const sc = await Argumentation.deployed();
+
+      for (let j = 0; j < nodesNumber; j++) {
+        await sc.insertArgument(`a`, {
+          from: accounts[j % 3],
+        });
+        for (let k = 1; k <= 2; k++) {
+          if (Math.random() < prefP) {
+            await sc.supportArgument(j + 1, {
+              from: accounts[(j + k) % 3],
+            });
+          }
+        }
+      }
+
+      for (let source = 1; source <= nodesNumber; source++) {
+        for (let target = 1; target <= nodesNumber; target++) {
+          if (Math.random() < edgesP && source != target) {
+            await sc.insertAttack(source, target, '');
+            edgesNumber++;
+          }
+        }
+      }
+
+      //const g = await sc.getGraph(1);
+      //printGraph(g);
+
+      const resReduction3 = await sc.pafReductionToAfPr3();
+      //const r3 = await sc.getGraph(3);
+      //printGraph(r3);
+      const reductionGasUsed = resReduction3.receipt.gasUsed;
+      console.log(reductionGasUsed);
+
+      const r4 = await sc.enumeratingPreferredExtensions(2);
+      //r4.logs.forEach((element) => {
+      //  console.log('*************************************');
+      //  console.log(element.args.args);
+      //});
+      const gasUsed = r4.receipt.gasUsed;
+      console.log(gasUsed);
+
+      fs.writeFileSync(
+        filepath,
+        `${nodesNumber}, ${edgesNumber}, ${edgesP}, ${prefP}, ${reductionGasUsed}, ${gasUsed}\n`,
+        { flag: 'a' }
+      );
+    });
+  });
+}
+*/
