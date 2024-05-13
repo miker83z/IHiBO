@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.5.1;
-pragma experimental ABIEncoderV2; // experimental feature | do not use in live deployments
+// pragma experimental ABIEncoderV2; // experimental feature | do not use in live deployments
 
 // import "./DirectedGraph.sol";
 // import "./EnumerableMap.sol";
@@ -17,7 +17,7 @@ contract Balancing {
         uint256 polarity;
     }
 
-    struct Case {
+    struct Context {
         uint256 rcount;
         uint256[] reasons;
         uint256 issue;
@@ -26,7 +26,7 @@ contract Balancing {
     HitchensUnorderedKeySetLib.Set reasonsIds;
     mapping(uint256 => Reason) reasons;
     uint256 issueTBD;
-    Case caseToBeDecided; 
+    Context contextToBeDecided; 
     mapping(uint256 => uint256) weights;
 
     mapping(address => HitchensUnorderedKeySetLib.Set) sources;
@@ -39,13 +39,13 @@ contract Balancing {
         
         //changeWeight(1,1);
 
-        uint256 reasonID = reasonsIds.count() + 1;
-        reasonsIds.insert(bytes32(reasonID));
-        Reason storage reason = reasons[reasonID];
-        reason.justification = 0;
-        reason.issue = 0;
-        reason.polarity = 0;
-        weights[reasonID-1] = 42;
+        // uint256 reasonID = reasonsIds.count() + 1;
+        // reasonsIds.insert(bytes32(reasonID));
+        // Reason storage reason = reasons[reasonID];
+        // reason.justification = 0;
+        // reason.issue = 0;
+        // reason.polarity = 0;
+        // weights[reasonID-1] = 42;
     }
 
 // create functon to initialize contract. create access right for admin to set issue and read rights of the discourse.
@@ -97,7 +97,7 @@ contract Balancing {
     	public
     {
     	// TODO change to depend on access rights and can only be called at the start
-    	if(reasonsIds.count() < 2) {
+    	if(reasonsIds.count() < 1) {
     	    issueTBD = issue;
     	}
     }
@@ -145,14 +145,14 @@ contract Balancing {
             }
         }
 
-        if (re == 0) {
+        if (re == 0) {// reason is new add reason and set weight to 1
             uint256 reasonID = reasonsIds.count() + 1;
             reasonsIds.insert(bytes32(reasonID));
             Reason storage reason = reasons[reasonID];
             reason.justification = justification;
             reason.issue = issue;
             reason.polarity = polarity;
-            weights[reasonID-1]++;
+            weights[reasonID-1] = 1;
     
             HitchensUnorderedKeySetLib.Set storage source = sources[
                 msg.sender

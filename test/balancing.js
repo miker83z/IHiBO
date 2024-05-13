@@ -16,9 +16,9 @@ const printReasons = (R) => {
       let x = "x";
       let y = "y";
       let r = "r";
-      R.justifications[i] == 0 ? x += "?" : x += R.justifications[i].toString();
-      R.issues[i] == 0 ? y += "?" : y += R.issues[i].toString();
-      i == 0 ? r += "?" : r += i.toString();
+      x += R.justifications[i].toString();
+      y += R.issues[i].toString();
+      r += i.toString();
 
       console.log(
         r,
