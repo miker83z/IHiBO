@@ -39,7 +39,7 @@ library DirectedGraph {
         arg.metadata = metadata;
         arg.value++;
     }
-
+	// Node added and checked that another node with the same id is not in the graph yet the content is however not regarded. If the argument expresses 												the same idea ^^ then the argument should already be considered part of the graph.
     function insertNodeWithId(Graph storage g, uint256 nodeId) internal {
         require(!g.nodesIds.exists(bytes32(nodeId)), "Node already exists.");
         g.nodesIds.insert(bytes32(nodeId));

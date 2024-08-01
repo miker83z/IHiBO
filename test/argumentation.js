@@ -53,21 +53,21 @@ contract('Argumentation 0', (accounts) => {
     const edgeCA = await sc.insertAttack(3, 1, '');
 
     const g = await sc.getGraph(1);
-    //printGraph(g);
+    printGraph(g);
 
     const resReduction1 = await sc.pafReductionToAfPr1();
-    //const r1 = await sc.getGraph(2);
-    //printGraph(r1);
+    const r1 = await sc.getGraph(2);
+    printGraph(r1);
 
     const resReduction3 = await sc.pafReductionToAfPr3();
-    //const r3 = await sc.getGraph(3);
-    //printGraph(r3);
+    const r3 = await sc.getGraph(3);
+    printGraph(r3);
 
     const r4 = await sc.enumeratingPreferredExtensions(3);
-    //r4.logs.forEach((element) => {
-    //  console.log('***************************************');
-    //  console.log(element.args.args);
-    //});
+    r4.logs.forEach((element) => {
+      console.log('***************************************');
+      console.log(element.args.args);
+    });
   });
 });
 
