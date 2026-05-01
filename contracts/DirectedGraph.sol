@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.5.1;
+pragma solidity ^0.8.28;
 
-import "./HitchensUnorderedKeySet.sol";
+import "./SimpleSet.sol";
 
 library DirectedGraph {
-    using HitchensUnorderedKeySetLib for HitchensUnorderedKeySetLib.Set;
+    using SimpleSet for SimpleSet.Set;
 
     struct Node {
-        HitchensUnorderedKeySetLib.Set edgesIn;
-        HitchensUnorderedKeySetLib.Set edgesOut;
+        SimpleSet.Set edgesIn;
+        SimpleSet.Set edgesOut;
         uint256 value;
         string metadata;
     }
@@ -21,9 +21,9 @@ library DirectedGraph {
     }
 
     struct Graph {
-        HitchensUnorderedKeySetLib.Set nodesIds;
+        SimpleSet.Set nodesIds;
         mapping(uint256 => Node) nodes;
-        HitchensUnorderedKeySetLib.Set edgesIds;
+        SimpleSet.Set edgesIds;
         mapping(uint256 => Edge) edges;
     }
 

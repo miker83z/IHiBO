@@ -1,25 +1,26 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.5.1;
+pragma solidity ^0.8.28;
 
 import "./DirectedGraph.sol";
 import "./EnumerableMap.sol";
+import "./SimpleSet.sol";
 
 contract Argumentation {
     using DirectedGraph for DirectedGraph.Graph;
-    using HitchensUnorderedKeySetLib for HitchensUnorderedKeySetLib.Set;
+    using SimpleSet for SimpleSet.Set;
     using EMap for EMap.LabelMap;
 
-    HitchensUnorderedKeySetLib.Set graphsIds;
+    SimpleSet.Set graphsIds;
     mapping(uint256 => DirectedGraph.Graph) graphs;
 
     // Arguments Sets
-    mapping(address => HitchensUnorderedKeySetLib.Set) agentsArguments;
+    mapping(address => SimpleSet.Set) agentsArguments;
 
     uint256 labsNum;
     mapping(uint256 => EMap.LabelMap) labs;
     uint256 prefExtensionsNum;
-    mapping(uint256 => HitchensUnorderedKeySetLib.Set) prefExtensions;
+    mapping(uint256 => SimpleSet.Set) prefExtensions;
 
     event PreferredExtensions(uint256[] args);
 
@@ -34,7 +35,7 @@ contract Argumentation {
         DirectedGraph.Graph storage graph = graphs[1];
         argId = graph.insertNode(metadata);
 
-        HitchensUnorderedKeySetLib.Set storage agentArgs = agentsArguments[
+        SimpleSet.Set storage agentArgs = agentsArguments[
             msg.sender
         ];
         agentArgs.insert(bytes32(argId));
@@ -44,7 +45,7 @@ contract Argumentation {
         DirectedGraph.Graph storage graph = graphs[1];
         graph.incrementValue(argId);
 
-        HitchensUnorderedKeySetLib.Set storage agentArgs = agentsArguments[
+        SimpleSet.Set storage agentArgs = agentsArguments[
             msg.sender
         ];
         agentArgs.insert(bytes32(argId));
@@ -59,19 +60,13 @@ contract Argumentation {
         edgeId = graph.insertEdge(sourceId, targetId, metadata);
     }
 
-        // reduction of PAF to AF; PR(PAF)=AF
     function pafReductionToAfPr1() public returns (uint256 graphId) {
-        // This function takes an argumentation graph with agent votes on arguments
-        // And for each edge consideres the support for the target and the source
-        // if the target does not have more support than the source then the attack will be added.
-        // !(sup(t)>sup(s)) => s->t
-        // this version also rejects the nodes if the attack is rejected
         graphId = graphsIds.count() + 1;
         graphsIds.insert(bytes32(graphId));
 
         DirectedGraph.Graph storage paf = graphs[1];
         DirectedGraph.Graph storage af = graphs[graphId];
-        
+
         for (uint256 j = 0; j < paf.nodesIds.count(); j++) {
             af.insertNodeWithId(j+1);
         }
@@ -83,15 +78,26 @@ contract Argumentation {
             DirectedGraph.Node storage s = paf.nodes[edge.source];
             DirectedGraph.Node storage t = paf.nodes[edge.target];
             bool notBpreferredToA = !(t.value > s.value);
-
+        
             if (notBpreferredToA) {
                 //insert to af
                 af.insertEdge(edge.source, edge.target, "");
             }
+
+            // if (notBpreferredToA) { // [Vincent: all args should be ported over.
+            //     //insert to af
+            //     if (!af.nodesIds.exists(bytes32(edge.source))) {
+            //         af.insertNodeWithId(edge.source);
+            //     }
+            //     if (!af.nodesIds.exists(bytes32(edge.target))) {
+            //         af.insertNodeWithId(edge.target);
+            //     }
+            //     af.insertEdge(edge.source, edge.target, "");
+            // }
         }
     }
 
-    // reduction of PAF to AF; PR(PAF)=AF
+        // reduction of PAF to AF; PR(PAF)=AF
     function pafReductionToAfPr2() public returns (uint256 graphId) {
         // This function takes an argumentation graph with agent votes on arguments
         // And for each edge consideres the support for the target and the source
@@ -131,10 +137,7 @@ contract Argumentation {
         }
     }
 
-    // reduction of 
     function pafReductionToAfPr3() public returns (uint256 graphId) {
-        //
-        // !(sup(t)>sup(s)) || (sup(t)>0 && sup(s)>0) => s->t
         graphId = graphsIds.count() + 1;
         graphsIds.insert(bytes32(graphId));
 
@@ -153,19 +156,35 @@ contract Argumentation {
             DirectedGraph.Node storage t = paf.nodes[edge.target];
             bool notBpreferredToA = !(t.value > s.value);
 
-            DirectedGraph.Edge storage edgeReverse = paf.edges[
-                DirectedGraph.cantorPairing(edge.target, edge.source)
-            ];
-            bool notBtoA = edgeReverse.source > 0 && edgeReverse.target > 0;
+            bool notBtoA = true;
+            for (uint256 j = 0; j < paf.edgesIds.count(); j++) {
+                uint256 revEdgeId = uint256(paf.edgesIds.keyAtIndex(j));
+                DirectedGraph.Edge storage edgeRev = paf.edges[revEdgeId];
+                if (edge.target != edgeRev.source || edge.source != edgeRev.target) {
+                    // edgeReverse exists
+                    notBtoA = false;
+                }
+            }
+            // bool notBtoA = edgeReverse.source > 0 && edgeReverse.target > 0;
 
-            //insert to af
-            if (notBpreferredToA || !notBtoA) {
+            // for (uint256 j = 0; j < paf.nodesIds.count(); j++) {
+            //     af.insertNodeWithId(j+1);
+            // }
+
+            if (notBpreferredToA || notBtoA) { // [Vincent: node should be considered to be added regardless of this if]
+                // insert to af
+                // if (!af.nodesIds.exists(bytes32(edge.source))) {
+                //     af.insertNodeWithId(edge.source);
+                // }
+                // if (!af.nodesIds.exists(bytes32(edge.target))) {
+                //     af.insertNodeWithId(edge.target);
+                // }
                 af.insertEdge(edge.source, edge.target, "");
             }
         }
-    }
+    } 
 
-        // reduction of 
+         // reduction of 
     function pafReductionToAfPr4() public returns (uint256 graphId) {
         //
         // !(sup(t)>sup(s)) || (sup(t)>0 && sup(s)>0) => s->t
@@ -187,10 +206,19 @@ contract Argumentation {
             DirectedGraph.Node storage t = paf.nodes[edge.target];
             bool notBpreferredToA = !(t.value > s.value);
 
-            DirectedGraph.Edge storage edgeReverse = paf.edges[
-                DirectedGraph.cantorPairing(edge.target, edge.source)
-            ];
-            bool notBtoA = edgeReverse.source > 0 && edgeReverse.target > 0;
+            // DirectedGraph.Edge storage edgeReverse = paf.edges[
+            //     DirectedGraph.cantorPairing(edge.target, edge.source)
+            // ];
+            // bool notBtoA = edgeReverse.source > 0 && edgeReverse.target > 0;
+            bool notBtoA = true;
+            for (uint256 j = 0; j < paf.edgesIds.count(); j++) {
+                uint256 revEdgeId = uint256(paf.edgesIds.keyAtIndex(j));
+                DirectedGraph.Edge storage edgeRev = paf.edges[revEdgeId];
+                if (edge.target != edgeRev.source || edge.source != edgeRev.target) {
+                    // edgeReverse exists
+                    notBtoA = false;
+                }
+            }
 
             //insert to af
             if (notBpreferredToA || !notBtoA) {
@@ -236,7 +264,7 @@ contract Argumentation {
         returns (uint256[] memory args)
     {
         DirectedGraph.Graph storage graph = graphs[graphId];
-        HitchensUnorderedKeySetLib.Set storage ext = prefExtensions[
+        SimpleSet.Set storage ext = prefExtensions[
             prefExtensionsNum
         ];
         EMap.LabelMap storage lab = labs[labsNum];
@@ -408,7 +436,7 @@ contract Argumentation {
             // S ← {x | Lab(x) = IN};
             (uint256[] memory argInIds, uint256 argINIdsLen) = _getIn(labId);
             // if !∃T ∈ Epreferred : S ⊆ T then Epreferred ← Epreferred ∪ {S};
-            HitchensUnorderedKeySetLib.Set storage ext = prefExtensions[
+            SimpleSet.Set storage ext = prefExtensions[
                 prefExtensionId
             ];
             for (uint256 i = 0; i < argINIdsLen; i++) {

@@ -1,14 +1,17 @@
 {
-  "name": "ihibo",
-  "version": "0.0.5",
-  "description": "",
-  "main": "truffle-config.js",
-  "directories": {
-    "test": "test"
+  "name": "hh3rebase2",
+  "version": "1.0.0",
+  "type": "module",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ignition": "^3.0.3",
+    "@nomicfoundation/hardhat-toolbox-viem": "^5.0.0",
+    "@types/node": "^22.18.9",
+    "forge-std": "github:foundry-rs/forge-std#v1.9.4",
+    "hardhat": "^3.0.7",
+    "typescript": "~5.8.0",
+    "viem": "^2.38.0"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Mirko Zichichi <mikerz83@gmail.com>",
-  "license": "MIT"
+  "dependencies": {
+    "@nomicfoundation/hardhat-viem": "^3.0.0"
+  }
 }
